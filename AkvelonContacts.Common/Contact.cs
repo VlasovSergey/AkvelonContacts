@@ -52,6 +52,17 @@ namespace AkvelonContacts.Common
         private string telephone;
 
         /// <summary>
+        /// Gets the full name of contact.
+        /// </summary>
+        public string FullName
+        {
+            get
+            {
+                return this.firstName + ' ' + this.lastName;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the first name of contact.
         /// </summary>
         public string FirstName

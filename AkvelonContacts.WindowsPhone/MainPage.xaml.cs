@@ -58,12 +58,14 @@ namespace AkvelonContacts.WindowsPhone
         public MainPage()
         {
             this.InitializeComponent();
+            
             var jc = new ClientsListDownloader();
             jc.DownloadCompleted += (object sender, DownloadComplitedEventArgs e) =>
             {
                 this.contactList = e.Result;
                 this.DisplayContactList();
             };
+
             jc.DownloadContactListAsync(URL);
         }
         
@@ -72,44 +74,7 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         private void DisplayContactList()
         {
-            this.ContactList_sp.Children.Clear();
-
-            foreach (var cont in this.contactList)
-            {
-                var grid = new Grid();
-
-                grid.ColumnDefinitions.Add(new ColumnDefinition());
-                var cd = new ColumnDefinition();
-
-                cd.Width = new GridLength(CallButtonSize, GridUnitType.Pixel);
-                grid.ColumnDefinitions.Add(cd);
-
-                grid.RowDefinitions.Add(new RowDefinition());
-                grid.RowDefinitions.Add(new RowDefinition());
-
-                TextBlock tboxName = new TextBlock();
-                tboxName.FontSize = NameTextFontSize;
-                tboxName.Text = cont.FirstName + " " + cont.LastName;
-
-                TextBlock tboxPhone = new TextBlock();
-                tboxPhone.FontSize = PhoneTextFontSize;
-                tboxPhone.Text = cont.Telephone;
-                tboxPhone.Margin = new System.Windows.Thickness { Left = PhoneTextIndent };
-                Grid.SetRow(tboxPhone, 1);
-
-                Button btnCall = new Button();
-                btnCall.Height = CallButtonSize;
-                btnCall.Width = CallButtonSize;
-                btnCall.Content = "Call";
-                Grid.SetRowSpan(btnCall, 2);
-                Grid.SetColumn(btnCall, 1);
-
-                grid.Children.Add(tboxName);
-                grid.Children.Add(tboxPhone);
-                grid.Children.Add(btnCall);
-
-                ContactList_sp.Children.Add(grid);
-            }
+            this.ContactsListBox.ItemsSource = this.contactList;
         }
     }
 }
