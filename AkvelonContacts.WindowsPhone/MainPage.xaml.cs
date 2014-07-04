@@ -23,26 +23,6 @@ namespace AkvelonContacts.WindowsPhone
     public partial class MainPage : PhoneApplicationPage
     {
         /// <summary>
-        /// Size of call button.
-        /// </summary>
-        private const double CallButtonSize = 115;
-
-        /// <summary>
-        /// Font size of name text.
-        /// </summary>
-        private const double NameTextFontSize = 35;
-
-        /// <summary>
-        /// Font size of phone text.
-        /// </summary>
-        private const double PhoneTextFontSize = 25;
-
-        /// <summary>
-        /// Indent of phone text.
-        /// </summary>
-        private const double PhoneTextIndent = 20;
-
-        /// <summary>
         /// URL for download contacts list.
         /// </summary>
         private const string URL = "http://prism.akvelon.net/api/employees/all";
@@ -64,6 +44,18 @@ namespace AkvelonContacts.WindowsPhone
             {
                 this.contactList = e.Result;
                 this.DisplayContactList();
+            };
+
+            ContactsListBox.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
+            {
+                if (e.AddedItems != null)
+                {
+                    buttonCall.Visibility = buttonInfo.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    buttonCall.Visibility = buttonInfo.Visibility = Visibility.Collapsed;
+                }
             };
 
             jc.DownloadContactListAsync(URL);
