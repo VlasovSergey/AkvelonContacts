@@ -68,6 +68,10 @@
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\ContactListViewTemplate.xml">
+      <SubType>Designer</SubType>
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
