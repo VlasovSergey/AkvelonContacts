@@ -37,9 +37,13 @@ namespace AkvelonContacts.Common
         public void DownloadContactListAsync(string url)
         {
             WebClient wc = new WebClient();
-            wc.DownloadStringCompleted += (object sender, DownloadStringCompletedEventArgs e) =>
+            wc.DownloadStringCompleted += (sender, e) =>
             {
-                this.DownloadCompleted(sender, new DownloadComplitedEventArgs(this.GetContactsListFromJson(e.Result)));
+                if (e.Error == null)
+                {
+                    var resultString = e.Result;
+                    this.DownloadCompleted(sender, new DownloadComplitedEventArgs(this.GetContactsListFromJson(resultString)));
+                }
             };
             wc.Encoding = Encoding.UTF8;
             wc.DownloadStringAsync(new Uri(url));
