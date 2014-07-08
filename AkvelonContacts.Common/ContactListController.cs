@@ -22,28 +22,16 @@ namespace AkvelonContacts.Common
         /// URL for download contacts list.
         /// </summary>
         private string url;
-
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactListController"/> class.
+        /// </summary>
+        /// <param name="url">URL to JSON with customers</param>
         public ContactListController(string url)
         {
             this.url = url;
         }
 
-        /// <summary>
-        /// Gets or sets the Url for download contact list.
-        /// </summary>
-        public string Url 
-        {
-            get
-            {
-                return this.url;
-            }
-
-            set
-            {
-                url = value;
-            }
-        }
-        
         /// <summary>
         /// Delegate for event <see cref="DownloadCompleted"/>
         /// </summary>
@@ -57,9 +45,24 @@ namespace AkvelonContacts.Common
         public event DownloadComplitedHandler DownloadCompleted;
 
         /// <summary>
+        /// Gets or sets the Url for download contact list.
+        /// </summary>
+        public string Url
+        {
+            get
+            {
+                return this.url;
+            }
+
+            set
+            {
+                this.url = value;
+            }
+        }
+
+        /// <summary>
         /// Downloads the contacts list.
         /// </summary>
-        /// <param name="url">Url for download.</param>
         public void DownloadContactListAsync()
         {
             WebClient webClient = new WebClient();
@@ -72,7 +75,7 @@ namespace AkvelonContacts.Common
                 }
             };
             webClient.Encoding = Encoding.UTF8;
-            webClient.DownloadStringAsync(new Uri(url));
+            webClient.DownloadStringAsync(new Uri(this.url));
         }
 
         /// <summary>

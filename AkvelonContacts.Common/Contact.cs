@@ -17,48 +17,13 @@ namespace AkvelonContacts.Common
     public class Contact
     {
         /// <summary>
-        /// First name of contact.
-        /// </summary>
-        private string firstName;
-
-        /// <summary>
-        /// Last name of contact.
-        /// </summary>
-        private string lastName;
-
-        /// <summary>
-        /// Description of contact.
-        /// </summary>
-        private string description;
-
-        /// <summary>
-        /// Id of contact.
-        /// </summary>
-        private string id;
-
-        /// <summary>
-        /// Mail of contact.
-        /// </summary>
-        private string mail;
-
-        /// <summary>
-        /// Skype of contact.
-        /// </summary>
-        private string skype;
-
-        /// <summary>
-        /// Phone number of contact.
-        /// </summary>
-        private string telephone;
-
-        /// <summary>
         /// Gets the full name of contact.
         /// </summary>
         public string FullName
         {
             get
             {
-                return this.firstName + ' ' + this.lastName;
+                return this.FirstName + ' ' + this.LastName;
             }
         }
 
@@ -67,15 +32,8 @@ namespace AkvelonContacts.Common
         /// </summary>
         public string FirstName
         {
-            get 
-            { 
-                return this.firstName; 
-            }
-
-            set 
-            {
-                this.firstName = value; 
-            }
+            get; 
+            set;
         }
 
         /// <summary>
@@ -83,15 +41,8 @@ namespace AkvelonContacts.Common
         /// </summary>
         public string LastName
         {
-            get
-            {
-                return this.lastName;
-            }
-
-            set
-            {
-                this.lastName = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -99,15 +50,8 @@ namespace AkvelonContacts.Common
         /// </summary>
         public string Description
         {
-            get
-            {
-                return this.description;
-            }
-
-            set
-            {
-                this.description = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -115,15 +59,8 @@ namespace AkvelonContacts.Common
         /// </summary>
         public string Id
         {
-            get
-            {
-                return this.id;
-            }
-
-            set
-            {
-                this.id = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -131,15 +68,8 @@ namespace AkvelonContacts.Common
         /// </summary>
         public string Skype
         {
-            get
-            {
-                return this.skype;
-            }
-
-            set
-            {
-                this.skype = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -147,15 +77,8 @@ namespace AkvelonContacts.Common
         /// </summary>
         public string Mail
         {
-            get
-            {
-                return this.mail;
-            }
-
-            set
-            {
-                this.mail = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -163,15 +86,8 @@ namespace AkvelonContacts.Common
         /// </summary>
         public string Telephone
         {
-            get
-            {
-                return this.telephone;
-            }
-
-            set
-            {
-                this.telephone = value;
-            }
+            get;
+            set;
         }
     }
 }
