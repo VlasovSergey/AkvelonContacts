@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ClientsListDownloader.cs" company="Akvelon">
+// <copyright file="ContactListController.cs" company="Akvelon">
 //     Copyright (c) Akvelon. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -14,10 +14,36 @@ using Newtonsoft.Json.Linq;
 namespace AkvelonContacts.Common
 {
     /// <summary>
-    /// Downloads the clients list.
+    /// Downloads the contacts list.
     /// </summary>
-    public class ClientsListDownloader
+    public class ContactListController
     {
+        /// <summary>
+        /// URL for download contacts list.
+        /// </summary>
+        private string url;
+
+        public ContactListController(string url)
+        {
+            this.url = url;
+        }
+
+        /// <summary>
+        /// Gets or sets the Url for download contact list.
+        /// </summary>
+        public string Url 
+        {
+            get
+            {
+                return this.url;
+            }
+
+            set
+            {
+                url = value;
+            }
+        }
+        
         /// <summary>
         /// Delegate for event <see cref="DownloadCompleted"/>
         /// </summary>
@@ -31,13 +57,13 @@ namespace AkvelonContacts.Common
         public event DownloadComplitedHandler DownloadCompleted;
 
         /// <summary>
-        /// Downloads the clients list.
+        /// Downloads the contacts list.
         /// </summary>
         /// <param name="url">Url for download.</param>
-        public void DownloadContactListAsync(string url)
+        public void DownloadContactListAsync()
         {
-            WebClient wc = new WebClient();
-            wc.DownloadStringCompleted += (sender, e) =>
+            WebClient webClient = new WebClient();
+            webClient.DownloadStringCompleted += (sender, e) =>
             {
                 if (e.Error == null)
                 {
@@ -45,8 +71,8 @@ namespace AkvelonContacts.Common
                     this.DownloadCompleted(sender, new DownloadComplitedEventArgs(this.GetContactsListFromJson(resultString)));
                 }
             };
-            wc.Encoding = Encoding.UTF8;
-            wc.DownloadStringAsync(new Uri(url));
+            webClient.Encoding = Encoding.UTF8;
+            webClient.DownloadStringAsync(new Uri(url));
         }
 
         /// <summary>
@@ -56,16 +82,16 @@ namespace AkvelonContacts.Common
         /// <returns>Contacts list</returns>
         private List<Contact> GetContactsListFromJson(string json)
         {
-            List<Contact> contList = new List<Contact>();
+            List<Contact> contactList = new List<Contact>();
             var ja = JArray.Parse(json);
 
             foreach (JObject jo in ja)
             {
                 Contact c = this.ConvertJObjectToContact(jo);
-                contList.Add(c);
+                contactList.Add(c);
             }
 
-            return contList;
+            return contactList;
         }
 
         /// <summary>

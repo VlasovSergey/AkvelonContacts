@@ -46,10 +46,10 @@ namespace AkvelonContacts.Android
             
             this.SetContentView(Resource.Layout.Main); // Set our view from the "main" layout resource
 
-            var jc = new ClientsListDownloader();
+            var contactListCtrl = new ContactListController(URL);
 
             var contactListView = FindViewById<ListView>(Resource.Id.contactListView);
-            jc.DownloadCompleted += (object sender, DownloadComplitedEventArgs e) =>
+            contactListCtrl.DownloadCompleted += (object sender, DownloadComplitedEventArgs e) =>
             {
                 this.RunOnUiThread(() =>
                 {
@@ -60,7 +60,7 @@ namespace AkvelonContacts.Android
                 });
             };
 
-            jc.DownloadContactListAsync(URL);
+            contactListCtrl.DownloadContactListAsync();
         }
 
         /// <summary>

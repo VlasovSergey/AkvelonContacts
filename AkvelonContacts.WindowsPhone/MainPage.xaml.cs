@@ -38,9 +38,9 @@ namespace AkvelonContacts.WindowsPhone
         public MainPage()
         {
             this.InitializeComponent();
-            
-            var jc = new ClientsListDownloader();
-            jc.DownloadCompleted += (object sender, DownloadComplitedEventArgs e) =>
+
+            var contactListCtrl = new ContactListController(URL);
+            contactListCtrl.DownloadCompleted += (object sender, DownloadComplitedEventArgs e) =>
             {
                 this.contactList = e.Result;
                 this.DisplayContactList();
@@ -58,7 +58,7 @@ namespace AkvelonContacts.WindowsPhone
                 }
             };
 
-            jc.DownloadContactListAsync(URL);
+            contactListCtrl.DownloadContactListAsync();
         }
         
         /// <summary>

@@ -51,11 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AkvelonContacts.Common\ClientsListDownloader.cs">
-      <Link>ClientsListDownloader.cs</Link>
-    </Compile>
     <Compile Include="..\AkvelonContacts.Common\Contact.cs">
       <Link>Contact.cs</Link>
+    </Compile>
+    <Compile Include="..\AkvelonContacts.Common\ContactListController.cs">
+      <Link>ContactListController.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\DownloadComplitedEventArgs.cs">
       <Link>DownloadComplitedEventArgs.cs</Link>
