@@ -71,50 +71,14 @@ namespace AkvelonContacts.Common
                 if (e.Error == null)
                 {
                     var resultString = e.Result;
-                    this.DownloadCompleted(sender, new DownloadComplitedEventArgs(this.GetContactsListFromJson(resultString)));
+                    
+                    var contactList = (new ContactsJsonParser()).GetListFromJsonArray(resultString);
+
+                    this.DownloadCompleted(sender, new DownloadComplitedEventArgs(contactList));
                 }
             };
             webClient.Encoding = Encoding.UTF8;
             webClient.DownloadStringAsync(new Uri(this.url));
-        }
-
-        /// <summary>
-        /// Gets the contacts list from JSON string.
-        /// </summary>
-        /// <param name="json">JSON string.</param>
-        /// <returns>Contacts list</returns>
-        private List<Contact> GetContactsListFromJson(string json)
-        {
-            List<Contact> contactList = new List<Contact>();
-            var ja = JArray.Parse(json);
-
-            foreach (JObject jo in ja)
-            {
-                Contact c = this.ConvertJObjectToContact(jo);
-                contactList.Add(c);
-            }
-
-            return contactList;
-        }
-
-        /// <summary>
-        /// Converts JObject to contact.
-        /// </summary>
-        /// <param name="jo">JObject with contact data.</param>
-        /// <returns>Convert contact.</returns>
-        private Contact ConvertJObjectToContact(JObject jo)
-        {
-            var c = new Contact();
-
-            c.Description = (string)jo["Description"];
-            c.FirstName = (string)jo["FirstName"];
-            c.Id = (string)jo["Id"];
-            c.LastName = (string)jo["LastName"];
-            c.Mail = (string)jo["Mail"];
-            c.Skype = (string)jo["Skype"];
-            c.Telephone = (string)jo["Telephone"];
-
-            return c;
         }
     }
 }

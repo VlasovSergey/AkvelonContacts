@@ -80,8 +80,14 @@
     <Compile Include="..\AkvelonContacts.Common\ContactListController.cs">
       <Link>ContactListController.cs</Link>
     </Compile>
+    <Compile Include="..\AkvelonContacts.Common\ContactsJsonParser.cs">
+      <Link>ContactsJsonParser.cs</Link>
+    </Compile>
     <Compile Include="..\AkvelonContacts.Common\DownloadComplitedEventArgs.cs">
       <Link>DownloadComplitedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\AkvelonContacts.Common\JsonArrayParser.cs">
+      <Link>JsonArrayParser.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
       <Link>StorageController.cs</Link>
