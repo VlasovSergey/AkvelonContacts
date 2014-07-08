@@ -99,6 +99,9 @@
     <Compile Include="..\AkvelonContacts.Common\DownloadComplitedEventArgs.cs">
       <Link>DownloadComplitedEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
+      <Link>StorageController.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
