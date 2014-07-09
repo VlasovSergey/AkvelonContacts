@@ -45,8 +45,8 @@
   <ItemGroup>
     <Compile Include="Contact.cs" />
     <Compile Include="ContactsJsonParser.cs" />
-    <Compile Include="DownloadComplitedEventArgs.cs" />
     <Compile Include="ContactListController.cs" />
+    <Compile Include="FilesDownloader.cs" />
     <Compile Include="JsonArrayParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageController.cs" />

@@ -49,18 +49,17 @@ namespace AkvelonContacts.Android
             var contactListCtrl = new ContactListController(URL);
 
             var contactListView = FindViewById<ListView>(Resource.Id.contactListView);
-            contactListCtrl.DownloadCompleted += (object sender, DownloadComplitedEventArgs e) =>
+
+            contactListCtrl.DownloadContactListAsync((List<Contact> result) =>
             {
                 this.RunOnUiThread(() =>
                 {
-                    this.contactList = e.Result;
+                    this.contactList = result;
                     var listAdapter = new ContactScreenAdapter(this, this.contactList);
                     contactListView.Adapter = listAdapter;
                     listAdapter.NotifyDataSetChanged();
                 });
-            };
-
-            contactListCtrl.DownloadContactListAsync();
+            });
         }
 
         /// <summary>

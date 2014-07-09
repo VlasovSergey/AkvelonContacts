@@ -40,12 +40,13 @@ namespace AkvelonContacts.WindowsPhone
             this.InitializeComponent();
 
             var contactListCtrl = new ContactListController(URL);
-            contactListCtrl.DownloadCompleted += (object sender, DownloadComplitedEventArgs e) =>
-            {
-                this.contactList = e.Result;
-                this.DisplayContactList();
-            };
 
+            contactListCtrl.DownloadContactListAsync(
+                (List<Contact> result) =>
+                {
+                    this.contactList = result;
+                    this.DisplayContactList();
+                });
             ContactsListBox.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
             {
                 if (e.AddedItems != null)
@@ -56,9 +57,7 @@ namespace AkvelonContacts.WindowsPhone
                 {
                     buttonCall.Visibility = buttonInfo.Visibility = Visibility.Collapsed;
                 }
-            };
-
-            contactListCtrl.DownloadContactListAsync();
+            };            
         }
         
         /// <summary>

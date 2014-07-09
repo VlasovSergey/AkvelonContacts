@@ -33,18 +33,6 @@ namespace AkvelonContacts.Common
         }
 
         /// <summary>
-        /// Delegate for event <see cref="DownloadCompleted"/>
-        /// </summary>
-        /// <param name="sender">Sender events.</param>
-        /// <param name="e">Event args for <see cref="DownloadCompleted"/> event.</param>
-        public delegate void DownloadComplitedHandler(object sender, DownloadComplitedEventArgs e);
-
-        /// <summary>
-        /// Occurs when the download is complete list of contacts.
-        /// </summary>
-        public event DownloadComplitedHandler DownloadCompleted;
-
-        /// <summary>
         /// Gets or sets the Url for download contact list.
         /// </summary>
         public string Url
@@ -63,7 +51,8 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Downloads the contacts list.
         /// </summary>
-        public void DownloadContactListAsync()
+        /// <param name="action">Action when the download is complete.</param>
+        public void DownloadContactListAsync(Action<List<Contact>> action)
         {
             WebClient webClient = new WebClient();
             webClient.DownloadStringCompleted += (sender, e) =>
@@ -74,10 +63,12 @@ namespace AkvelonContacts.Common
                     
                     var contactList = (new ContactsJsonParser()).GetListFromJsonArray(resultString);
 
-                    this.DownloadCompleted(sender, new DownloadComplitedEventArgs(contactList));
+                    action(contactList);
                 }
             };
+
             webClient.Encoding = Encoding.UTF8;
+
             webClient.DownloadStringAsync(new Uri(this.url));
         }
     }
