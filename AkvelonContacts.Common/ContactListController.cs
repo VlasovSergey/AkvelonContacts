@@ -17,6 +17,11 @@ namespace AkvelonContacts.Common
     public class ContactListController
     {
         /// <summary>
+        /// Name for save to local storage.
+        /// </summary>
+        private const string JsonLocalName = "ContactsList.json";
+
+        /// <summary>
         /// URL for download contacts list.
         /// </summary>
         private string url;
@@ -47,10 +52,10 @@ namespace AkvelonContacts.Common
         }
 
         /// <summary>
-        /// Gets Contact list.
+        /// Gets Contacts list.
         /// </summary>
         /// <param name="action">Action when the result came.</param>
-        public void GetContactList(Action<List<Contact>> action)
+        public void DownloadContactsList(Action<List<Contact>> action)
         {
             FileDownloader.DownloadStringAsync(
                 this.url,
@@ -58,7 +63,18 @@ namespace AkvelonContacts.Common
                 (string result) =>
                 {
                     action((new ContactsJsonParser()).GetListFromJsonArray(result));
+                    StorageController.WriteString(JsonLocalName, result);
                 });
+        }
+
+        /// <summary>
+        /// Loads contacts list from local storage.
+        /// </summary>
+        /// <returns>Contacts list.</returns>
+        public List<Contact> LoadLocalContactsList()
+        {
+            var json = StorageController.ReadString(JsonLocalName);
+            return (new ContactsJsonParser()).GetListFromJsonArray(json);
         }
     }
 }

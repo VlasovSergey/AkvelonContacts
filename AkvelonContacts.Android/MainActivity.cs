@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using AkvelonContacts.Common;
 using Android.App;
 using Android.Content;
+using Android.Net;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -49,19 +50,49 @@ namespace AkvelonContacts.Android
             var contactListCtrl = new ContactListController(URL);
 
             var contactListView = FindViewById<ListView>(Resource.Id.contactListView);
-
-            contactListCtrl.GetContactList((List<Contact> result) =>
+            
+            if (this.IsAvailableInternet())
             {
-                this.RunOnUiThread(() =>
+                contactListCtrl.DownloadContactsList((List<Contact> result) =>
                 {
-                    this.contactList = result;
-                    var listAdapter = new ContactScreenAdapter(this, this.contactList);
-                    contactListView.Adapter = listAdapter;
-                    listAdapter.NotifyDataSetChanged();
+                    this.BindContactsList(result, contactListView);
                 });
+            }
+            else
+            {
+                this.BindContactsList(contactListCtrl.LoadLocalContactsList(), contactListView);
+            }
+        }
+
+        /// <summary>
+        /// Binds to contactList ListView.
+        /// </summary>
+        /// <param name="contactsList">Contacts list for binding.</param>
+        /// <param name="contactListView">ListView for binding.</param>
+        private void BindContactsList(List<Contact> contactsList, ListView contactListView)
+        {
+            this.RunOnUiThread(() =>
+            {
+                this.contactList = contactsList;
+                var listAdapter = new ContactScreenAdapter(this, this.contactList);
+                contactListView.Adapter = listAdapter;
+                listAdapter.NotifyDataSetChanged();
             });
         }
 
+        /// <summary>
+        /// Gets availability for Internet.
+        /// </summary>
+        /// <returns>Availability for Internet.</returns>
+        private bool IsAvailableInternet() 
+        {
+            var connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+
+            var activeConnection = connectivityManager.ActiveNetworkInfo;
+
+            return (activeConnection != null) && activeConnection.IsConnected;
+        }
+        
         /// <summary>
         /// Class adapter for communications ContactListView with Contacts List of.
         /// </summary>

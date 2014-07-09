@@ -43,7 +43,7 @@ namespace AkvelonContacts.WindowsPhone
 
             Dispatcher.BeginInvoke(() =>
             {
-                contactListCtrl.GetContactList(
+                contactListCtrl.DownloadContactsList(
                     (List<Contact> result) =>
                     {
                         this.contactList = result;
