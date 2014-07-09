@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -25,21 +26,33 @@ namespace AkvelonContacts.Common
         /// <param name="action">Action when download complete.</param>
         public static void DownloadStringAsync(string url, Encoding encoding, Action<string> action)
         {
-            WebClient webClient = new WebClient();
-            webClient.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error == null)
+            DownloadStreamAsync(
+                url,
+                (stream) =>
                 {
-                    action(e.Result);
-                }
-            };
+                    StreamReader streamReader = new StreamReader(stream);
+                    action(streamReader.ReadToEnd());
+                });
+        }
 
-            if (encoding != null)
-            {
-                webClient.Encoding = encoding;
-            }
-
-            webClient.DownloadStringAsync(new Uri(url));
+        /// <summary>
+        /// Download stream.
+        /// </summary>
+        /// <param name="url">URL for download.</param>
+        /// <param name="action">Action when download complete.</param>
+        public static void DownloadStreamAsync(string url, Action<Stream> action)
+        {
+            var httpReq = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+            httpReq.BeginGetResponse(
+                (ar) =>
+                {
+                    var request = (HttpWebRequest)ar.AsyncState;
+                    using (var response = (HttpWebResponse)request.EndGetResponse(ar))
+                    {
+                        action(response.GetResponseStream());
+                    }
+                },
+            httpReq);
         }
     }
 }
