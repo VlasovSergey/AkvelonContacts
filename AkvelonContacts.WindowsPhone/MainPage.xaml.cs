@@ -41,12 +41,13 @@ namespace AkvelonContacts.WindowsPhone
 
             var contactListCtrl = new ContactListController(URL);
 
-            contactListCtrl.DownloadContactListAsync(
+            contactListCtrl.GetContactList(
                 (List<Contact> result) =>
                 {
                     this.contactList = result;
                     this.DisplayContactList();
                 });
+
             ContactsListBox.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
             {
                 if (e.AddedItems != null)

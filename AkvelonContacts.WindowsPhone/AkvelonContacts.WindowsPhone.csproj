@@ -99,6 +99,9 @@
     <Compile Include="..\AkvelonContacts.Common\ContactsJsonParser.cs">
       <Link>ContactsJsonParser.cs</Link>
     </Compile>
+    <Compile Include="..\AkvelonContacts.Common\FileDownloader.cs">
+      <Link>FileDownloader.cs</Link>
+    </Compile>
     <Compile Include="..\AkvelonContacts.Common\JsonArrayParser.cs">
       <Link>JsonArrayParser.cs</Link>
     </Compile>

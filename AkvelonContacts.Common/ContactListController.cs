@@ -49,27 +49,18 @@ namespace AkvelonContacts.Common
         }
 
         /// <summary>
-        /// Downloads the contacts list.
+        /// Gets Contact list.
         /// </summary>
-        /// <param name="action">Action when the download is complete.</param>
-        public void DownloadContactListAsync(Action<List<Contact>> action)
+        /// <param name="action">Action when the result came.</param>
+        public void GetContactList(Action<List<Contact>> action)
         {
-            WebClient webClient = new WebClient();
-            webClient.DownloadStringCompleted += (sender, e) =>
-            {
-                if (e.Error == null)
+            FileDownloader.DownloadStringAsync(
+                this.url,
+                Encoding.UTF8,
+                (string result) =>
                 {
-                    var resultString = e.Result;
-                    
-                    var contactList = (new ContactsJsonParser()).GetListFromJsonArray(resultString);
-
-                    action(contactList);
-                }
-            };
-
-            webClient.Encoding = Encoding.UTF8;
-
-            webClient.DownloadStringAsync(new Uri(this.url));
+                    action((new ContactsJsonParser()).GetListFromJsonArray(result));
+                });
         }
     }
 }

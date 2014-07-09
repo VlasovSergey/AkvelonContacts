@@ -50,7 +50,7 @@ namespace AkvelonContacts.Android
 
             var contactListView = FindViewById<ListView>(Resource.Id.contactListView);
 
-            contactListCtrl.DownloadContactListAsync((List<Contact> result) =>
+            contactListCtrl.GetContactList((List<Contact> result) =>
             {
                 this.RunOnUiThread(() =>
                 {
