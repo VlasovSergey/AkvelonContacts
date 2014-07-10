@@ -22,10 +22,15 @@ namespace AkvelonContacts.Common
         private const string JsonLocalName = "ContactsList.json";
 
         /// <summary>
+        /// Url for photos download.s
+        /// </summary>
+        private string photosStoreUrl = "http://prism.akvelon.net/api/system/getphoto/";
+
+        /// <summary>
         /// URL for download contacts list.
         /// </summary>
         private string url = "http://prism.akvelon.net/api/employees/all";
-        
+
         /// <summary>
         /// Gets or sets the Url for download contact list.
         /// </summary>
@@ -78,6 +83,37 @@ namespace AkvelonContacts.Common
             else
             {
                 return new List<Contact>();
+            }
+        }
+
+        /// <summary>
+        /// Loads all photos for ContactList.
+        /// </summary>
+        /// <param name="contactList">Contact list.</param>
+        /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
+        public void LoadAllPhotosAsync(List<Contact> contactList, Action<Contact> onLoadPhoto)
+        {
+            foreach (var contact in contactList)
+            {
+                var photoName = contact.Id + ".jpeg";
+                if (StorageController.FileExists(photoName))
+                {
+                    contact.PhotoPath = photoName;
+                    onLoadPhoto(contact);
+                }
+                else
+                {
+                    var contactPhotoUrl = this.photosStoreUrl + contact.Id;
+                    FileDownloader.DownloadStreamAsync(
+                        contactPhotoUrl,
+                        (stream) =>
+                        {
+                            StorageController.WriteStream(photoName, stream);
+                            var c = contact;
+                            contact.PhotoPath = photoName;
+                            onLoadPhoto(contact);
+                        });
+                }
             }
         }
     }

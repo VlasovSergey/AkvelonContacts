@@ -34,18 +34,41 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Reads string from file.
         /// </summary>
-        /// <param name="fileName">File name</param>
+        /// <param name="fileName">File name.</param>
         /// <returns>File content.</returns>
         public static string ReadString(string fileName)
         {
             string text;
 
-            Stream s = new IsolatedStorageFileStream(fileName, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
+            Stream s = GetStreamOfFileForRead(fileName);
             StreamReader sw = new StreamReader(s);
             text = sw.ReadToEnd();
             sw.Close();
 
             return text;
+        }
+
+        /// <summary>
+        /// Writes stream to file. 
+        /// </summary>
+        /// <param name="fileName">File name.</param>
+        /// <param name="streamForSave">Stream for write.</param>
+        public static void WriteStream(string fileName, Stream streamForSave) 
+        {
+            Stream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
+            streamForSave.CopyTo(s);
+            s.Close();
+        }
+
+        /// <summary>
+        /// Gets stream from file for read.
+        /// </summary>
+        /// <param name="fileName">File name.</param>
+        /// <returns>File stream.</returns>
+        public static Stream GetStreamOfFileForRead(string fileName)
+        {
+            Stream s = new IsolatedStorageFileStream(fileName, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
+            return s;
         }
 
         /// <summary>
