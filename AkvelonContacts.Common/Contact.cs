@@ -89,5 +89,14 @@ namespace AkvelonContacts.Common
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets local path for client photo.
+        /// </summary>
+        public string PhotoPath
+        {
+            get;
+            set;
+        }
     }
 }
