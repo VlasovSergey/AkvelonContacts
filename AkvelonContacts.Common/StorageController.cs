@@ -47,5 +47,15 @@ namespace AkvelonContacts.Common
 
             return text;
         }
+
+        /// <summary>
+        /// Determines whether the specified file exists.
+        /// </summary>
+        /// <param name="fileName">The file to check.</param>
+        /// <returns>Result check.</returns>
+        public static bool FileExists(string fileName)
+        {
+            return File.Exists(fileName);
+        }
     }
 }
