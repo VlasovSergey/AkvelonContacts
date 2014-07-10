@@ -34,6 +34,16 @@ namespace AkvelonContacts.Android
         private List<Contact> contactList;
 
         /// <summary>
+        /// Application controller.
+        /// </summary>
+        private ContactListController contactListCtrl;
+
+        /// <summary>
+        /// Contact ListView.
+        /// </summary>
+        private ListView contactListView;
+
+        /// <summary>
         /// Called when the activity is starting.
         /// </summary>
         /// <param name="bundle">
@@ -47,20 +57,36 @@ namespace AkvelonContacts.Android
             
             this.SetContentView(Resource.Layout.Main); // Set our view from the "main" layout resource
 
-            var contactListCtrl = new ContactListController(URL);
+            this.contactListCtrl = new ContactListController(URL);
 
-            var contactListView = FindViewById<ListView>(Resource.Id.contactListView);
-            
+            this.contactListView = this.FindViewById<ListView>(Resource.Id.contactListView);
+
+            this.LoadAndShowContactList();
+        }
+
+        /// <summary>
+        /// Loads and shows contact list.
+        /// </summary>
+        private void LoadAndShowContactList()
+        {
             if (this.IsAvailableInternet())
             {
-                contactListCtrl.DownloadContactsList((List<Contact> result) =>
+                this.contactListCtrl.DownloadContactsList((List<Contact> result) =>
                 {
-                    this.BindContactsList(result, contactListView);
+                    if (result != null)
+                    {
+                        this.BindContactsList(result, contactListView);
+                        return;
+                    }
+                    else
+                    {
+                        this.BindContactsList(this.contactListCtrl.LoadLocalContactsList(), this.contactListView);
+                    }
                 });
             }
             else
             {
-                this.BindContactsList(contactListCtrl.LoadLocalContactsList(), contactListView);
+                this.BindContactsList(this.contactListCtrl.LoadLocalContactsList(), this.contactListView);
             }
         }
 

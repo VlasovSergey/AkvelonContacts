@@ -62,6 +62,12 @@ namespace AkvelonContacts.Common
                 Encoding.UTF8,
                 (string result) =>
                 {
+                    if (result == null)
+                    {
+                        action(null);
+                        return;
+                    }
+
                     action((new ContactsJsonParser()).GetListFromJsonArray(result));
                     StorageController.WriteString(JsonLocalName, result);
                 });

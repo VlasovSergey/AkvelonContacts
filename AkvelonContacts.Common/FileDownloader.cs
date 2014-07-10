@@ -30,8 +30,15 @@ namespace AkvelonContacts.Common
                 url,
                 (stream) =>
                 {
+                    if (stream == null)
+                    {
+                        action(null);
+                        return;
+                    }
+
                     StreamReader streamReader = new StreamReader(stream);
                     action(streamReader.ReadToEnd());
+                    streamReader.Close();
                 });
         }
 
@@ -46,10 +53,17 @@ namespace AkvelonContacts.Common
             httpReq.BeginGetResponse(
                 (ar) =>
                 {
-                    var request = (HttpWebRequest)ar.AsyncState;
-                    using (var response = (HttpWebResponse)request.EndGetResponse(ar))
+                    try
                     {
-                        action(response.GetResponseStream());
+                        var request = (HttpWebRequest)ar.AsyncState;
+                        using (var response = (HttpWebResponse)request.EndGetResponse(ar))
+                        {
+                            action(response.GetResponseStream());
+                        }
+                    }
+                    catch
+                    {
+                        action(null);
                     }
                 },
             httpReq);
