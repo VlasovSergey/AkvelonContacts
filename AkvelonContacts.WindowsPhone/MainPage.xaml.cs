@@ -24,11 +24,6 @@ namespace AkvelonContacts.WindowsPhone
     public partial class MainPage : PhoneApplicationPage
     {
         /// <summary>
-        /// URL for download contacts list.
-        /// </summary>
-        private const string URL = "http://prism.akvelon.net/api/employees/all";
-
-        /// <summary>
         /// Application controller.
         /// </summary>
         private ApplicationController applicationCtrl;
@@ -44,7 +39,7 @@ namespace AkvelonContacts.WindowsPhone
         public MainPage()
         {
             this.InitializeComponent();
-            this.applicationCtrl = new ApplicationController(URL);
+            this.applicationCtrl = new ApplicationController();
 
             this.LoadAndShowContactList();
             

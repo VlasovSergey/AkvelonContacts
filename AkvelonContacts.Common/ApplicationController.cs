@@ -24,17 +24,8 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// URL for download contacts list.
         /// </summary>
-        private string url;
+        private string url = "http://prism.akvelon.net/api/employees/all";
         
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationController"/> class.
-        /// </summary>
-        /// <param name="url">URL to JSON with customers</param>
-        public ApplicationController(string url)
-        {
-            this.url = url;
-        }
-
         /// <summary>
         /// Gets or sets the Url for download contact list.
         /// </summary>

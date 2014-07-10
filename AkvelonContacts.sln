@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkvelonContacts.Android", "AkvelonContacts.Android\AkvelonContacts.Android.csproj", "{5F5A201F-93A1-4D2F-9C39-A4FC6A0AEDFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkvelonContacts.WindowsPhone", "AkvelonContacts.WindowsPhone\AkvelonContacts.WindowsPhone.csproj", "{A3F98B63-3698-4886-B65D-C564030B33F9}"

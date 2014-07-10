@@ -24,11 +24,6 @@ namespace AkvelonContacts.Android
     public class MainActivity : Activity
     {
         /// <summary>
-        /// URL for download contacts list.
-        /// </summary>
-        private const string URL = "http://prism.akvelon.net/api/employees/all";
-        
-        /// <summary>
         /// Contains contact list.
         /// </summary>
         private List<Contact> contactList;
@@ -57,7 +52,7 @@ namespace AkvelonContacts.Android
             
             this.SetContentView(Resource.Layout.Main); // Set our view from the "main" layout resource
 
-            this.applicationCtrl = new ApplicationController(URL);
+            this.applicationCtrl = new ApplicationController();
 
             this.contactListView = this.FindViewById<ListView>(Resource.Id.contactListView);
 
