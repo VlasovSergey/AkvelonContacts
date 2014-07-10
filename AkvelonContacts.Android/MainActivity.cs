@@ -36,7 +36,7 @@ namespace AkvelonContacts.Android
         /// <summary>
         /// Application controller.
         /// </summary>
-        private ContactListController contactListCtrl;
+        private ApplicationController applicationCtrl;
 
         /// <summary>
         /// Contact ListView.
@@ -57,7 +57,7 @@ namespace AkvelonContacts.Android
             
             this.SetContentView(Resource.Layout.Main); // Set our view from the "main" layout resource
 
-            this.contactListCtrl = new ContactListController(URL);
+            this.applicationCtrl = new ApplicationController(URL);
 
             this.contactListView = this.FindViewById<ListView>(Resource.Id.contactListView);
 
@@ -71,7 +71,7 @@ namespace AkvelonContacts.Android
         {
             if (this.IsAvailableInternet())
             {
-                this.contactListCtrl.DownloadContactsList((List<Contact> result) =>
+                this.applicationCtrl.DownloadContactsList((List<Contact> result) =>
                 {
                     if (result != null)
                     {
@@ -80,13 +80,13 @@ namespace AkvelonContacts.Android
                     }
                     else
                     {
-                        this.BindContactsList(this.contactListCtrl.LoadLocalContactsList(), this.contactListView);
+                        this.BindContactsList(this.applicationCtrl.LoadLocalContactsList(), this.contactListView);
                     }
                 });
             }
             else
             {
-                this.BindContactsList(this.contactListCtrl.LoadLocalContactsList(), this.contactListView);
+                this.BindContactsList(this.applicationCtrl.LoadLocalContactsList(), this.contactListView);
             }
         }
 

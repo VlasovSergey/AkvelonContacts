@@ -90,11 +90,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\AkvelonContacts.Common\ApplicationController.cs">
+      <Link>ApplicationController.cs</Link>
+    </Compile>
     <Compile Include="..\AkvelonContacts.Common\Contact.cs">
       <Link>Contact.cs</Link>
-    </Compile>
-    <Compile Include="..\AkvelonContacts.Common\ContactListController.cs">
-      <Link>ContactListController.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsJsonParser.cs">
       <Link>ContactsJsonParser.cs</Link>

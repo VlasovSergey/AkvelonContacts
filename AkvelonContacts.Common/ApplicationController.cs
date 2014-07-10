@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ContactListController.cs" company="Akvelon">
+// <copyright file="ApplicationController.cs" company="Akvelon">
 //     Copyright (c) Akvelon. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace AkvelonContacts.Common
     /// <summary>
     /// Downloads the contacts list.
     /// </summary>
-    public class ContactListController
+    public class ApplicationController
     {
         /// <summary>
         /// Name for save to local storage.
@@ -27,10 +27,10 @@ namespace AkvelonContacts.Common
         private string url;
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContactListController"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationController"/> class.
         /// </summary>
         /// <param name="url">URL to JSON with customers</param>
-        public ContactListController(string url)
+        public ApplicationController(string url)
         {
             this.url = url;
         }

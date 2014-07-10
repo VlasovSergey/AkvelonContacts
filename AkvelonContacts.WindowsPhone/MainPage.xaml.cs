@@ -31,7 +31,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <summary>
         /// Application controller.
         /// </summary>
-        private ContactListController contactListCtrl;
+        private ApplicationController applicationCtrl;
 
         /// <summary>
         /// Contains contact list.
@@ -44,7 +44,7 @@ namespace AkvelonContacts.WindowsPhone
         public MainPage()
         {
             this.InitializeComponent();
-            this.contactListCtrl = new ContactListController(URL);
+            this.applicationCtrl = new ApplicationController(URL);
 
             this.LoadAndShowContactList();
             
@@ -70,14 +70,14 @@ namespace AkvelonContacts.WindowsPhone
             {
                 Dispatcher.BeginInvoke(() =>
                 {
-                    contactListCtrl.DownloadContactsList(
+                    applicationCtrl.DownloadContactsList(
                         (List<Contact> result) =>
                         {
                             Dispatcher.BeginInvoke(() =>
                             {
                                 if (result == null)
                                 {
-                                    this.contactList = contactListCtrl.LoadLocalContactsList();
+                                    this.contactList = applicationCtrl.LoadLocalContactsList();
                                 }
                                 else
                                 {
@@ -91,7 +91,7 @@ namespace AkvelonContacts.WindowsPhone
             }
             else
             {
-                this.contactList = this.contactListCtrl.LoadLocalContactsList();
+                this.contactList = this.applicationCtrl.LoadLocalContactsList();
                 this.DisplayContactList();
             }
         }
