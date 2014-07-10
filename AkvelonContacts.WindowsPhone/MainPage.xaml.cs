@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -28,6 +29,11 @@ namespace AkvelonContacts.WindowsPhone
         private const string URL = "http://prism.akvelon.net/api/employees/all";
 
         /// <summary>
+        /// Application controller.
+        /// </summary>
+        private ContactListController contactListCtrl;
+
+        /// <summary>
         /// Contains contact list.
         /// </summary>
         private List<Contact> contactList;
@@ -38,21 +44,9 @@ namespace AkvelonContacts.WindowsPhone
         public MainPage()
         {
             this.InitializeComponent();
+            this.contactListCtrl = new ContactListController(URL);
 
-            var contactListCtrl = new ContactListController(URL);
-
-            Dispatcher.BeginInvoke(() =>
-            {
-                contactListCtrl.DownloadContactsList(
-                    (List<Contact> result) =>
-                    {
-                        this.contactList = result;
-                        Dispatcher.BeginInvoke(() =>
-                        {
-                            this.DisplayContactList();
-                        });
-                    });
-            });
+            this.LoadAndShowContactList();
             
             ContactsListBox.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
             {
@@ -67,6 +61,41 @@ namespace AkvelonContacts.WindowsPhone
             };
         }
         
+        /// <summary>
+        /// Loads and shows contact list.
+        /// </summary>
+        private void LoadAndShowContactList() 
+        {
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                Dispatcher.BeginInvoke(() =>
+                {
+                    contactListCtrl.DownloadContactsList(
+                        (List<Contact> result) =>
+                        {
+                            Dispatcher.BeginInvoke(() =>
+                            {
+                                if (result == null)
+                                {
+                                    this.contactList = contactListCtrl.LoadLocalContactsList();
+                                }
+                                else
+                                {
+                                    this.contactList = result;
+                                }
+
+                                this.DisplayContactList();
+                            });
+                        });
+                });
+            }
+            else
+            {
+                this.contactList = this.contactListCtrl.LoadLocalContactsList();
+                this.DisplayContactList();
+            }
+        }
+
         /// <summary>
         /// Displays the contacts list.
         /// </summary>
