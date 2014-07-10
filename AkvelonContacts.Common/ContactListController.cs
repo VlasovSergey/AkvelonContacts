@@ -79,8 +79,15 @@ namespace AkvelonContacts.Common
         /// <returns>Contacts list.</returns>
         public List<Contact> LoadLocalContactsList()
         {
-            var json = StorageController.ReadString(JsonLocalName);
-            return (new ContactsJsonParser()).GetListFromJsonArray(json);
+            if (StorageController.FileExists(JsonLocalName))
+            {
+                var json = StorageController.ReadString(JsonLocalName);
+                return (new ContactsJsonParser()).GetListFromJsonArray(json);
+            }
+            else
+            {
+                return new List<Contact>();
+            }
         }
     }
 }
