@@ -55,7 +55,7 @@ namespace AkvelonContacts.Common
         /// <returns>Result check.</returns>
         public static bool FileExists(string fileName)
         {
-            return File.Exists(fileName);
+            return IsolatedStorageFile.GetUserStoreForApplication().FileExists(fileName);
         }
     }
 }
