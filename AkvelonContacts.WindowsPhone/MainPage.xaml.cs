@@ -69,7 +69,7 @@ namespace AkvelonContacts.WindowsPhone
                                     this.contactList = result;
                                 }
 
-                                this.OnLoadContactList();
+                                this.OnLoadEndContactList();
                             });
                         });
                 });
@@ -77,14 +77,14 @@ namespace AkvelonContacts.WindowsPhone
             else
             {
                 this.contactList = this.applicationCtrl.LoadLocalContactsList();
-                this.OnLoadContactList();
+                this.OnLoadEndContactList();
             }
         }
 
         /// <summary>
         /// Displays the contacts list.
         /// </summary>
-        private void OnLoadContactList()
+        private void OnLoadEndContactList()
         {
             List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
                 this.contactList,
