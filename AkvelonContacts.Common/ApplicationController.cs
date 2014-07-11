@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 
 namespace AkvelonContacts.Common
@@ -92,7 +93,7 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="contactList">Contact list.</param>
         /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
-        public void LoadAllPhotosAsync(List<Contact> contactList, Action<Contact> onLoadPhoto)
+        public void LoadPhotos(List<Contact> contactList, Action<Contact> onLoadPhoto)
         {
             foreach (var contact in contactList)
             {
@@ -115,6 +116,38 @@ namespace AkvelonContacts.Common
                             onLoadPhoto(contact);
                         });
                 }
+            }
+        }
+
+        /// <summary>
+        /// Loads contact list.
+        /// </summary>
+        /// <param name="action">Action when contact list is loaded without Photo.</param>
+        /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
+        public void LoadContactList(Action<List<Contact>> action, Action<Contact> onLoadPhoto) 
+        {
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                this.DownloadContactsList(
+                    (List<Contact> result) =>
+                    {
+                        if (result == null)
+                        {
+                            action(this.LoadLocalContactsList());
+                        }
+                        else
+                        {
+                            action(result);
+                        }
+
+                        this.LoadPhotos(result, onLoadPhoto);
+                });
+            }
+            else
+            {
+                var contacts = this.LoadLocalContactsList();
+                action(contacts);
+                this.LoadPhotos(contacts, onLoadPhoto);
             }
         }
     }

@@ -43,57 +43,28 @@ namespace AkvelonContacts.WindowsPhone
             this.InitializeComponent();
             this.applicationCtrl = new ApplicationController();
 
-            this.LoadAndShowContactList();
-        }
-        
-        /// <summary>
-        /// Loads and shows contact list.
-        /// </summary>
-        private void LoadAndShowContactList()
-        {
-            if (NetworkInterface.GetIsNetworkAvailable())
-            {
-                Dispatcher.BeginInvoke(() =>
+            applicationCtrl.LoadContactList(
+                (contactList) =>
                 {
-                    applicationCtrl.DownloadContactsList(
-                        (List<Contact> result) =>
-                        {
-                            Dispatcher.BeginInvoke(() =>
-                            {
-                                if (result == null)
-                                {
-                                    this.contactList = applicationCtrl.LoadLocalContactsList();
-                                }
-                                else
-                                {
-                                    this.contactList = result;
-                                }
-
-                                this.OnLoadEndContactList();
-                            });
-                        });
-                });
-            }
-            else
-            {
-                this.contactList = this.applicationCtrl.LoadLocalContactsList();
-                this.OnLoadEndContactList();
-            }
-        }
-
-        /// <summary>
-        /// Displays the contacts list.
-        /// </summary>
-        private void OnLoadEndContactList()
-        {
-            List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
-                this.contactList,
-                System.Threading.Thread.CurrentThread.CurrentUICulture,
-                (Contact s) => { return s.FullName; },
-                true);
-            ContactsListBox.ItemsSource = dataSource;
-
-            this.applicationCtrl.LoadAllPhotosAsync(this.contactList, (contact) => { });
+                    this.contactList = contactList;
+                    List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
+                        this.contactList,
+                        System.Threading.Thread.CurrentThread.CurrentUICulture,
+                        (Contact s) => { return s.FullName; },
+                        true);
+                    Dispatcher.BeginInvoke(() =>
+                    {
+                        ContactListSelector.ItemsSource = dataSource;
+                    });
+                },
+                (contact) =>
+                {
+                    Dispatcher.BeginInvoke(() =>
+                    {
+                        //TODO
+                    });
+                }
+                );
         }
 
         /// <summary>
@@ -107,7 +78,7 @@ namespace AkvelonContacts.WindowsPhone
             ContactPanel.DataContext = selectedContact;
 
             ContactPanel.Visibility = Visibility.Visible;
-            ContactsListBox.Visibility = Visibility.Collapsed;
+            ContactListSelector.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -120,7 +91,7 @@ namespace AkvelonContacts.WindowsPhone
             if (ContactPanel.Visibility == Visibility.Visible)
             {
                 ContactPanel.Visibility = Visibility.Collapsed;
-                ContactsListBox.Visibility = Visibility.Visible;
+                ContactListSelector.Visibility = Visibility.Visible;
                 e.Cancel = true;
             }    
         }
