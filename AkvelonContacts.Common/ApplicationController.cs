@@ -5,6 +5,8 @@
 //-----------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -96,7 +98,7 @@ namespace AkvelonContacts.Common
             foreach (var contact in contactList)
             {
                 var photoName = contact.Id + ".jpeg";
-                if (StorageController.FileExists(photoName))
+                if (File.Exists(photoName))
                 {
                     contact.PhotoPath = photoName;
                     onLoadPhoto(contact);
@@ -108,9 +110,9 @@ namespace AkvelonContacts.Common
                         contactPhotoUrl,
                         (stream) =>
                         {
-                            StorageController.WriteStream(photoName, stream);
+                            var localPath = StorageController.WriteStream(photoName, stream);
                             var c = contact;
-                            contact.PhotoPath = photoName;
+                            contact.PhotoPath = localPath;
                             onLoadPhoto(contact);
                         });
                 }

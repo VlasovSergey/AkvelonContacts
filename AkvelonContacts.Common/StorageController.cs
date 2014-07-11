@@ -25,7 +25,7 @@ namespace AkvelonContacts.Common
         /// <param name="content">Content for write.</param>
         public static void WriteString(string fileName, string content)
         {
-            Stream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
+            IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
             StreamWriter sw = new StreamWriter(s);
             sw.Write(content);
             sw.Close();
@@ -40,7 +40,7 @@ namespace AkvelonContacts.Common
         {
             string text;
 
-            Stream s = GetStreamOfFileForRead(fileName);
+            IsolatedStorageFileStream s = GetStreamOfFileForRead(fileName);
             StreamReader sw = new StreamReader(s);
             text = sw.ReadToEnd();
             sw.Close();
@@ -53,11 +53,13 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="fileName">File name.</param>
         /// <param name="streamForSave">Stream for write.</param>
-        public static void WriteStream(string fileName, Stream streamForSave) 
+        /// <returns>File path for write.</returns>
+        public static string WriteStream(string fileName, Stream streamForSave)
         {
-            Stream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
+            IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
             streamForSave.CopyTo(s);
             s.Close();
+            return s.Name;
         }
 
         /// <summary>
@@ -65,9 +67,9 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="fileName">File name.</param>
         /// <returns>File stream.</returns>
-        public static Stream GetStreamOfFileForRead(string fileName)
+        public static IsolatedStorageFileStream GetStreamOfFileForRead(string fileName)
         {
-            Stream s = new IsolatedStorageFileStream(fileName, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
+            IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
             return s;
         }
 
