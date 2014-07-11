@@ -103,7 +103,7 @@ namespace AkvelonContacts.WindowsPhone
         public class AlphaKeyGroup<T> : List<T>
         {
             /// <summary>
-            /// Initializes a new instance of the <see cref="AlphaKeyGroup<T>" /> class.
+            /// Initializes a new instance of the <see cref="AlphaKeyGroup{T}" /> class.
             /// </summary>
             /// <param name="key">The key for this group.</param>
             public AlphaKeyGroup(string key)
@@ -114,7 +114,7 @@ namespace AkvelonContacts.WindowsPhone
             /// <summary>
             /// The delegate that is used to get the key information.
             /// </summary>
-            /// <param name="item">An object of type T</param>
+            /// <param name="item">An object of type <typeparamref name="T"/></param>
             /// <returns>The key value to use for this object</returns>
             public delegate string GetKeyDelegate(T item);
 
@@ -128,7 +128,7 @@ namespace AkvelonContacts.WindowsPhone
             }
 
             /// <summary>
-            /// Create a list of AlphaGroup<T> with keys set by a SortedLocaleGrouping.
+            /// Create a list of AlphaGroup <typeparamref name="T"/> with keys set by a SortedLocaleGrouping.
             /// </summary>
             /// <param name="items">The items to place in the groups.</param>
             /// <param name="ci">The CultureInfo to group and sort by.</param>
@@ -164,10 +164,10 @@ namespace AkvelonContacts.WindowsPhone
             }
 
             /// <summary>
-            /// Create a list of AlphaGroup<T> with keys set by a SortedLocaleGrouping.
+            /// Create a list of AlphaGroup <typeparamref name="T"/> with keys set by a SortedLocaleGrouping.
             /// </summary>
-            /// <param name="slg">The </param>
-            /// <returns>Theitems source for a LongListSelector</returns>
+            /// <param name="slg">The sorted locale grouping.</param>
+            /// <returns>The items source for a LongListSelector.</returns>
             private static List<AlphaKeyGroup<T>> CreateGroups(SortedLocaleGrouping slg)
             {
                 List<AlphaKeyGroup<T>> list = new List<AlphaKeyGroup<T>>();

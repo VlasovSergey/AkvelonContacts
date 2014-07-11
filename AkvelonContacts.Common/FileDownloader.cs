@@ -22,7 +22,6 @@ namespace AkvelonContacts.Common
         /// Downloads string.
         /// </summary>
         /// <param name="url">URL for download.</param>
-        /// <param name="encoding">System.Text.Encoding used to upload and download strings.</param>
         /// <param name="action">Action when download complete.</param>
         public static void DownloadStringAsync(string url, Action<string> action)
         {
