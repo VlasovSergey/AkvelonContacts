@@ -31,7 +31,7 @@ namespace AkvelonContacts.Common
             c.LastName = (string)jo["LastName"];
             c.Mail = (string)jo["Mail"];
             c.Skype = (string)jo["Skype"];
-            c.Telephone = (string)jo["Telephone"];
+            c.Phone = (string)jo["Telephone"];
 
             return c;
         }

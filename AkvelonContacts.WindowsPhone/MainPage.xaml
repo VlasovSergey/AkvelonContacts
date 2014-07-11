@@ -12,7 +12,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" BackKeyPress="PhoneApplicationPage_BackKeyPress">
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="AddrBookItemTemplate">
             <Grid Height="150" Margin="10 10 10 10">
@@ -51,16 +51,6 @@
         <Style x:Key="AddrBookJumpListStyle" TargetType="phone:LongListSelector">
             <Setter Property="GridCellSize"  Value="113,113"/>
             <Setter Property="LayoutMode" Value="Grid" />
-            <Setter Property="ItemTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <Border Background="{Binding Converter={StaticResource BackgroundConverter}}" Width="113" Height="113" Margin="6" >
-                            <TextBlock Text="{Binding Key}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" FontSize="48" Padding="6" 
-               Foreground="{Binding Converter={StaticResource ForegroundConverter}}" VerticalAlignment="Center"/>
-                        </Border>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -102,14 +92,32 @@
         </StackPanel>
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:LongListSelector
-                  x:Name="ContactsListBox"
-                  Background="Transparent"
-                  ItemTemplate="{StaticResource AddrBookItemTemplate}"
-                  LayoutMode="List"
-                  IsGroupingEnabled="True"
-                  GroupHeaderTemplate="{StaticResource AddrBookGroupHeaderTemplate}"
-                  HideEmptyGroups ="True">
+                x:Name="ContactsListBox"
+                Background="Transparent"
+                JumpListStyle="{StaticResource AddrBookJumpListStyle}"
+                ItemTemplate="{StaticResource AddrBookItemTemplate}"
+                LayoutMode="List"
+                IsGroupingEnabled="True"
+                GroupHeaderTemplate="{StaticResource AddrBookGroupHeaderTemplate}"
+                HideEmptyGroups ="True"
+                SelectionChanged="ContactsListBox_SelectionChanged"
+                >
             </phone:LongListSelector>
+            <phone:Panorama Title="" Name="ContactPanel" Visibility="Collapsed" >
+                <phone:PanoramaItem>
+                    <StackPanel>
+                        <Image Source="{Binding PhotoPath}" Height="100" Width="100" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding FirstName}"></TextBlock>
+                        <TextBlock Text="{Binding LastName}"></TextBlock>
+                        <TextBlock Text="{Binding Phone}"></TextBlock>
+                        <TextBlock Text="{Binding Skype}"></TextBlock>
+                        <TextBlock Text="{Binding Mail}"></TextBlock>
+                        <TextBlock Text="{Binding Description}"></TextBlock>
+                        <Button Content="Call"></Button>
+                        <Button Content="Add to contact"></Button>
+                    </StackPanel>
+                </phone:PanoramaItem>
+            </phone:Panorama>
         </Grid>
     </Grid>
 

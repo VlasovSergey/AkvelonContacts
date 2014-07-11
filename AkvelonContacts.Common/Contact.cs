@@ -84,7 +84,7 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Gets or sets the phone number of contact.
         /// </summary>
-        public string Telephone
+        public string Phone
         {
             get;
             set;

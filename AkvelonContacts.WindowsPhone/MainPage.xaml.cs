@@ -49,7 +49,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <summary>
         /// Loads and shows contact list.
         /// </summary>
-        private void LoadAndShowContactList() 
+        private void LoadAndShowContactList()
         {
             if (NetworkInterface.GetIsNetworkAvailable())
             {
@@ -97,10 +97,39 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
+        /// Called when selected changes.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Selection changed event args.</param>
+        private void ContactsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedContact = (Contact)e.AddedItems[0];
+            ContactPanel.DataContext = selectedContact;
+
+            ContactPanel.Visibility = Visibility.Visible;
+            ContactsListBox.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Called when selected changes.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ContactPanel.Visibility == Visibility.Visible)
+            {
+                ContactPanel.Visibility = Visibility.Collapsed;
+                ContactsListBox.Visibility = Visibility.Visible;
+                e.Cancel = true;
+            }    
+        }
+
+        /// <summary>
         /// Helper class for Grouping.
         /// </summary>
         /// <typeparam name="T">Type for grouping.</typeparam>
-        public class AlphaKeyGroup<T> : List<T>
+        private class AlphaKeyGroup<T> : List<T>
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="AlphaKeyGroup{T}" /> class.
