@@ -57,7 +57,6 @@ namespace AkvelonContacts.Common
         {
             FileDownloader.DownloadStringAsync(
                 this.url,
-                Encoding.UTF8,
                 (string result) =>
                 {
                     if (result == null)
