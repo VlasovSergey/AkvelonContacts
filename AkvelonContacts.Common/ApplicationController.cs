@@ -56,7 +56,7 @@ namespace AkvelonContacts.Common
         /// <param name="action">Action when the result came.</param>
         public void DownloadContactsList(Action<List<Contact>> action)
         {
-            FileDownloader.DownloadStringAsync(
+            FileDownloader.DownloadFileAsStringAsync(
                 this.url,
                 (string result) =>
                 {
@@ -106,7 +106,7 @@ namespace AkvelonContacts.Common
                 else
                 {
                     var contactPhotoUrl = this.photosStoreUrl + contact.Id;
-                    FileDownloader.DownloadStreamAsync(
+                    FileDownloader.DownloadFileAsync(
                         contactPhotoUrl,
                         (stream) =>
                         {

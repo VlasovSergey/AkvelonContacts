@@ -19,13 +19,13 @@ namespace AkvelonContacts.Common
     public class FileDownloader
     {
         /// <summary>
-        /// Downloads string.
+        /// Downloads file as string.
         /// </summary>
         /// <param name="url">URL for download.</param>
         /// <param name="action">Action when download complete.</param>
-        public static void DownloadStringAsync(string url, Action<string> action)
+        public static void DownloadFileAsStringAsync(string url, Action<string> action)
         {
-            DownloadStreamAsync(
+            DownloadFileAsync(
                 url,
                 (stream) =>
                 {
@@ -42,11 +42,11 @@ namespace AkvelonContacts.Common
         }
 
         /// <summary>
-        /// Download stream.
+        /// Download file.
         /// </summary>
         /// <param name="url">URL for download.</param>
         /// <param name="action">Action when download complete.</param>
-        public static void DownloadStreamAsync(string url, Action<Stream> action)
+        public static void DownloadFileAsync(string url, Action<Stream> action)
         {
             var httpReq = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
             httpReq.BeginGetResponse(
