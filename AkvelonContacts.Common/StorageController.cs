@@ -23,12 +23,14 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="fileName">File name</param>
         /// <param name="content">Content for write.</param>
-        public static void WriteString(string fileName, string content)
+        /// <returns>Physical file path for write.</returns>
+        public static string WriteString(string fileName, string content)
         {
             IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
             StreamWriter sw = new StreamWriter(s);
             sw.Write(content);
             sw.Close();
+            return s.Name;
         }
 
         /// <summary>
@@ -53,7 +55,7 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="fileName">File name.</param>
         /// <param name="streamForSave">Stream for write.</param>
-        /// <returns>File path for write.</returns>
+        /// <returns>Physical file path for write.</returns>
         public static string WriteStream(string fileName, Stream streamForSave)
         {
             IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
@@ -81,6 +83,25 @@ namespace AkvelonContacts.Common
         public static bool FileExists(string fileName)
         {
             return IsolatedStorageFile.GetUserStoreForApplication().FileExists(fileName);
+        }
+
+        /// <summary>
+        /// Gets physical path for file from local storage.
+        /// </summary>
+        /// <param name="filePath">Local path.</param>
+        /// <returns>Physical path.</returns>
+        public static string GetPhysicalPathForLocalFilePath(string filePath)
+        {
+            string physicalPath = null;
+
+            if (FileExists(filePath))
+            {
+                IsolatedStorageFileStream s = new IsolatedStorageFileStream(filePath, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
+                s.Close();
+                physicalPath = s.Name;
+            }
+
+            return physicalPath;
         }
     }
 }
