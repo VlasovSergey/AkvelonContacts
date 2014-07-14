@@ -22,7 +22,7 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Name for save to local storage.
         /// </summary>
-        private const string JsonLocalName = "ContactsList.json";
+        private const string JsonLocalName = "ContactList.json";
 
         /// <summary>
         /// Url for photos download.s
@@ -54,7 +54,7 @@ namespace AkvelonContacts.Common
         /// Gets Contacts list.
         /// </summary>
         /// <param name="action">Action when the result came.</param>
-        public void DownloadContactsList(Action<List<Contact>> action)
+        public void DownloadContactList(Action<List<Contact>> action)
         {
             FileDownloader.DownloadFileAsStringAsync(
                 this.url,
@@ -75,7 +75,7 @@ namespace AkvelonContacts.Common
         /// Loads contacts list from local storage.
         /// </summary>
         /// <returns>Contacts list.</returns>
-        public List<Contact> LoadLocalContactsList()
+        public List<Contact> LoadLocalContactList()
         {
             if (StorageController.FileExists(JsonLocalName))
             {
@@ -128,12 +128,12 @@ namespace AkvelonContacts.Common
         {
             if (NetworkInterface.GetIsNetworkAvailable())
             {
-                this.DownloadContactsList(
+                this.DownloadContactList(
                     (List<Contact> result) =>
                     {
                         if (result == null)
                         {
-                            action(this.LoadLocalContactsList());
+                            action(this.LoadLocalContactList());
                         }
                         else
                         {
@@ -145,7 +145,7 @@ namespace AkvelonContacts.Common
             }
             else
             {
-                var contacts = this.LoadLocalContactsList();
+                var contacts = this.LoadLocalContactList();
                 action(contacts);
                 this.LoadPhotos(contacts, onLoadPhoto);
             }

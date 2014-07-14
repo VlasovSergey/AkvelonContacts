@@ -100,7 +100,7 @@
                 IsGroupingEnabled="True"
                 GroupHeaderTemplate="{StaticResource AddrBookGroupHeaderTemplate}"
                 HideEmptyGroups ="True"
-                SelectionChanged="ContactsListBox_SelectionChanged"
+                SelectionChanged="ContactListBox_SelectionChanged"
                 >
             </phone:LongListSelector>
             <phone:Panorama Title="" Name="ContactPanel" Visibility="Collapsed" >

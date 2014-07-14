@@ -66,35 +66,35 @@ namespace AkvelonContacts.Android
         {
             if (this.IsAvailableInternet())
             {
-                this.applicationCtrl.DownloadContactsList((List<Contact> result) =>
+                this.applicationCtrl.DownloadContactList((List<Contact> result) =>
                 {
                     if (result != null)
                     {
-                        this.BindContactsList(result, contactListView);
+                        this.BindContactList(result, contactListView);
                         return;
                     }
                     else
                     {
-                        this.BindContactsList(this.applicationCtrl.LoadLocalContactsList(), this.contactListView);
+                        this.BindContactList(this.applicationCtrl.LoadLocalContactList(), this.contactListView);
                     }
                 });
             }
             else
             {
-                this.BindContactsList(this.applicationCtrl.LoadLocalContactsList(), this.contactListView);
+                this.BindContactList(this.applicationCtrl.LoadLocalContactList(), this.contactListView);
             }
         }
 
         /// <summary>
         /// Binds to contactList ListView.
         /// </summary>
-        /// <param name="contactsList">Contacts list for binding.</param>
+        /// <param name="contactList">Contacts list for binding.</param>
         /// <param name="contactListView">ListView for binding.</param>
-        private void BindContactsList(List<Contact> contactsList, ListView contactListView)
+        private void BindContactList(List<Contact> contactList, ListView contactListView)
         {
             this.RunOnUiThread(() =>
             {
-                this.contactList = contactsList;
+                this.contactList = contactList;
                 var listAdapter = new ContactScreenAdapter(this, this.contactList);
                 contactListView.Adapter = listAdapter;
                 listAdapter.NotifyDataSetChanged();

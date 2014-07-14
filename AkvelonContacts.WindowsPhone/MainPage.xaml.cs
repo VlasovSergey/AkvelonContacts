@@ -72,7 +72,7 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
         /// <param name="e">Selection changed event args.</param>
-        private void ContactsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ContactListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedContact = (Contact)e.AddedItems[0];
             ContactPanel.DataContext = selectedContact;
