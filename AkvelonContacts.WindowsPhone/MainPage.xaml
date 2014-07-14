@@ -14,16 +14,18 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True" BackKeyPress="PhoneApplicationPage_BackKeyPress">
     <phone:PhoneApplicationPage.Resources>
+        <local:PhotoPathConverter x:Key="PhotoPathConverter"></local:PhotoPathConverter>
         <DataTemplate x:Key="AddrBookItemTemplate">
             <Grid Height="150" Margin="10 10 10 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="{Binding PhotoPath}"/>
+                <Image Source="{Binding Id, Converter = {StaticResource PhotoPathConverter}}">
+                </Image>
                 <StackPanel Grid.Column="1" >
                     <TextBlock Text="{Binding FullName}" ></TextBlock>
-                    <TextBlock Text="{Binding Telephone}" ></TextBlock>
+                    <TextBlock Text="{Binding Phone}" ></TextBlock>
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -106,7 +108,7 @@
             <phone:Panorama Title="" Name="ContactPanel" Visibility="Collapsed" >
                 <phone:PanoramaItem>
                     <StackPanel>
-                        <Image Source="{Binding PhotoPath}" Height="100" Width="100" HorizontalAlignment="Left"/>
+                        <Image Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="100" Width="100" HorizontalAlignment="Left"/>
                         <TextBlock Text="{Binding FirstName}"></TextBlock>
                         <TextBlock Text="{Binding LastName}"></TextBlock>
                         <TextBlock Text="{Binding Phone}"></TextBlock>

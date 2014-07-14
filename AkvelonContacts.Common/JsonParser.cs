@@ -23,7 +23,7 @@ namespace AkvelonContacts.Common
         /// <param name="json">JSON string representation of the object.</param>
         /// <returns>Deserialized object instance.</returns>
         public static T Deserialize<T>(string json)
-        {
+        {            
             DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(T));
             object result = null;
 

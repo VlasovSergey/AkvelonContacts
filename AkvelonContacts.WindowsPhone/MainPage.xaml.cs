@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Navigation;
 using AkvelonContacts.Common;
 using AkvelonContacts.WindowsPhone.Resources;
@@ -43,28 +44,34 @@ namespace AkvelonContacts.WindowsPhone
             this.InitializeComponent();
             this.applicationCtrl = new ApplicationController();
 
-            applicationCtrl.LoadContactList(
+            this.applicationCtrl.LoadContactList(
                 (contactList) =>
                 {
-                    this.contactList = contactList;
-                    List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
-                        this.contactList,
-                        System.Threading.Thread.CurrentThread.CurrentUICulture,
-                        (Contact s) => { return s.FullName; },
-                        true);
                     Dispatcher.BeginInvoke(() =>
                     {
-                        ContactListSelector.ItemsSource = dataSource;
+                        DisplayContactList(contactList);
                     });
                 },
                 (contact) =>
                 {
-                    Dispatcher.BeginInvoke(() =>
-                    {
-                        //TODO
-                    });
-                }
-                );
+                    Dispatcher.BeginInvoke(() => { });
+                });
+        }
+
+        /// <summary>
+        /// Displays contact list.
+        /// </summary>
+        /// <param name="contactList">Contact list for display.</param>
+        private void DisplayContactList(List<Contact> contactList)
+        {
+            this.contactList = contactList;
+            List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
+                this.contactList,
+                System.Threading.Thread.CurrentThread.CurrentUICulture,
+                (Contact s) => { return s.FullName; },
+                true);
+
+            ContactListSelector.ItemsSource = dataSource;
         }
 
         /// <summary>
@@ -93,7 +100,7 @@ namespace AkvelonContacts.WindowsPhone
                 ContactPanel.Visibility = Visibility.Collapsed;
                 ContactListSelector.Visibility = Visibility.Visible;
                 e.Cancel = true;
-            }    
+            }
         }
 
         /// <summary>
@@ -121,10 +128,10 @@ namespace AkvelonContacts.WindowsPhone
             /// <summary>
             /// Gets the Key of this group.
             /// </summary>
-            public string Key 
+            public string Key
             {
-                get; 
-                private set; 
+                get;
+                private set;
             }
 
             /// <summary>

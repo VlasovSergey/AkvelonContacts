@@ -110,7 +110,6 @@ namespace AkvelonContacts.Common
                 var photoName = contact.Id + ".jpeg";
                 if (StorageController.FileExists(photoName))
                 {
-                    contact.PhotoPath = StorageController.GetPhysicalPathForLocalFilePath(photoName);
                     onLoadPhoto(contact);
                 }
                 else
@@ -122,7 +121,6 @@ namespace AkvelonContacts.Common
                         {
                             var localPath = StorageController.WriteStream(photoName, stream);
                             var c = contact;
-                            contact.PhotoPath = localPath;
                             onLoadPhoto(contact);
                         });
                 }
@@ -134,7 +132,7 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="action">Action when contact list is loaded without Photo.</param>
         /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
-        public void LoadContactList(Action<List<Contact>> action, Action<Contact> onLoadPhoto) 
+        public void LoadContactList(Action<List<Contact>> action, Action<Contact> onLoadPhoto)
         {
             if (NetworkInterface.GetIsNetworkAvailable())
             {
@@ -151,7 +149,7 @@ namespace AkvelonContacts.Common
                         }
 
                         this.LoadPhotos(result, onLoadPhoto);
-                });
+                    });
             }
             else
             {
