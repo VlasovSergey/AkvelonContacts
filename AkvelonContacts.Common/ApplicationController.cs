@@ -92,15 +92,15 @@ namespace AkvelonContacts.Common
         /// Loads all photos for ContactList.
         /// </summary>
         /// <param name="contactList">Contact list.</param>
-        /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
+        /// <param name="onLoadPhoto">Action is called every time any photo loaded. Returns the contact which has been downloaded photo.</param>
         public void LoadPhotos(List<Contact> contactList, Action<Contact> onLoadPhoto)
         {
             foreach (var contact in contactList)
             {
                 var photoName = contact.Id + ".jpeg";
-                if (File.Exists(photoName))
+                if (StorageController.FileExists(photoName))
                 {
-                    contact.PhotoPath = photoName;
+                    contact.PhotoPath = StorageController.GetPhysicalPathForLocalFilePath(photoName);
                     onLoadPhoto(contact);
                 }
                 else
