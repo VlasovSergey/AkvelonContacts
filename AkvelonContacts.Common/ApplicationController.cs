@@ -51,6 +51,16 @@ namespace AkvelonContacts.Common
         }
 
         /// <summary>
+        /// Gets photo by client id.
+        /// </summary>
+        /// <param name="id">Client id.</param>
+        /// <returns>Photo physical path.</returns>
+        public static string GetPhotoPathByClientId(string id)
+        {
+            return StorageController.GetPhysicalPathForLocalFilePath(id + ".jpeg");
+        }
+
+        /// <summary>
         /// Gets Contacts list.
         /// </summary>
         /// <param name="action">Action when the result came.</param>
