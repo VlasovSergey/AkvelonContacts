@@ -76,7 +76,7 @@ namespace AkvelonContacts.Common
                         return;
                     }
 
-                    action(JsonParser.Deserialize<List<Contact>>(result));
+                    action((new ContactsJsonParser()).GetListFromJsonArray(result));
                     StorageController.WriteString(JsonLocalName, result);
                 });
         }
@@ -90,7 +90,7 @@ namespace AkvelonContacts.Common
             if (StorageController.FileExists(JsonLocalName))
             {
                 var json = StorageController.ReadString(JsonLocalName);
-                return JsonParser.Deserialize<List<Contact>>(json);
+                return (new ContactsJsonParser()).GetListFromJsonArray(json);
             }
             else
             {
