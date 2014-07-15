@@ -67,7 +67,7 @@ namespace AkvelonContacts.WindowsPhone
             this.contactList = contactList;
             List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
                 this.contactList,
-                System.Threading.Thread.CurrentThread.CurrentUICulture,
+                new CultureInfo("ru-RU"),
                 (Contact s) => { return s.FullName; },
                 true);
 
@@ -144,7 +144,7 @@ namespace AkvelonContacts.WindowsPhone
             /// <returns>An items source for a LongListSelector</returns>
             public static List<AlphaKeyGroup<T>> CreateGroups(IEnumerable<T> items, CultureInfo ci, GetKeyDelegate getKey, bool sort)
             {
-                SortedLocaleGrouping slg = new SortedLocaleGrouping();
+                SortedLocaleGrouping slg = new SortedLocaleGrouping(ci);
                 List<AlphaKeyGroup<T>> list = CreateGroups(slg);
 
                 foreach (T item in items)
@@ -156,14 +156,6 @@ namespace AkvelonContacts.WindowsPhone
                     if (index >= 0 && index < list.Count)
                     {
                         list[index].Add(item);
-                    }
-                }
-
-                if (sort)
-                {
-                    foreach (AlphaKeyGroup<T> group in list)
-                    {
-                        group.Sort((c0, c1) => { return ci.CompareInfo.Compare(getKey(c0), getKey(c1)); });
                     }
                 }
 
