@@ -12,7 +12,8 @@ using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Navigation;
+using System.Windows.Input;
+using System.Windows.Media;
 using AkvelonContacts.Common;
 using AkvelonContacts.WindowsPhone.Resources;
 using Microsoft.Phone.Controls;
@@ -49,7 +50,8 @@ namespace AkvelonContacts.WindowsPhone
                 {
                     Dispatcher.BeginInvoke(() =>
                     {
-                        DisplayContactList(contactList);
+                        this.contactList = contactList;
+                        DisplayContactList(this.contactList);
                     });
                 },
                 (contact) =>
@@ -64,9 +66,8 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="contactList">Contact list for display.</param>
         private void DisplayContactList(List<Contact> contactList)
         {
-            this.contactList = contactList;
             List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
-                this.contactList,
+                contactList,
                 new CultureInfo("ru-RU"),
                 (Contact s) => { return s.FullName; },
                 true);
@@ -81,6 +82,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Selection changed event args.</param>
         private void ContactListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            VisualStateManager.GoToState(this.contactPanel, "ShowState", true);
             var selectedContact = (Contact)e.AddedItems[0];
             contactPanel.DataContext = selectedContact;
 
@@ -97,6 +99,7 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (contactPanel.Visibility == Visibility.Visible)
             {
+                VisualStateManager.GoToState(this.contactPanel, "HideState", true);
                 contactPanel.Visibility = Visibility.Collapsed;
                 contactListSelector.Visibility = Visibility.Visible;
                 e.Cancel = true;
@@ -123,6 +126,49 @@ namespace AkvelonContacts.WindowsPhone
         {
             var selectContact = contactListSelector.SelectedItem as Contact;
             NativeFunctions.AddContactPeopleHub(selectContact);
+        }
+
+        /// <summary>
+        /// Called when change search field.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(this.searchTextBox))
+            {
+                var newList = this.contactList.Where(
+                    item => item.FullName.IndexOf(searchTextBox.Text, System.StringComparison.OrdinalIgnoreCase) >= 0).ToList<Contact>();
+                this.DisplayContactList(newList);
+            }
+        }
+
+        /// <summary>
+        /// The foreground color of the text in searchTextBox is set to Magenta when searchTextBox.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (searchTextBox.Text == "Search")
+            {
+                this.searchTextBox.Text = string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// he foreground color of the text in searchTextBox is set to Blue when searchTextBox
+        /// loses focus. Also, if SearchTB loses focus and no text is entered, the
+        /// text "Search" is displayed.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (searchTextBox.Text == string.Empty)
+            {
+                searchTextBox.Text = "Search";
+            }
         }
 
         /// <summary>
