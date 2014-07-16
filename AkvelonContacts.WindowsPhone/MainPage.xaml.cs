@@ -115,6 +115,17 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
+        /// Called when click to Add Contact button.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void addContactButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectContact = ContactListSelector.SelectedItem as Contact;
+            NativeFunctions.AddContactPeopleHub(selectContact);
+        }
+
+        /// <summary>
         /// Helper class for Grouping.
         /// </summary>
         /// <typeparam name="T">Type for grouping.</typeparam>

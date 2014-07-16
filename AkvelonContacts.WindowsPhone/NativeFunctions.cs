@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AkvelonContacts.Common;
 using Microsoft.Phone.Tasks;
 
 namespace AkvelonContacts.WindowsPhone
@@ -28,6 +29,23 @@ namespace AkvelonContacts.WindowsPhone
             call.PhoneNumber = phoneNumber;
             call.DisplayName = displayName;
             call.Show();
+        }
+
+        /// <summary>
+        /// Adds contact to People Hub.
+        /// </summary>
+        /// <param name="c">Contact for saving</param>
+        public static void AddContactPeopleHub(Contact c)
+        {
+            var saveContactTask = new SaveContactTask();
+            
+            saveContactTask.FirstName = c.FirstName;
+            saveContactTask.Company = "Akvelon";
+            saveContactTask.LastName = c.LastName;
+            saveContactTask.MobilePhone = c.Phone;
+            saveContactTask.WorkEmail = c.Mail;
+            
+            saveContactTask.Show();
         }
     }
 }

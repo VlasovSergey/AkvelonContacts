@@ -131,7 +131,7 @@
                         <TextBlock Text="{Binding Mail}"></TextBlock>
                         <TextBlock Text="{Binding Description}"></TextBlock>
                         <Button Name="callButton" Content="Call" Click="callButton_Click"></Button>
-                        <Button Name="addContactButton" Content="Add to contact" ></Button>
+                        <Button Name="addContactButton" Content="Add to contact" Click="addContactButton_Click" ></Button>
                     </StackPanel>
                 </phone:PanoramaItem>
             </phone:Panorama>
