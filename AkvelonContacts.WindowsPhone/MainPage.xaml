@@ -109,7 +109,7 @@
         </StackPanel>
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:LongListSelector
-                x:Name="ContactListSelector"
+                x:Name="contactListSelector"
                 Background="Transparent"
                 JumpListStyle="{StaticResource AddrBookJumpListStyle}"
                 ItemTemplate="{StaticResource AddrBookItemTemplate}"
@@ -120,7 +120,7 @@
                 SelectionChanged="ContactListBox_SelectionChanged"
                 >
             </phone:LongListSelector>
-            <phone:Panorama Title="" Name="ContactPanel" Visibility="Collapsed" >
+            <phone:Panorama Title="" Name="contactPanel" Visibility="Collapsed" >
                 <phone:PanoramaItem>
                     <StackPanel>
                         <Image Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="100" Width="100" HorizontalAlignment="Left"/>
@@ -130,8 +130,8 @@
                         <TextBlock Text="{Binding Skype}"></TextBlock>
                         <TextBlock Text="{Binding Mail}"></TextBlock>
                         <TextBlock Text="{Binding Description}"></TextBlock>
-                        <Button Name="callButton" Content="Call" Click="callButton_Click"></Button>
-                        <Button Name="addContactButton" Content="Add to contact" Click="addContactButton_Click" ></Button>
+                        <Button Name="callButton" Content="Call" Click="CallButton_Click"></Button>
+                        <Button Name="addContactButton" Content="Add to contact" Click="AddContactButton_Click" ></Button>
                     </StackPanel>
                 </phone:PanoramaItem>
             </phone:Panorama>

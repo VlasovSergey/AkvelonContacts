@@ -71,7 +71,7 @@ namespace AkvelonContacts.WindowsPhone
                 (Contact s) => { return s.FullName; },
                 true);
 
-            ContactListSelector.ItemsSource = dataSource;
+            contactListSelector.ItemsSource = dataSource;
         }
 
         /// <summary>
@@ -82,10 +82,10 @@ namespace AkvelonContacts.WindowsPhone
         private void ContactListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedContact = (Contact)e.AddedItems[0];
-            ContactPanel.DataContext = selectedContact;
+            contactPanel.DataContext = selectedContact;
 
-            ContactPanel.Visibility = Visibility.Visible;
-            ContactListSelector.Visibility = Visibility.Collapsed;
+            contactPanel.Visibility = Visibility.Visible;
+            contactListSelector.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -95,10 +95,10 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (ContactPanel.Visibility == Visibility.Visible)
+            if (contactPanel.Visibility == Visibility.Visible)
             {
-                ContactPanel.Visibility = Visibility.Collapsed;
-                ContactListSelector.Visibility = Visibility.Visible;
+                contactPanel.Visibility = Visibility.Collapsed;
+                contactListSelector.Visibility = Visibility.Visible;
                 e.Cancel = true;
             }
         }
@@ -108,9 +108,9 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
         /// <param name="e">Cancel event args.</param>
-        private void callButton_Click(object sender, RoutedEventArgs e)
+        private void CallButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectContact = ContactListSelector.SelectedItem as Contact;
+            var selectContact = contactListSelector.SelectedItem as Contact;
             NativeFunctions.CallNumber(selectContact.Phone, selectContact.FullName);
         }
 
@@ -119,9 +119,9 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
         /// <param name="e">Cancel event args.</param>
-        private void addContactButton_Click(object sender, RoutedEventArgs e)
+        private void AddContactButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectContact = ContactListSelector.SelectedItem as Contact;
+            var selectContact = contactListSelector.SelectedItem as Contact;
             NativeFunctions.AddContactPeopleHub(selectContact);
         }
 
