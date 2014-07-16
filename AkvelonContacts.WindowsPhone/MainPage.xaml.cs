@@ -82,12 +82,16 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Selection changed event args.</param>
         private void ContactListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VisualStateManager.GoToState(this.contactPanel, "ShowState", true);
-            var selectedContact = (Contact)e.AddedItems[0];
-            contactPanel.DataContext = selectedContact;
+            if (contactListSelector.SelectedItem != null)
+            {
+                VisualStateManager.GoToState(this.contactPanel, "ShowState", true);
+                var selectedContact = (Contact)e.AddedItems[0];
+                contactPanel.DataContext = selectedContact;
 
-            contactPanel.Visibility = Visibility.Visible;
-            contactListSelector.Visibility = Visibility.Collapsed;
+                contactPanel.Visibility = Visibility.Visible;
+                contactListSelector.Visibility = Visibility.Collapsed;
+                searchTextBox.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>
@@ -99,9 +103,10 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (contactPanel.Visibility == Visibility.Visible)
             {
-                VisualStateManager.GoToState(this.contactPanel, "HideState", true);
                 contactPanel.Visibility = Visibility.Collapsed;
                 contactListSelector.Visibility = Visibility.Visible;
+                searchTextBox.Visibility = Visibility.Visible;
+                contactListSelector.SelectedItem = null;
                 e.Cancel = true;
             }
         }
