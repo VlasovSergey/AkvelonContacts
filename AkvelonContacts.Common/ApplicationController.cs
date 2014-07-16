@@ -22,10 +22,20 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Name for save to local storage.
         /// </summary>
-        private const string JsonLocalName = "ContactList.json";
+        private const string JsonLocalName = "AppData\\ContactList.json";
 
         /// <summary>
-        /// Url for photos download.s
+        /// Name of the directory to store the image of the application.
+        /// </summary>
+        private const string AppDataDirectoryName = "AppData\\";
+
+        /// <summary>
+        /// Name of the directory to store the image of the application.
+        /// </summary>
+        private const string ImagesDirectoryName = "AppData\\images\\";
+
+        /// <summary>
+        /// Url for photos download.
         /// </summary>
         private string photosStoreUrl = "http://prism.akvelon.net/api/system/getphoto/";
 
@@ -57,7 +67,7 @@ namespace AkvelonContacts.Common
         /// <returns>Photo physical path.</returns>
         public static string GetPhotoPathByClientId(string id)
         {
-            return StorageController.GetPhysicalPathForLocalFilePath(id + ".jpeg");
+            return StorageController.GetPhysicalPathForLocalFilePath(ImagesDirectoryName + id + ".jpeg");
         }
 
         /// <summary>
@@ -77,6 +87,12 @@ namespace AkvelonContacts.Common
                     }
 
                     action((new ContactsJsonParser()).GetListFromJsonArray(result));
+
+                    if (!StorageController.DirectoryExists(AppDataDirectoryName))
+                    {
+                        StorageController.CreateDirectory(AppDataDirectoryName);
+                    }
+
                     StorageController.WriteString(JsonLocalName, result);
                 });
         }
@@ -107,8 +123,8 @@ namespace AkvelonContacts.Common
         {
             foreach (var contact in contactList)
             {
-                var photoName = contact.Id + ".jpeg";
-                if (StorageController.FileExists(photoName))
+                var photoPath = ImagesDirectoryName + contact.Id + ".jpeg";
+                if (StorageController.FileExists(photoPath))
                 {
                     onLoadPhoto(contact);
                 }
@@ -119,7 +135,12 @@ namespace AkvelonContacts.Common
                         contactPhotoUrl,
                         (stream) =>
                         {
-                            var localPath = StorageController.WriteStream(photoName, stream);
+                            if (!StorageController.DirectoryExists(ImagesDirectoryName))
+                            {
+                                StorageController.CreateDirectory(ImagesDirectoryName);
+                            }
+
+                            StorageController.WriteStream(photoPath, stream);
                             var c = contact;
                             onLoadPhoto(contact);
                         });
