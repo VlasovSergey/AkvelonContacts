@@ -53,6 +53,21 @@
         <Style x:Key="AddrBookJumpListStyle" TargetType="phone:LongListSelector">
             <Setter Property="GridCellSize"  Value="113,113"/>
             <Setter Property="LayoutMode" Value="Grid" />
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border Background="{Binding Converter={StaticResource BackgroundConverter}}" Width="113" Height="113" Margin="6" >
+                            <TextBlock 
+                                Text="{Binding Key}"
+                                FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                                FontSize="48"
+                                Padding="6"
+                                Foreground="{Binding Converter={StaticResource ForegroundConverter}}"
+                                VerticalAlignment="Center"/>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -115,8 +130,8 @@
                         <TextBlock Text="{Binding Skype}"></TextBlock>
                         <TextBlock Text="{Binding Mail}"></TextBlock>
                         <TextBlock Text="{Binding Description}"></TextBlock>
-                        <Button Content="Call"></Button>
-                        <Button Content="Add to contact"></Button>
+                        <Button Name="callButton" Content="Call" Click="callButton_Click"></Button>
+                        <Button Name="addContactButton" Content="Add to contact" ></Button>
                     </StackPanel>
                 </phone:PanoramaItem>
             </phone:Panorama>

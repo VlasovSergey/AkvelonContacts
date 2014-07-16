@@ -104,6 +104,17 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
+        /// Called when click to Call button.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void callButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectContact = ContactListSelector.SelectedItem as Contact;
+            NativeFunctions.CallNumber(selectContact.Phone, selectContact.FullName);
+        }
+
+        /// <summary>
         /// Helper class for Grouping.
         /// </summary>
         /// <typeparam name="T">Type for grouping.</typeparam>
