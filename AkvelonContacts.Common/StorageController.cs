@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -102,6 +103,29 @@ namespace AkvelonContacts.Common
             }
 
             return physicalPath;
+        }
+
+        /// <summary>
+        /// Creates a directory in the isolated storage scope.
+        /// </summary>
+        /// <param name="directoryName">The relative path of the directory to create within the isolated storage.</param>
+        public static void CreateDirectory(string directoryName)
+        {
+            IsolatedStorageFile.GetUserStoreForApplication().CreateDirectory(directoryName);
+        }
+
+        /// <summary>
+        /// Determines whether the specified path refers to an existing directory in
+        /// the isolated store.
+        /// </summary>
+        /// <param name="directoryName">The path to test.</param>
+        /// <returns>
+        /// true if path refers to an existing directory in the isolated store and is
+        /// not null; otherwise, false.
+        /// </returns>
+        public static bool DirectoryExists(string directoryName)
+        {
+            return IsolatedStorageFile.GetUserStoreForApplication().DirectoryExists(directoryName);
         }
     }
 }
