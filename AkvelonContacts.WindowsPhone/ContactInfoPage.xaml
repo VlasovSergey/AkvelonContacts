@@ -51,12 +51,22 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
                 <Image Margin="15 5 15 0" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="150" Width="150" HorizontalAlignment="Left"/>
-                <TextBlock Margin="15 5 15 0" FontSize="30" Text="{Binding FirstName, StringFormat='FirstName: {0}'}"></TextBlock>
-                <TextBlock Margin="15 5 15 0" FontSize="30"  Text="{Binding LastName, StringFormat='LastName: {0}'}"></TextBlock>
-                <TextBlock Margin="15 5 15 0" FontSize="30"  Text="{Binding Phone, StringFormat='Phone: {0}'}"></TextBlock>
-                <TextBlock Margin="15 5 15 0" FontSize="25"  Text="{Binding Skype, StringFormat='Skype: {0}'}" ></TextBlock>
-                <TextBlock Margin="15 5 15 0" FontSize="25"  Text="{Binding Mail, StringFormat='Mail: {0}'}" ></TextBlock>
-                <TextBlock Margin="15 5 15 0" FontSize="25"  Text="{Binding Dislocation, StringFormat='Dislocation: {0}'}" ></TextBlock>
+                <StackPanel  Margin="15 5 15 0" Orientation="Horizontal">
+                    <TextBlock Text="Phone: " FontSize="25"></TextBlock>
+                    <TextBlock Foreground="{StaticResource PhoneAccentBrush}" FontSize="25"  Text="{Binding Phone}"></TextBlock>
+                </StackPanel>
+                <StackPanel  Margin="15 5 15 0" Orientation="Horizontal">
+                    <TextBlock Text="Skype: " FontSize="25"></TextBlock>
+                    <TextBlock Foreground="{StaticResource PhoneAccentBrush}" FontSize="25"  Text="{Binding Skype}" ></TextBlock>
+                </StackPanel>
+                <StackPanel Margin="15 5 15 0" Orientation="Horizontal">
+                    <TextBlock Text="Mail: " FontSize="25"></TextBlock>
+                    <TextBlock Foreground="{StaticResource PhoneAccentBrush}" FontSize="25"  Text="{Binding Mail}" ></TextBlock>
+                </StackPanel>
+                <StackPanel Margin="15 5 15 0" Orientation="Horizontal">
+                    <TextBlock Text="Dislocation: " FontSize="25" ></TextBlock>
+                    <TextBlock Foreground="{StaticResource PhoneAccentBrush}" FontSize="25" Text="{Binding Dislocation}"></TextBlock>
+                </StackPanel>
                 <Button Name="callButton" Content="Call" Click="CallButton_Click"></Button>
                 <Button Name="addContactButton" Content="Add to contact" Click="AddContactButton_Click" ></Button>
             </StackPanel>
