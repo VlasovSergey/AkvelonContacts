@@ -50,7 +50,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
-                <Image Margin="0 5 15 0" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="150" Width="150" HorizontalAlignment="Left"/>
+                <Image Margin="15 5 15 0" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="150" Width="150" HorizontalAlignment="Left"/>
                 <TextBlock Margin="15 5 15 0" FontSize="30" Text="{Binding FirstName, StringFormat='FirstName: {0}'}"></TextBlock>
                 <TextBlock Margin="15 5 15 0" FontSize="30"  Text="{Binding LastName, StringFormat='LastName: {0}'}"></TextBlock>
                 <TextBlock Margin="15 5 15 0" FontSize="30"  Text="{Binding Phone, StringFormat='Phone: {0}'}"></TextBlock>
