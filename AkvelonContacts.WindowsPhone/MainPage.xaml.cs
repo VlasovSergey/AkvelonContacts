@@ -98,7 +98,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(this.searchTextBox))
+            if (searchTextBox.Text == string.Empty || (FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(this.searchTextBox)))
             {
                 var newList = this.contactList.Where(
                     item => item.FullName.IndexOf(searchTextBox.Text, System.StringComparison.OrdinalIgnoreCase) >= 0).ToList<Contact>();
@@ -139,16 +139,30 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
         /// <param name="e">Cancel event args.</param>
-        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        private void SearchBar_Click(object sender, EventArgs e)
         {
+            this.ApplicationBar.IsVisible = false;
             if (searchTextBox.Visibility == Visibility.Collapsed)
             {
                 ShowSearch.Begin();
+                searchTextBox.Visibility = Visibility.Visible;
+                searchTextBox.Focus();
             }
-            else
+        }
+
+        /// <summary>
+        /// Called when back button press.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (searchTextBox.Visibility == Visibility.Visible)
             {
                 searchTextBox.Text = string.Empty;
+                this.ApplicationBar.IsVisible = true;
                 HideSearch.Begin();
+                e.Cancel = true;
             }
         }
 

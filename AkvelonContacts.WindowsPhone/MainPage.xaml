@@ -13,7 +13,8 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait">
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    BackKeyPress="PhoneApplicationPage_BackKeyPress">
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
             <toolkit:NavigationInTransition.Backward>
@@ -89,30 +90,23 @@
             </Setter>
         </Style>
         <Storyboard x:Name="ShowSearch">
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBlock">
-        		<DiscreteObjectKeyFrame KeyTime="0">
-        			<DiscreteObjectKeyFrame.Value>
-        				<Visibility>Collapsed</Visibility>
-        			</DiscreteObjectKeyFrame.Value>
-        		</DiscreteObjectKeyFrame>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="searchTextBox">
-        		<DiscreteObjectKeyFrame KeyTime="0">
-        			<DiscreteObjectKeyFrame.Value>
-        				<Visibility>Visible</Visibility>
-        			</DiscreteObjectKeyFrame.Value>
-        		</DiscreteObjectKeyFrame>
-        	</ObjectAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="searchTextBox">
-        		<EasingDoubleKeyFrame KeyTime="0" Value="-100"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-        	</DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBlock">
+                <DiscreteObjectKeyFrame KeyTime="0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="searchTextBox">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="HideSearch">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="searchTextBox">
-        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-100"/>
-        	</DoubleAnimationUsingKeyFrames>
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-100"/>
+            </DoubleAnimationUsingKeyFrames>
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBlock">
                 <DiscreteObjectKeyFrame KeyTime="0:0:0.3">
                     <DiscreteObjectKeyFrame.Value>
@@ -129,9 +123,9 @@
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
     </phone:PhoneApplicationPage.Resources>
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="Search" Click="ApplicationBarIconButton_Click" />
+    <phone:PhoneApplicationPage.ApplicationBar >
+        <shell:ApplicationBar x:Name="searchBar" >
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="Search" Click="SearchBar_Click" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -149,9 +143,9 @@
                 Foreground="Gray" 
                 GotFocus="SearchTextBox_GotFocus"
                 LostFocus="SearchTextBox_LostFocus" RenderTransformOrigin="0.5,0.5" Margin="0,25,0,0" Height="70" >
-            	<TextBox.RenderTransform>
-            		<CompositeTransform/>
-            	</TextBox.RenderTransform>
+                <TextBox.RenderTransform>
+                    <CompositeTransform/>
+                </TextBox.RenderTransform>
             </TextBox>
             <TextBlock x:Name="textBlock" Text="akvelon contacts" Style="{StaticResource PhoneTextTitle1Style}" FontSize="60" Height="95"/>
         </StackPanel>
