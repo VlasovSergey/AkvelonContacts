@@ -82,55 +82,13 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Selection changed event args.</param>
         private void ContactListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (contactListSelector.SelectedItem != null)
+            var selectedContact = (Contact)contactListSelector.SelectedItem;
+            if (selectedContact != null)
             {
-                VisualStateManager.GoToState(this.contactPanel, "ShowState", true);
-                var selectedContact = (Contact)e.AddedItems[0];
-                contactPanel.DataContext = selectedContact;
-
-                contactPanel.Visibility = Visibility.Visible;
-                contactListSelector.Visibility = Visibility.Collapsed;
-                searchTextBox.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        /// <summary>
-        /// Called when selected changes.
-        /// </summary>
-        /// <param name="sender">Is a parameter called event sender.</param>
-        /// <param name="e">Cancel event args.</param>
-        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (contactPanel.Visibility == Visibility.Visible)
-            {
-                contactPanel.Visibility = Visibility.Collapsed;
-                contactListSelector.Visibility = Visibility.Visible;
-                searchTextBox.Visibility = Visibility.Visible;
+                PhoneApplicationService.Current.State["SelectedContact"] = selectedContact;
+                NavigationService.Navigate(new Uri("/ContactInfoPage.xaml", UriKind.Relative));
                 contactListSelector.SelectedItem = null;
-                e.Cancel = true;
             }
-        }
-
-        /// <summary>
-        /// Called when click to Call button.
-        /// </summary>
-        /// <param name="sender">Is a parameter called event sender.</param>
-        /// <param name="e">Cancel event args.</param>
-        private void CallButton_Click(object sender, RoutedEventArgs e)
-        {
-            var selectContact = contactListSelector.SelectedItem as Contact;
-            NativeFunctions.CallNumber(selectContact.Phone, selectContact.FullName);
-        }
-
-        /// <summary>
-        /// Called when click to Add Contact button.
-        /// </summary>
-        /// <param name="sender">Is a parameter called event sender.</param>
-        /// <param name="e">Cancel event args.</param>
-        private void AddContactButton_Click(object sender, RoutedEventArgs e)
-        {
-            var selectContact = contactListSelector.SelectedItem as Contact;
-            NativeFunctions.AddContactPeopleHub(selectContact);
         }
 
         /// <summary>
