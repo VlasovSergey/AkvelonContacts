@@ -5,7 +5,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:AkvelonContacts.WindowsPhone"
+    xmlns:local="clr-namespace:AkvelonContacts.WindowsPhone" 
+    x:Name="phoneApplicationPage"
     x:Class="AkvelonContacts.WindowsPhone.MainPage"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -67,10 +68,50 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Name="ShowSearch">
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBlock">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Collapsed</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="searchTextBox">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Visible</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="searchTextBox">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="-100"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+        	</DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="HideSearch">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="searchTextBox">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-100"/>
+        	</DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBlock">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="searchTextBox">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Collapsed</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
     </phone:PhoneApplicationPage.Resources>
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="False" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="Search"/>
+        <shell:ApplicationBar IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="Search" Click="ApplicationBarIconButton_Click" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -79,23 +120,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="75"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
             <TextBox
+                Visibility="Collapsed"
                 Grid.Row="0"
                 Name="searchTextBox"
                 TextChanged="SearchTextBox_TextChanged"
                 Text="Search"
                 Foreground="Gray" 
                 GotFocus="SearchTextBox_GotFocus"
-                LostFocus="SearchTextBox_LostFocus" />
+                LostFocus="SearchTextBox_LostFocus" RenderTransformOrigin="0.5,0.5" Margin="0,25,0,0" Height="70" >
+            	<TextBox.RenderTransform>
+            		<CompositeTransform/>
+            	</TextBox.RenderTransform>
+            </TextBox>
+            <TextBlock x:Name="textBlock" Text="page name" Style="{StaticResource PhoneTextTitle1Style}" Height="95"/>
+        </StackPanel>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:LongListSelector
-                Grid.Row="1"
                 x:Name="contactListSelector"
                 Background="Transparent"
                 JumpListStyle="{StaticResource AddrBookJumpListStyle}"
@@ -104,7 +145,7 @@
                 GroupHeaderTemplate="{StaticResource AddrBookGroupHeaderTemplate}"
                 SelectionChanged="ContactListBox_SelectionChanged" 
                 IsGroupingEnabled="True"
-                HideEmptyGroups="True"
+                HideEmptyGroups="True" 
                 />
         </Grid>
     </Grid>

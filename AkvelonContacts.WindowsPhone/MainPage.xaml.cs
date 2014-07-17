@@ -135,6 +135,24 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
+        /// Called when the button is clicked, search.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        {
+            if (searchTextBox.Visibility == Visibility.Collapsed)
+            {
+                ShowSearch.Begin();
+            }
+            else
+            {
+                searchTextBox.Text = string.Empty;
+                HideSearch.Begin();
+            }
+        }
+
+        /// <summary>
         /// Helper class for Grouping.
         /// </summary>
         /// <typeparam name="T">Type for grouping.</typeparam>
