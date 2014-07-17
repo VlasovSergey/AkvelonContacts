@@ -25,7 +25,7 @@ namespace AkvelonContacts.Common
         {
             var c = new Contact();
 
-            c.Dislocation = (string)jo["Description"];
+            c.Dislocation = (string)jo["Dislocation"];
             c.FirstName = (string)jo["FirstName"];
             c.Id = (string)jo["Id"];
             c.LastName = (string)jo["LastName"];
