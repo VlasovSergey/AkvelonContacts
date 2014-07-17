@@ -22,6 +22,11 @@ namespace AkvelonContacts.WindowsPhone
     public partial class ContactInfoPage : PhoneApplicationPage
     {
         /// <summary>
+        /// Selected contact.
+        /// </summary>
+        private Contact contact;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ContactInfoPage" /> class.
         /// </summary>
         public ContactInfoPage()
@@ -37,10 +42,10 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (PhoneApplicationService.Current.State.ContainsKey("SelectedContact"))
             {
-                var contact = (Contact)PhoneApplicationService.Current.State["SelectedContact"];
-                this.DataContext = contact;
+                this.contact = (Contact)PhoneApplicationService.Current.State["SelectedContact"];
+                this.DataContext = this.contact;
 
-                if (contact.Phone == string.Empty || contact.Phone == null)
+                if (this.contact.Phone == string.Empty || this.contact.Phone == null)
                 {
                     callButton.Visibility = Visibility.Collapsed;
                 }
@@ -56,8 +61,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void CallButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectContact = this.DataContext as Contact;
-            NativeFunctions.CallNumber(selectContact.Phone, selectContact.FullName);
+            NativeFunctions.CallNumber(this.contact.Phone, this.contact.FullName);
         }
 
         /// <summary>
@@ -67,8 +71,27 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void AddContactButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectContact = this.DataContext as Contact;
-            NativeFunctions.AddContactPeopleHub(selectContact);
+            NativeFunctions.AddContactPeopleHub(this.contact);
+        }
+
+        /// <summary>
+        /// Shows the Messaging application.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void SendSMS_Click(object sender, RoutedEventArgs e)
+        {
+            NativeFunctions.SendSMS(this.contact.Phone);
+        }
+
+        /// <summary>
+        /// Shows the email application with a new message displayed.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void SendEmail_Click(object sender, RoutedEventArgs e)
+        {
+            NativeFunctions.SendEmail(this.contact.Mail);
         }
     }
 }

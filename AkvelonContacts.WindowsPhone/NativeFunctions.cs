@@ -38,14 +38,40 @@ namespace AkvelonContacts.WindowsPhone
         public static void AddContactPeopleHub(Contact c)
         {
             var saveContactTask = new SaveContactTask();
-            
+
             saveContactTask.FirstName = c.FirstName;
             saveContactTask.Company = "Akvelon";
             saveContactTask.LastName = c.LastName;
             saveContactTask.MobilePhone = c.Phone;
             saveContactTask.WorkEmail = c.Mail;
-            
+
             saveContactTask.Show();
+        }
+
+        /// <summary>
+        /// Shows the Messaging application. 
+        /// </summary>
+        /// <param name="number">The recipient list for the new SMS message.</param>
+        public static void SendSMS(string number)
+        {
+            SmsComposeTask smsComposeTask = new SmsComposeTask();
+
+            smsComposeTask.To = number;
+
+            smsComposeTask.Show();
+        }
+
+        /// <summary>
+        /// Shows the email application with a new message displayed.
+        /// </summary>
+        /// <param name="email">The recipients on the To line of the new email message.</param>
+        public static void SendEmail(string email)
+        {
+            EmailComposeTask emailComposeTask = new EmailComposeTask();
+
+            emailComposeTask.To = email;
+
+            emailComposeTask.Show();
         }
     }
 }
