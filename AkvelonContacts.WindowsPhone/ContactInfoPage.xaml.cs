@@ -37,7 +37,13 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (PhoneApplicationService.Current.State.ContainsKey("SelectedContact"))
             {
-                this.DataContext = (Contact)PhoneApplicationService.Current.State["SelectedContact"];
+                var contact = (Contact)PhoneApplicationService.Current.State["SelectedContact"];
+                this.DataContext = contact;
+
+                if (contact.Phone == string.Empty || contact.Phone == null)
+                {
+                    callButton.Visibility = Visibility.Collapsed;
+                }
             }
 
             base.OnNavigatedTo(e);
