@@ -34,7 +34,6 @@
             </toolkit:NavigationOutTransition.Forward>
         </toolkit:NavigationOutTransition>
     </toolkit:TransitionService.NavigationOutTransition>
-
     <phone:PhoneApplicationPage.Resources>
         <local:PhotoPathConverter x:Key="PhotoPathConverter"></local:PhotoPathConverter>
     </phone:PhoneApplicationPage.Resources>
@@ -46,19 +45,18 @@
         </Grid.RowDefinitions>
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="{Binding FullName}" Margin="15,-7,0,0" FontSize="40"/>
         </StackPanel>
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
-                <Image Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="100" Width="100" HorizontalAlignment="Left"/>
-                <TextBlock Text="{Binding FirstName, StringFormat='FirstName: {0}'}"></TextBlock>
-                <TextBlock Text="{Binding LastName, StringFormat='LastName: {0}'}"></TextBlock>
-                <TextBlock Text="{Binding Phone, StringFormat='Phone: {0}'}"></TextBlock>
-                <TextBlock Text="{Binding Skype, StringFormat='Skype: {0}'}"></TextBlock>
-                <TextBlock Text="{Binding Mail, StringFormat='Mail: {0}'}"></TextBlock>
-                <TextBlock Text="{Binding Dislocation, StringFormat='Dislocation: {0}'}"></TextBlock>
+                <Image Margin="0 5 15 0" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="150" Width="150" HorizontalAlignment="Left"/>
+                <TextBlock Margin="15 5 15 0" FontSize="30" Text="{Binding FirstName, StringFormat='FirstName: {0}'}"></TextBlock>
+                <TextBlock Margin="15 5 15 0" FontSize="30"  Text="{Binding LastName, StringFormat='LastName: {0}'}"></TextBlock>
+                <TextBlock Margin="15 5 15 0" FontSize="30"  Text="{Binding Phone, StringFormat='Phone: {0}'}"></TextBlock>
+                <TextBlock Margin="15 5 15 0" FontSize="25"  Text="{Binding Skype, StringFormat='Skype: {0}'}" ></TextBlock>
+                <TextBlock Margin="15 5 15 0" FontSize="25"  Text="{Binding Mail, StringFormat='Mail: {0}'}" ></TextBlock>
+                <TextBlock Margin="15 5 15 0" FontSize="25"  Text="{Binding Dislocation, StringFormat='Dislocation: {0}'}" ></TextBlock>
                 <Button Name="callButton" Content="Call" Click="CallButton_Click"></Button>
                 <Button Name="addContactButton" Content="Add to contact" Click="AddContactButton_Click" ></Button>
             </StackPanel>
