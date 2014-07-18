@@ -44,7 +44,7 @@ namespace AkvelonContacts.WindowsPhone
             {
                 this.contact = (Contact)PhoneApplicationService.Current.State["SelectedContact"];
                 this.DataContext = this.contact;
-
+                
                 if (this.contact.Phone == string.Empty || this.contact.Phone == null)
                 {
                     callButton.Visibility = Visibility.Collapsed;

@@ -7,15 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using AkvelonContacts.Common;
-using AkvelonContacts.WindowsPhone.Resources;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Globalization;
 using Microsoft.Phone.Shell;
@@ -45,7 +41,7 @@ namespace AkvelonContacts.WindowsPhone
             this.InitializeComponent();
             this.applicationCtrl = new ApplicationController();
 
-            this.applicationCtrl.LoadContactList(
+            this.applicationCtrl.GetContacts(
                 (contactList) =>
                 {
                     Dispatcher.BeginInvoke(() =>
@@ -92,11 +88,14 @@ namespace AkvelonContacts.WindowsPhone
         private void ContactListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedContact = (Contact)contactListSelector.SelectedItem;
-            if (selectedContact != null)
+
+            if (selectedContact == null)
             {
-                PhoneApplicationService.Current.State["SelectedContact"] = selectedContact;
-                NavigationService.Navigate(new Uri("/ContactInfoPage.xaml", UriKind.Relative));
+                return;
             }
+
+            PhoneApplicationService.Current.State["SelectedContact"] = selectedContact;
+            NavigationService.Navigate(new Uri("/ContactInfoPage.xaml", UriKind.Relative));
         }
 
         /// <summary>
@@ -191,7 +190,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
-            ((TextBlock)((Grid)sender).FindName("itemNameTextBlock")).Foreground = null;
+            ((TextBlock)((Grid)sender).FindName("itemNameTextBlock")).Foreground = new SolidColorBrush((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color);
         }
 
         /// <summary>

@@ -56,7 +56,21 @@ namespace AkvelonContacts.Android
 
             this.contactListView = this.FindViewById<ListView>(Resource.Id.contactListView);
 
+            this.applicationCtrl.GetContacts(
+                (contactList) => {
+                    this.contactList = contactList;
+                    this.DisplayContactList(this.contactList);
+                    
+                },
+                (contact) => {
+                }
+                );
             this.LoadAndShowContactList();
+        }
+
+        private void DisplayContactList(List<Contact> contactList)
+        {
+            this.BindContactList(contactList, this.contactListView);
         }
 
         /// <summary>
@@ -94,8 +108,7 @@ namespace AkvelonContacts.Android
         {
             this.RunOnUiThread(() =>
             {
-                this.contactList = contactList;
-                var listAdapter = new ContactScreenAdapter(this, this.contactList);
+                var listAdapter = new ContactScreenAdapter(this, contactList);
                 contactListView.Adapter = listAdapter;
                 listAdapter.NotifyDataSetChanged();
             });
@@ -105,7 +118,7 @@ namespace AkvelonContacts.Android
         /// Gets availability for Internet.
         /// </summary>
         /// <returns>Availability for Internet.</returns>
-        private bool IsAvailableInternet() 
+        private bool IsAvailableInternet()
         {
             var connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
 
@@ -113,7 +126,7 @@ namespace AkvelonContacts.Android
 
             return (activeConnection != null) && activeConnection.IsConnected;
         }
-        
+
         /// <summary>
         /// Class adapter for communications ContactListView with Contacts List of.
         /// </summary>

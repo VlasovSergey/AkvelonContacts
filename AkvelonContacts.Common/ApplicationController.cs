@@ -103,15 +103,13 @@ namespace AkvelonContacts.Common
         /// <returns>Contacts list.</returns>
         public List<Contact> LoadLocalContactList()
         {
-            if (StorageController.FileExists(JsonLocalName))
-            {
-                var json = StorageController.ReadString(JsonLocalName);
-                return (new ContactsJsonParser()).GetListFromJsonArray(json);
-            }
-            else
+            if (!StorageController.FileExists(JsonLocalName))
             {
                 return new List<Contact>();
             }
+
+            var json = StorageController.ReadString(JsonLocalName);
+            return (new ContactsJsonParser()).GetListFromJsonArray(json);
         }
 
         /// <summary>
@@ -124,27 +122,27 @@ namespace AkvelonContacts.Common
             foreach (var contact in contactList)
             {
                 var photoPath = ImagesDirectoryName + contact.Id + ".jpeg";
+
                 if (StorageController.FileExists(photoPath))
                 {
                     onLoadPhoto(contact);
+                    return;
                 }
-                else
-                {
-                    var contactPhotoUrl = this.photosStoreUrl + contact.Id;
-                    FileDownloader.DownloadFileAsync(
-                        contactPhotoUrl,
-                        (stream) =>
-                        {
-                            if (!StorageController.DirectoryExists(ImagesDirectoryName))
-                            {
-                                StorageController.CreateDirectory(ImagesDirectoryName);
-                            }
 
-                            StorageController.WriteStream(photoPath, stream);
-                            var c = contact;
-                            onLoadPhoto(contact);
-                        });
-                }
+                var contactPhotoUrl = this.photosStoreUrl + contact.Id;
+                FileDownloader.DownloadFileAsync(
+                    contactPhotoUrl,
+                    (stream) =>
+                    {
+                        if (!StorageController.DirectoryExists(ImagesDirectoryName))
+                        {
+                            StorageController.CreateDirectory(ImagesDirectoryName);
+                        }
+
+                        StorageController.WriteStream(photoPath, stream);
+                        var c = contact;
+                        onLoadPhoto(contact);
+                    });
             }
         }
 
@@ -153,23 +151,18 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="action">Action when contact list is loaded without Photo.</param>
         /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
-        public void LoadContactList(Action<List<Contact>> action, Action<Contact> onLoadPhoto)
+        public void GetContacts(Action<List<Contact>> action, Action<Contact> onLoadPhoto)
         {
             if (NetworkInterface.GetIsNetworkAvailable())
             {
                 this.DownloadContactList(
                     (List<Contact> result) =>
                     {
-                        if (result == null)
-                        {
-                            action(this.LoadLocalContactList());
-                        }
-                        else
-                        {
-                            action(result);
-                        }
+                        List<Contact> contactList = result == null ? this.LoadLocalContactList() : result;
 
                         this.LoadPhotos(result, onLoadPhoto);
+
+                        action(result);
                     });
             }
             else
