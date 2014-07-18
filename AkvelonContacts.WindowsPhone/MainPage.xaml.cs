@@ -61,6 +61,15 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
+        /// Called when a page becomes the active page in a frame.
+        /// </summary>
+        /// <param name="e">Cancel event args.</param>
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            contactListSelector.SelectedItem = null;
+        }
+
+        /// <summary>
         /// Displays contact list.
         /// </summary>
         /// <param name="contactList">Contact list for display.</param>
@@ -165,9 +174,24 @@ namespace AkvelonContacts.WindowsPhone
             }
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        /// <summary>
+        /// Called when a touch element.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            contactListSelector.SelectedItem = null;
+            ((Grid)sender).Background = new SolidColorBrush((App.Current.Resources["PhoneAccentBrush"] as SolidColorBrush).Color);
+        }
+
+        /// <summary>
+        /// Called when the element is removed touch.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((Grid)sender).Background = null;
         }
 
         /// <summary>

@@ -38,7 +38,7 @@
     <phone:PhoneApplicationPage.Resources>
         <local:PhotoPathConverter x:Key="PhotoPathConverter"></local:PhotoPathConverter>
         <DataTemplate x:Key="ContactListItemTemplate">
-            <Grid Height="60" Margin="15 10 10 10">
+            <Grid Height="60" Margin="15 10 10 10" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="1*"/>
@@ -157,9 +157,9 @@
                 ItemTemplate="{StaticResource ContactListItemTemplate}"
                 LayoutMode="List"
                 GroupHeaderTemplate="{StaticResource ContactListGroupHeaderTemplate}"
-                SelectionChanged="ContactListBox_SelectionChanged" 
+                SelectionChanged="ContactListBox_SelectionChanged"
                 IsGroupingEnabled="True"
-                HideEmptyGroups="True" 
+                HideEmptyGroups="True"
                 />
         </Grid>
     </Grid>
