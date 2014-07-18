@@ -36,6 +36,18 @@
     </toolkit:TransitionService.NavigationOutTransition>
     <phone:PhoneApplicationPage.Resources>
         <local:PhotoPathConverter x:Key="PhotoPathConverter"></local:PhotoPathConverter>
+        <Style x:Key="TextBoxReadOnlyStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <ContentControl x:Name="ContentElement" BorderThickness="0" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}"></Setter>
+            <Setter Property="IsReadOnly" Value="True"></Setter>
+        </Style>
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -53,19 +65,19 @@
                 <Image Margin="15 5 15 0" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="150" Width="150" HorizontalAlignment="Left"/>
                 <StackPanel  Margin="15 5 15 0" Orientation="Horizontal">
                     <TextBlock Text="Phone: " FontSize="25"></TextBlock>
-                    <TextBlock Foreground="{StaticResource PhoneAccentBrush}" FontSize="25"  Text="{Binding Phone}"></TextBlock>
+                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Phone}"></TextBox>
                 </StackPanel>
                 <StackPanel  Margin="15 5 15 0" Orientation="Horizontal">
                     <TextBlock Text="Skype: " FontSize="25"></TextBlock>
-                    <TextBlock Foreground="{StaticResource PhoneAccentBrush}" FontSize="25"  Text="{Binding Skype}" ></TextBlock>
+                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Skype}"></TextBox>
                 </StackPanel>
                 <StackPanel Margin="15 5 15 0" Orientation="Horizontal">
                     <TextBlock Text="Mail: " FontSize="25"></TextBlock>
-                    <TextBlock Foreground="{StaticResource PhoneAccentBrush}" FontSize="25"  Text="{Binding Mail}" ></TextBlock>
+                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Mail}"></TextBox>
                 </StackPanel>
                 <StackPanel Margin="15 5 15 0" Orientation="Horizontal">
                     <TextBlock Text="Dislocation: " FontSize="25" ></TextBlock>
-                    <TextBlock Foreground="{StaticResource PhoneAccentBrush}" FontSize="25" Text="{Binding Dislocation}"></TextBlock>
+                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Dislocation}"></TextBox>
                 </StackPanel>
                 <Button Name="callButton" Content="Call" Click="CallButton_Click"></Button>
                 <Button Name="addContactButton" Content="Add to contact" Click="AddContactButton_Click" ></Button>
