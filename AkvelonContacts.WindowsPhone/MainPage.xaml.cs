@@ -111,8 +111,9 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (searchTextBox.Text == string.Empty || (FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(this.searchTextBox)))
             {
+                var searchTexe = searchTextBox.Text;
                 var newList = this.contactList.Where(
-                    item => item.FullName.IndexOf(searchTextBox.Text, System.StringComparison.OrdinalIgnoreCase) >= 0).ToList<Contact>();
+                    item => (item.Mail != null && item.Mail.IndexOf(searchTexe, System.StringComparison.OrdinalIgnoreCase) >= 0) || item.FullName.IndexOf(searchTexe, System.StringComparison.OrdinalIgnoreCase) >= 0).ToList<Contact>();
                 this.DisplayContactList(newList);
             }
         }
