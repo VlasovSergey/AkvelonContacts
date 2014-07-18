@@ -181,7 +181,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            ((Grid)sender).Background = new SolidColorBrush((App.Current.Resources["PhoneAccentBrush"] as SolidColorBrush).Color);
+            ((TextBlock)((Grid)sender).FindName("itemNameTextBlock")).Foreground = new SolidColorBrush((App.Current.Resources["PhoneAccentBrush"] as SolidColorBrush).Color);
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
-            ((Grid)sender).Background = null;
+            ((TextBlock)((Grid)sender).FindName("itemNameTextBlock")).Foreground = null;
         }
 
         /// <summary>

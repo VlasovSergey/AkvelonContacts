@@ -38,15 +38,13 @@
     <phone:PhoneApplicationPage.Resources>
         <local:PhotoPathConverter x:Key="PhotoPathConverter"></local:PhotoPathConverter>
         <DataTemplate x:Key="ContactListItemTemplate">
-            <Grid Height="60" Margin="15 10 10 10" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" >
+            <Grid Height="60" Margin="15 10 10 10" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="{Binding Id, Converter = {StaticResource PhotoPathConverter}}"></Image>
-                <StackPanel Margin="10 0 0 0" Grid.Column="1" >
-                    <TextBlock FontSize="35" Text="{Binding FullName}" ></TextBlock>
-                </StackPanel>
+                <TextBlock Name="itemNameTextBlock"  Margin="10 0 0 0" Grid.Column="1"  FontSize="35" Text="{Binding FullName}"></TextBlock>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="ContactListGroupHeaderTemplate">
@@ -72,7 +70,7 @@
         <phone:JumpListItemForegroundConverter x:Key="ForegroundConverter"/>
         <Style x:Key="ContactListJumpListStyle" TargetType="phone:LongListSelector">
             <Setter Property="GridCellSize"  Value="113,113"/>
-            <Setter Property="LayoutMode" Value="Grid" />
+            <Setter Property="LayoutMode" Value="Grid"/>
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate>
