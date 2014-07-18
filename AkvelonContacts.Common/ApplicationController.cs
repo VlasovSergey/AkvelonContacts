@@ -22,17 +22,22 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Name for save to local storage.
         /// </summary>
-        private const string JsonLocalName = "AppData\\ContactList.json";
+        private const string JsonLocalName = "ContactList.json";
 
         /// <summary>
-        /// Name of the directory to store the image of the application.
+        /// Name of the directory to store the data of the application.
         /// </summary>
         private const string AppDataDirectoryName = "AppData\\";
 
         /// <summary>
         /// Name of the directory to store the image of the application.
         /// </summary>
-        private const string ImagesDirectoryName = "AppData\\images\\";
+        private const string ImagesDirectoryName = "images\\";
+
+        /// <summary>
+        /// Default images Extensions.
+        /// </summary>
+        private const string DefaultImageExtensions = ".jpeg";
 
         /// <summary>
         /// Url for photos download.
@@ -47,7 +52,7 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Gets or sets the Url for download contact list.
         /// </summary>
-        public string Url
+        private string Url
         {
             get
             {
@@ -67,14 +72,67 @@ namespace AkvelonContacts.Common
         /// <returns>Photo physical path.</returns>
         public static string GetPhotoPathByClientId(string id)
         {
-            return StorageController.GetPhysicalPathForLocalFilePath(ImagesDirectoryName + id + ".jpeg");
+            return StorageController.GetPhysicalPathForLocalFilePath(GetImagePathById(id));
+        }
+
+        /// <summary>
+        /// Loads contact list.
+        /// </summary>
+        /// <param name="action">Action when contact list is loaded without Photo.</param>
+        /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
+        public void GetContacts(Action<List<Contact>> action, Action<Contact> onLoadPhoto)
+        {
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                this.DownloadContactList(
+                    (List<Contact> result) =>
+                    {
+                        List<Contact> contactList = result == null ? this.LoadLocalContactList() : result;
+                        this.LoadPhotos(result, onLoadPhoto);
+                        action(result);
+                    });
+            }
+            else
+            {
+                var contacts = this.LoadLocalContactList();
+                action(contacts);
+                //this.LoadPhotos(contacts, onLoadPhoto);
+            }
+        }
+
+        /// <summary>
+        /// Gets path for image by id.
+        /// </summary>
+        /// <param name="id">Id for image path generate.</param>
+        /// <returns>Path for directory for images.</returns>
+        private static string GetImagePathById(string id)
+        {
+            return GetDirrectoryNameforImages() + id + DefaultImageExtensions;
+        }
+
+        /// <summary>
+        /// Gets path for directory for images.
+        /// </summary>
+        /// <returns>Path for directory for images.</returns>
+        private static string GetDirrectoryNameforImages()
+        {
+            return AppDataDirectoryName + ImagesDirectoryName;
+        }
+
+        /// <summary>
+        /// Gets path for directory for JSON file with contact list.
+        /// </summary>
+        /// <returns>Path for directory for JSON file with contact list.</returns>
+        private static string GetPathContactListJson()
+        {
+            return AppDataDirectoryName + JsonLocalName;
         }
 
         /// <summary>
         /// Gets Contacts list.
         /// </summary>
         /// <param name="action">Action when the result came.</param>
-        public void DownloadContactList(Action<List<Contact>> action)
+        private void DownloadContactList(Action<List<Contact>> action)
         {
             FileDownloader.DownloadFileAsStringAsync(
                 this.url,
@@ -93,7 +151,7 @@ namespace AkvelonContacts.Common
                         StorageController.CreateDirectory(AppDataDirectoryName);
                     }
 
-                    StorageController.WriteString(JsonLocalName, result);
+                    StorageController.WriteString(GetPathContactListJson(), result);
                 });
         }
 
@@ -101,14 +159,14 @@ namespace AkvelonContacts.Common
         /// Loads contacts list from local storage.
         /// </summary>
         /// <returns>Contacts list.</returns>
-        public List<Contact> LoadLocalContactList()
+        private List<Contact> LoadLocalContactList()
         {
-            if (!StorageController.FileExists(JsonLocalName))
+            if (!StorageController.FileExists(GetPathContactListJson()))
             {
                 return new List<Contact>();
             }
 
-            var json = StorageController.ReadString(JsonLocalName);
+            var json = StorageController.ReadString(GetPathContactListJson());
             return (new ContactsJsonParser()).GetListFromJsonArray(json);
         }
 
@@ -117,59 +175,32 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="contactList">Contact list.</param>
         /// <param name="onLoadPhoto">Action is called every time any photo loaded. Returns the contact which has been downloaded photo.</param>
-        public void LoadPhotos(List<Contact> contactList, Action<Contact> onLoadPhoto)
+        private void LoadPhotos(List<Contact> contactList, Action<Contact> onLoadPhoto)
         {
             foreach (var contact in contactList)
             {
-                var photoPath = ImagesDirectoryName + contact.Id + ".jpeg";
-
+                var photoPath = GetImagePathById(contact.Id);
+                /*
                 if (StorageController.FileExists(photoPath))
                 {
                     onLoadPhoto(contact);
                     return;
                 }
-
+                */
                 var contactPhotoUrl = this.photosStoreUrl + contact.Id;
                 FileDownloader.DownloadFileAsync(
                     contactPhotoUrl,
                     (stream) =>
                     {
-                        if (!StorageController.DirectoryExists(ImagesDirectoryName))
+                        if (!StorageController.DirectoryExists(GetDirrectoryNameforImages()))
                         {
-                            StorageController.CreateDirectory(ImagesDirectoryName);
+                            StorageController.CreateDirectory(GetDirrectoryNameforImages());
                         }
 
                         StorageController.WriteStream(photoPath, stream);
                         var c = contact;
                         onLoadPhoto(contact);
                     });
-            }
-        }
-
-        /// <summary>
-        /// Loads contact list.
-        /// </summary>
-        /// <param name="action">Action when contact list is loaded without Photo.</param>
-        /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
-        public void GetContacts(Action<List<Contact>> action, Action<Contact> onLoadPhoto)
-        {
-            if (NetworkInterface.GetIsNetworkAvailable())
-            {
-                this.DownloadContactList(
-                    (List<Contact> result) =>
-                    {
-                        List<Contact> contactList = result == null ? this.LoadLocalContactList() : result;
-
-                        this.LoadPhotos(result, onLoadPhoto);
-
-                        action(result);
-                    });
-            }
-            else
-            {
-                var contacts = this.LoadLocalContactList();
-                action(contacts);
-                this.LoadPhotos(contacts, onLoadPhoto);
             }
         }
     }
