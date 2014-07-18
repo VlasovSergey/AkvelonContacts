@@ -39,6 +39,9 @@ namespace AkvelonContacts.WindowsPhone
         public MainPage()
         {
             this.InitializeComponent();
+
+            progressBar.Visibility = Visibility.Visible;
+
             this.applicationCtrl = new ApplicationController();
 
             this.applicationCtrl.GetContacts(
@@ -48,6 +51,7 @@ namespace AkvelonContacts.WindowsPhone
                     {
                         this.contactList = contactList;
                         DisplayContactList(this.contactList);
+                        progressBar.Visibility = Visibility.Collapsed;
                     });
                 },
                 (contact) =>

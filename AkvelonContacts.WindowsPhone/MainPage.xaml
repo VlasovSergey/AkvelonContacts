@@ -131,6 +131,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <ProgressBar Grid.Row="1" IsIndeterminate="true" x:Name="progressBar" Visibility="Collapsed"></ProgressBar>
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBox
                 Visibility="Collapsed"
