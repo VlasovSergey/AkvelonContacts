@@ -87,7 +87,6 @@ namespace AkvelonContacts.WindowsPhone
             {
                 PhoneApplicationService.Current.State["SelectedContact"] = selectedContact;
                 NavigationService.Navigate(new Uri("/ContactInfoPage.xaml", UriKind.Relative));
-                contactListSelector.SelectedItem = null;
             }
         }
 
@@ -164,6 +163,11 @@ namespace AkvelonContacts.WindowsPhone
                 HideSearch.Begin();
                 e.Cancel = true;
             }
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            contactListSelector.SelectedItem = null;
         }
 
         /// <summary>
