@@ -23,11 +23,11 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         /// <param name="phoneNumber">Phone number for call.</param>
         /// <param name="displayName">Name that is displayed when the Phone application is launched.</param>
-        public static void CallNumber(string phoneNumber, string displayName)
+        public static void CallNumber(Contact contact)
         {
             var call = new PhoneCallTask();
-            call.PhoneNumber = phoneNumber;
-            call.DisplayName = displayName;
+            call.PhoneNumber = contact.Phone;
+            call.DisplayName = contact.FullName;
             call.Show();
         }
 
@@ -52,11 +52,11 @@ namespace AkvelonContacts.WindowsPhone
         /// Shows the Messaging application. 
         /// </summary>
         /// <param name="number">The recipient list for the new SMS message.</param>
-        public static void SendSMS(string number)
+        public static void SendSMS(Contact contact)
         {
             SmsComposeTask smsComposeTask = new SmsComposeTask();
 
-            smsComposeTask.To = number;
+            smsComposeTask.To = contact.Phone;
 
             smsComposeTask.Show();
         }
@@ -65,11 +65,11 @@ namespace AkvelonContacts.WindowsPhone
         /// Shows the email application with a new message displayed.
         /// </summary>
         /// <param name="email">The recipients on the To line of the new email message.</param>
-        public static void SendEmail(string email)
+        public static void SendEmail(Contact contact)
         {
             EmailComposeTask emailComposeTask = new EmailComposeTask();
 
-            emailComposeTask.To = email;
+            emailComposeTask.To = contact.Mail;
 
             emailComposeTask.Show();
         }
