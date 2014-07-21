@@ -82,6 +82,8 @@ namespace AkvelonContacts.Common
         /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
         public void GetContacts(Action<List<Contact>> action, Action<Contact> onLoadPhoto)
         {
+            action(this.LoadLocalContactList());
+
             if (NetworkInterface.GetIsNetworkAvailable())
             {
                 this.DownloadContactList(
@@ -91,14 +93,6 @@ namespace AkvelonContacts.Common
                         this.LoadPhotos(result, onLoadPhoto);
                         action(result);
                     });
-            }
-            else
-            {
-                var contacts = this.LoadLocalContactList();
-                action(contacts);
-                /* 
-                this.LoadPhotos(contacts, onLoadPhoto);
-                */
             }
         }
 
