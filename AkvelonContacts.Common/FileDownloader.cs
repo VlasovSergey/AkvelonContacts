@@ -35,9 +35,11 @@ namespace AkvelonContacts.Common
                         return;
                     }
 
+                    string result;
                     StreamReader streamReader = new StreamReader(stream);
-                    action(streamReader.ReadToEnd());
+                    result = streamReader.ReadToEnd();
                     streamReader.Close();
+                    action(result);
                 });
         }
 
