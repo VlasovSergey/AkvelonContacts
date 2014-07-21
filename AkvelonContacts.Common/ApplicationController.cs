@@ -169,7 +169,7 @@ namespace AkvelonContacts.Common
         {
             if (!StorageController.FileExists(GetPathContactListJson()))
             {
-                return new List<Contact>();
+                return null;
             }
 
             var json = StorageController.ReadAsString(GetPathContactListJson());
