@@ -12,7 +12,6 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
@@ -44,9 +43,11 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
             <Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}"></Setter>
             <Setter Property="IsReadOnly" Value="True"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="Margin" Value="0 -5 0 0"></Setter>
         </Style>
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -56,26 +57,26 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel Grid.Row="0" Margin="12,15,0,15">
             <TextBlock Text="{Binding FullName}" Margin="15,-7,0,0" FontSize="40"/>
         </StackPanel>
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
-                <Image Margin="15 5 15 0" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="150" Width="150" HorizontalAlignment="Left"/>
-                <StackPanel  Margin="15 5 15 0" Orientation="Horizontal">
+                <Image Margin="15 5 15 0" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="130" Width="130" HorizontalAlignment="Left"/>
+                <StackPanel  Margin="15 5 15 0" Orientation="Vertical">
                     <TextBlock Text="Phone: " FontSize="25"></TextBlock>
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Phone}"></TextBox>
                 </StackPanel>
-                <StackPanel  Margin="15 5 15 0" Orientation="Horizontal">
+                <StackPanel  Margin="15 5 15 0" Orientation="Vertical">
                     <TextBlock Text="Skype: " FontSize="25"></TextBlock>
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Skype}"></TextBox>
                 </StackPanel>
-                <StackPanel Margin="15 5 15 0" Orientation="Horizontal">
+                <StackPanel Margin="15 5 15 0" Orientation="Vertical">
                     <TextBlock Text="Mail: " FontSize="25"></TextBlock>
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Mail}"></TextBox>
                 </StackPanel>
-                <StackPanel Margin="15 5 15 0" Orientation="Horizontal">
+                <StackPanel Margin="15 5 15 0" Orientation="Vertical">
                     <TextBlock Text="Dislocation: " FontSize="25" ></TextBlock>
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Dislocation}"></TextBox>
                 </StackPanel>
