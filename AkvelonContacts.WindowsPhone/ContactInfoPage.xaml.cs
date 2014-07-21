@@ -61,7 +61,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void CallButton_Click(object sender, RoutedEventArgs e)
         {
-            NativeFunctions.CallNumber(this.contact.Phone, this.contact.FullName);
+            CommunicationFunctions.CallNumber(this.contact.Phone, this.contact.FullName);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void AddContactButton_Click(object sender, RoutedEventArgs e)
         {
-            NativeFunctions.AddContactPeopleHub(this.contact);
+            CommunicationFunctions.AddContactPeopleHub(this.contact);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SendSMS_Click(object sender, RoutedEventArgs e)
         {
-            NativeFunctions.SendSMS(this.contact.Phone);
+            CommunicationFunctions.SendSMS(this.contact.Phone);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SendEmail_Click(object sender, RoutedEventArgs e)
         {
-            NativeFunctions.SendEmail(this.contact.Mail);
+            CommunicationFunctions.SendEmail(this.contact.Mail);
         }
     }
 }
