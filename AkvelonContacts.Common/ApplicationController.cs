@@ -96,7 +96,9 @@ namespace AkvelonContacts.Common
             {
                 var contacts = this.LoadLocalContactList();
                 action(contacts);
-                //this.LoadPhotos(contacts, onLoadPhoto);
+                /* 
+                this.LoadPhotos(contacts, onLoadPhoto);
+                */
             }
         }
 

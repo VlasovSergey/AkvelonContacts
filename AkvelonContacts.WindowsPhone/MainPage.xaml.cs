@@ -85,13 +85,12 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
-        /// Called when selected changes.
+        /// Navigates on contactInfoPage.
         /// </summary>
-        /// <param name="sender">Is a parameter called event sender.</param>
-        /// <param name="e">Selection changed event args.</param>
-        private void ContactListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <param name="c">Contact for page.</param>
+        private void NavigationOnContactInfoPage(Contact c)
         {
-            var selectedContact = (Contact)contactListSelector.SelectedItem;
+            var selectedContact = c;
 
             if (selectedContact == null)
             {
@@ -103,23 +102,93 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
+        /// Called when selected changes.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Selection changed event args.</param>
+        private void ContactListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.NavigationOnContactInfoPage((Contact)this.contactListSelector.SelectedItem);
+        }
+
+        /// <summary>
+        /// Finds contacts by text.
+        /// </summary>
+        /// <param name="searchText">Text for searching.</param>
+        /// <returns>Found contacts.</returns>
+        private List<Contact> FindContactsByText(string searchText)
+        {
+            var newList = this.contactList.Where(
+                item => (item.Mail != null && item.Mail.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0) || item.FullName.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0).ToList<Contact>();
+
+            return newList;
+        }
+
+        /// <summary>
+        /// Finds and displays contacts for text from textBox.
+        /// </summary>
+        /// <param name="tb">TextBox for searching.</param>
+        private void FindAndDisplayContactByTextBox(TextBox tb)
+        {
+            var focusElement = FocusManager.GetFocusedElement();
+
+            if (tb.Text != string.Empty && !(FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(tb)))
+            {
+                return;
+            }
+
+            var newList = this.FindContactsByText(tb.Text);
+            this.DisplayContactList(newList);
+        }
+
+        /// <summary>
+        /// Shows search panel with focus and hides application bar.
+        /// </summary>
+        /// <returns>Is method executed.</returns>
+        private bool ShowSearch()
+        {
+            this.ApplicationBar.IsVisible = false;
+
+            if (searchTextBox.Visibility != Visibility.Collapsed)
+            {
+                return false;
+            }
+
+            ShowSearchBox.Begin();
+            searchTextBox.Visibility = Visibility.Visible;
+            searchTextBox.Focus();
+            return true;
+        }
+
+        /// <summary>
+        /// Hides search panel with focus and shows application bar.
+        /// </summary>
+        /// <returns>Is method executed.</returns>
+        private bool HideSearch()
+        {
+            if (searchTextBox.Visibility != Visibility.Visible)
+            {
+                return false;
+            }
+
+            searchTextBox.Text = string.Empty;
+            this.ApplicationBar.IsVisible = true;
+            HideSearchBox.Begin();
+            return true;
+        }
+
+        /// <summary>
         /// Called when change search field.
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
         /// <param name="e">Cancel event args.</param>
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (searchTextBox.Text == string.Empty || (FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(this.searchTextBox)))
-            {
-                var searchTexe = searchTextBox.Text;
-                var newList = this.contactList.Where(
-                    item => (item.Mail != null && item.Mail.IndexOf(searchTexe, System.StringComparison.OrdinalIgnoreCase) >= 0) || item.FullName.IndexOf(searchTexe, System.StringComparison.OrdinalIgnoreCase) >= 0).ToList<Contact>();
-                this.DisplayContactList(newList);
-            }
+            this.FindAndDisplayContactByTextBox(this.searchTextBox);
         }
 
         /// <summary>
-        /// The foreground color of the text in searchTextBox is set to Magenta when searchTextBox.
+        /// Removes text "Search" when searchTextBox gets focus.
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
         /// <param name="e">Cancel event args.</param>
@@ -132,8 +201,7 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
-        /// he foreground color of the text in searchTextBox is set to Blue when searchTextBox
-        /// loses focus. Also, if SearchTB loses focus and no text is entered, the
+        /// If SearchTB loses focus and no text is entered, the
         /// text "Search" is displayed.
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
@@ -153,13 +221,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SearchBar_Click(object sender, EventArgs e)
         {
-            this.ApplicationBar.IsVisible = false;
-            if (searchTextBox.Visibility == Visibility.Collapsed)
-            {
-                ShowSearch.Begin();
-                searchTextBox.Visibility = Visibility.Visible;
-                searchTextBox.Focus();
-            }
+            this.ShowSearch();
         }
 
         /// <summary>
@@ -169,11 +231,8 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (searchTextBox.Visibility == Visibility.Visible)
+            if (this.HideSearch())
             {
-                searchTextBox.Text = string.Empty;
-                this.ApplicationBar.IsVisible = true;
-                HideSearch.Begin();
                 e.Cancel = true;
             }
         }

@@ -48,6 +48,7 @@ namespace AkvelonContacts.Common
         /// <param name="action">Action when download complete.</param>
         public static void DownloadFileAsync(string url, Action<Stream> action)
         {
+            Stream loadedContactList;
             var httpReq = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
             httpReq.BeginGetResponse(
                 (ar) =>
@@ -57,8 +58,10 @@ namespace AkvelonContacts.Common
                         var request = (HttpWebRequest)ar.AsyncState;
                         using (var response = (HttpWebResponse)request.EndGetResponse(ar))
                         {
-                            action(response.GetResponseStream());
+                            loadedContactList = response.GetResponseStream();  
                         }
+
+                        action(loadedContactList);
                     }
                     catch
                     {

@@ -93,16 +93,14 @@ namespace AkvelonContacts.Common
         /// <returns>Physical path.</returns>
         public static string GetPhysicalPathForLocalFilePath(string filePath)
         {
-            string physicalPath = null;
-
-            if (FileExists(filePath))
+            if (!FileExists(filePath))
             {
-                IsolatedStorageFileStream s = new IsolatedStorageFileStream(filePath, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
-                s.Close();
-                physicalPath = s.Name;
+                return null;
             }
 
-            return physicalPath;
+            IsolatedStorageFileStream s = new IsolatedStorageFileStream(filePath, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
+            s.Close();
+            return s.Name;
         }
 
         /// <summary>

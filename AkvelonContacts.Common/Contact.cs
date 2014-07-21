@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace AkvelonContacts.Common
 {
     /// <summary>
-    ///  Stores data for contact.
+    /// Stores data for contact.
     /// </summary>
     public class Contact
     {
