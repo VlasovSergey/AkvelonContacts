@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="NativeFunctions.cs" company="Akvelon">
+// <copyright file="CommunicationFunctions.cs" company="Akvelon">
 //     Copyright (c) Akvelon. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -21,9 +21,8 @@ namespace AkvelonContacts.WindowsPhone
         /// <summary>
         /// Calls to a phone number.
         /// </summary>
-        /// <param name="phoneNumber">Phone number for call.</param>
-        /// <param name="displayName">Name that is displayed when the Phone application is launched.</param>
-        public static void CallNumber(Contact contact)
+        /// <param name="contact">Contact for call.</param>
+        public static void CallToContact(Contact contact)
         {
             var call = new PhoneCallTask();
             call.PhoneNumber = contact.Phone;
@@ -34,16 +33,16 @@ namespace AkvelonContacts.WindowsPhone
         /// <summary>
         /// Adds contact to People Hub.
         /// </summary>
-        /// <param name="c">Contact for saving</param>
-        public static void AddContactPeopleHub(Contact c)
+        /// <param name="contact">Contact for saving</param>
+        public static void AddContactPeopleHub(Contact contact)
         {
             var saveContactTask = new SaveContactTask();
 
-            saveContactTask.FirstName = c.FirstName;
+            saveContactTask.FirstName = contact.FirstName;
             saveContactTask.Company = Contact.CompanyName;
-            saveContactTask.LastName = c.LastName;
-            saveContactTask.MobilePhone = c.Phone;
-            saveContactTask.WorkEmail = c.Mail;
+            saveContactTask.LastName = contact.LastName;
+            saveContactTask.MobilePhone = contact.Phone;
+            saveContactTask.WorkEmail = contact.Mail;
 
             saveContactTask.Show();
         }
@@ -51,8 +50,8 @@ namespace AkvelonContacts.WindowsPhone
         /// <summary>
         /// Shows the Messaging application. 
         /// </summary>
-        /// <param name="number">The recipient list for the new SMS message.</param>
-        public static void SendSMS(Contact contact)
+        /// <param name="contact">Contact to send SMS.</param>
+        public static void SendSMSToContact(Contact contact)
         {
             SmsComposeTask smsComposeTask = new SmsComposeTask();
 
@@ -64,8 +63,8 @@ namespace AkvelonContacts.WindowsPhone
         /// <summary>
         /// Shows the email application with a new message displayed.
         /// </summary>
-        /// <param name="email">The recipients on the To line of the new email message.</param>
-        public static void SendEmail(Contact contact)
+        /// <param name="contact">Contact to send email.</param>
+        public static void SendEmailToContact(Contact contact)
         {
             EmailComposeTask emailComposeTask = new EmailComposeTask();
 

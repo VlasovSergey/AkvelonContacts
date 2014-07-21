@@ -61,7 +61,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void CallButton_Click(object sender, RoutedEventArgs e)
         {
-            CommunicationFunctions.CallNumber(this.contact);
+            CommunicationFunctions.CallToContact(this.contact);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SendSMSButton_Click(object sender, RoutedEventArgs e)
         {
-            CommunicationFunctions.SendSMS(this.contact);
+            CommunicationFunctions.SendSMSToContact(this.contact);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SendEmailButton_Click(object sender, RoutedEventArgs e)
         {
-            CommunicationFunctions.SendEmail(this.contact);
+            CommunicationFunctions.SendEmailToContact(this.contact);
         }
     }
 }
