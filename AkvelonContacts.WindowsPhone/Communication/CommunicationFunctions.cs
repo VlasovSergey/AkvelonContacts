@@ -40,7 +40,7 @@ namespace AkvelonContacts.WindowsPhone
             var saveContactTask = new SaveContactTask();
 
             saveContactTask.FirstName = c.FirstName;
-            saveContactTask.Company = "Akvelon";
+            saveContactTask.Company = Contact.CompanyName;
             saveContactTask.LastName = c.LastName;
             saveContactTask.MobilePhone = c.Phone;
             saveContactTask.WorkEmail = c.Mail;

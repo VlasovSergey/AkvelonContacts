@@ -18,6 +18,14 @@ namespace AkvelonContacts.Common
     public class Contact
     {
         /// <summary>
+        /// Gets company name.
+        /// </summary>
+        public static string CompanyName
+        {
+            get { return "Akvelon"; }
+        }
+
+        /// <summary>
         /// Gets the full name of contact.
         /// </summary>
         public string FullName
