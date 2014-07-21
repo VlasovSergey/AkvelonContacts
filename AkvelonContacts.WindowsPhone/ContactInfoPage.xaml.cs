@@ -79,7 +79,7 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
         /// <param name="e">Cancel event args.</param>
-        private void SendSMS_Click(object sender, RoutedEventArgs e)
+        private void SendSMSButton_Click(object sender, RoutedEventArgs e)
         {
             CommunicationFunctions.SendSMS(this.contact.Phone);
         }
@@ -89,7 +89,7 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
         /// <param name="e">Cancel event args.</param>
-        private void SendEmail_Click(object sender, RoutedEventArgs e)
+        private void SendEmailButton_Click(object sender, RoutedEventArgs e)
         {
             CommunicationFunctions.SendEmail(this.contact.Mail);
         }

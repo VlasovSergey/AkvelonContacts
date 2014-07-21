@@ -80,8 +80,8 @@
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Dislocation}"></TextBox>
                 </StackPanel>
                 <Button Name="callButton" Content="Call" Click="CallButton_Click"></Button>
-                <Button Name="sendSms" Content="Send SMS" Click="SendSMS_Click" ></Button>
-                <Button Name="sendEmail" Content="Send email" Click="SendEmail_Click" ></Button>
+                <Button Name="sendSmsButton" Content="Send SMS" Click="SendSMSButton_Click" ></Button>
+                <Button Name="sendEmailButton" Content="Send email" Click="SendEmailButton_Click" ></Button>
                 <Button Name="addContactButton" Content="Add to contact" Click="AddContactButton_Click" ></Button>
             </StackPanel>
         </Grid>
