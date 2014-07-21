@@ -62,6 +62,8 @@ namespace AkvelonContacts.WindowsPhone
                         this.contactList = contactList;
                         DisplayContactList(this.contactList);
                         progressBar.Visibility = Visibility.Collapsed;
+
+                        this.DisplayTimeUpdate();
                     });
                 },
                 (contact) =>
@@ -77,6 +79,43 @@ namespace AkvelonContacts.WindowsPhone
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             contactListSelector.SelectedItem = null;
+            this.DisplayTimeUpdate();
+        }
+
+        /// <summary>
+        /// Displays the time of last update.
+        /// </summary>
+        private void DisplayTimeUpdate()
+        {
+            TimeSpan updateTime = this.applicationCtrl.GetLastUpdateListTime();
+            string text = string.Empty;
+
+            if (updateTime.Days != 0)
+            {
+                text += updateTime.Days + " Days ";
+            }
+
+            if (updateTime.Hours != 0)
+            {
+                text += updateTime.Hours + " Hours ";
+            }
+
+            if (updateTime.Minutes != 0)
+            {
+                text += updateTime.Minutes + " Min ";
+            }
+
+            if (updateTime.Seconds != 0)
+            {
+                text += updateTime.Seconds + " Sec ";
+            }
+
+            if (text != string.Empty)
+            {
+                text = "Updated " + text + "ago";
+            }
+
+            updateTimeTextBlock.Text = text;
         }
 
         /// <summary>

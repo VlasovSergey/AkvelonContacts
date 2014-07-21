@@ -51,12 +51,12 @@ namespace AkvelonContacts.Common
             {
                 text = sw.ReadToEnd();
             }
-            finally 
+            finally
             {
                 sw.Close();
                 s.Close();
             }
-            
+
             return text;
         }
 
@@ -133,6 +133,16 @@ namespace AkvelonContacts.Common
         public static bool DirectoryExists(string directoryName)
         {
             return IsolatedStorageFile.GetUserStoreForApplication().DirectoryExists(directoryName);
+        }
+
+        /// <summary>
+        /// Returns the date and time a specified file or directory was last written to.
+        /// </summary>
+        /// <param name="filePath">File path.</param>
+        /// <returns>Last write time.</returns>
+        public static DateTimeOffset GetLastWriteTime(string filePath) 
+        {
+            return IsolatedStorageFile.GetUserStoreForApplication().GetLastWriteTime(filePath);
         }
     }
 }

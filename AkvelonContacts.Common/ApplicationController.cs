@@ -103,6 +103,16 @@ namespace AkvelonContacts.Common
         }
 
         /// <summary>
+        /// Gets last update list time.
+        /// </summary>
+        /// <returns>Last update list time.</returns>
+        public TimeSpan GetLastUpdateListTime() 
+        {
+            var lastWriteTime = StorageController.GetLastWriteTime(GetPathContactListJson());
+            return TimeSpan.FromTicks(DateTimeOffset.Now.Ticks - lastWriteTime.Ticks);
+        }
+
+        /// <summary>
         /// Gets path for image by id.
         /// </summary>
         /// <param name="id">Id for image path generate.</param>
