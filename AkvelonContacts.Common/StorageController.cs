@@ -57,7 +57,7 @@ namespace AkvelonContacts.Common
         /// <param name="fileName">File name.</param>
         /// <param name="streamForSave">Stream for write.</param>
         /// <returns>Physical file path for write.</returns>
-        public static string WriteStream(string fileName, Stream streamForSave)
+        public static string CopyStreamToLocalStore(string fileName, Stream streamForSave)
         {
             IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
             streamForSave.CopyTo(s);

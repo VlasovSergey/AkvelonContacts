@@ -199,7 +199,7 @@ namespace AkvelonContacts.Common
                             StorageController.CreateDirectory(GetDirrectoryNameforImages());
                         }
 
-                        StorageController.WriteStream(photoPath, stream);
+                        StorageController.CopyStreamToLocalStore(photoPath, stream);
                         var c = contact;
                         onLoadPhoto(contact);
                     });
