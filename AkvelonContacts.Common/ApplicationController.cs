@@ -82,18 +82,41 @@ namespace AkvelonContacts.Common
         /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
         public void GetContacts(Action<List<Contact>> action, Action<Contact> onLoadPhoto)
         {
-            action(this.LoadLocalContactList());
+            var localContacts = this.LoadLocalContactList();
+            var networkAvailable = NetworkInterface.GetIsNetworkAvailable();
 
-            if (NetworkInterface.GetIsNetworkAvailable())
+            if (localContacts != null)
             {
-                this.DownloadContactList(
-                    (List<Contact> result) =>
-                    {
-                        List<Contact> contactList = result == null ? this.LoadLocalContactList() : result;
-                        this.LoadPhotos(result, onLoadPhoto);
-                        action(result);
-                    });
+                action(localContacts);
             }
+
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                if (localContacts == null)
+                {
+                    throw new Exception("Cannot load data. Local store do not have contacts and network is not available.");
+                }
+
+                return;
+            }
+            
+            this.DownloadContactList(
+                (List<Contact> result) =>
+                {
+                    if (result != null)
+                    {
+                        List<Contact> contactList = result;
+                        this.LoadPhotos(result, onLoadPhoto);
+                        action(contactList);
+                    }
+                    else
+                    {
+                        if (localContacts == null)
+                        {
+                            throw new Exception("Cannot load data. Local store do not have contacts and unable to obtain data from the network.");
+                        }
+                    }
+                });
         }
 
         /// <summary>

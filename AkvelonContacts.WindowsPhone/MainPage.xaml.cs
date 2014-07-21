@@ -117,6 +117,10 @@ namespace AkvelonContacts.WindowsPhone
             {
                 text = "Updated " + text + "ago";
             }
+            else
+            {
+                text = "Now updated";
+            }
 
             updateTimeTextBlock.Text = text;
         }
