@@ -179,7 +179,9 @@
     <BundleResource Include="Toolkit.Content\ApplicationBar.Check.png" />
     <BundleResource Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <BundleResource Include="Toolkit.Content\ApplicationBar.Add.png" />
+    <BundleResource Include="HeaderImage.jpg" />
     <Content Include="README_FIRST.txt" />
+    <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
