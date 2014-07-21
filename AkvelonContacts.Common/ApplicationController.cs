@@ -153,7 +153,7 @@ namespace AkvelonContacts.Common
                         StorageController.CreateDirectory(AppDataDirectoryName);
                     }
 
-                    StorageController.WriteString(GetPathContactListJson(), result);
+                    StorageController.WriteStringToFile(GetPathContactListJson(), result);
                 });
         }
 
@@ -168,7 +168,7 @@ namespace AkvelonContacts.Common
                 return new List<Contact>();
             }
 
-            var json = StorageController.ReadString(GetPathContactListJson());
+            var json = StorageController.ReadAsString(GetPathContactListJson());
             return (new ContactsJsonParser()).GetListFromJsonArray(json);
         }
 

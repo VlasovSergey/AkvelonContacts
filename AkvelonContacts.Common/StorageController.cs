@@ -25,12 +25,14 @@ namespace AkvelonContacts.Common
         /// <param name="fileName">File name</param>
         /// <param name="content">Content for write.</param>
         /// <returns>Physical file path for write.</returns>
-        public static string WriteString(string fileName, string content)
+        public static string WriteStringToFile(string fileName, string content)
         {
             IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
             StreamWriter sw = new StreamWriter(s);
             sw.Write(content);
             sw.Close();
+            s.Close();
+
             return s.Name;
         }
 
@@ -39,15 +41,22 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="fileName">File name.</param>
         /// <returns>File content.</returns>
-        public static string ReadString(string fileName)
+        public static string ReadAsString(string fileName)
         {
-            string text;
+            string text = null;
 
             IsolatedStorageFileStream s = GetStreamOfFileForRead(fileName);
             StreamReader sw = new StreamReader(s);
-            text = sw.ReadToEnd();
-            sw.Close();
-
+            try
+            {
+                text = sw.ReadToEnd();
+            }
+            finally 
+            {
+                sw.Close();
+                s.Close();
+            }
+            
             return text;
         }
 
