@@ -47,21 +47,21 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// URL for download contacts list.
         /// </summary>
-        private string url = "http://prism.akvelon.net/api/employees/all";
+        private string contactListJsonUrl = "http://prism.akvelon.net/api/employees/all";
 
         /// <summary>
         /// Gets or sets the Url for download contact list.
         /// </summary>
-        private string Url
+        private string ContactListJsonUrl
         {
             get
             {
-                return this.url;
+                return this.contactListJsonUrl;
             }
 
             set
             {
-                this.url = value;
+                this.contactListJsonUrl = value;
             }
         }
 
@@ -137,7 +137,7 @@ namespace AkvelonContacts.Common
         private void DownloadContactList(Action<List<Contact>> action)
         {
             FileDownloader.DownloadFileAsStringAsync(
-                this.url,
+                this.contactListJsonUrl,
                 (string result) =>
                 {
                     if (result == null)
