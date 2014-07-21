@@ -120,7 +120,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Communication\CommunicationFunctions.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="UIClasses\PhotoPathConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

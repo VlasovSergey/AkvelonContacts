@@ -24,6 +24,16 @@ namespace AkvelonContacts.WindowsPhone
     public partial class MainPage : PhoneApplicationPage
     {
         /// <summary>
+        /// Url for contact info page.
+        /// </summary>
+        private const string ContactInfoPageUrl = "/ContactInfoPage.xaml";
+
+        /// <summary>
+        /// Background search text.
+        /// </summary>
+        private const string BackgroundSearchText = "Search";
+
+        /// <summary>
         /// Application controller.
         /// </summary>
         private ApplicationController applicationCtrl;
@@ -77,7 +87,7 @@ namespace AkvelonContacts.WindowsPhone
         {
             List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
                 contactList,
-                new CultureInfo("ru-RU"),
+                new CultureInfo("ru-RU"),   // The culture to group contact list.
                 (Contact s) => { return s.FullName; },
                 true);
 
@@ -98,7 +108,7 @@ namespace AkvelonContacts.WindowsPhone
             }
 
             PhoneApplicationService.Current.State["SelectedContact"] = selectedContact;
-            NavigationService.Navigate(new Uri("/ContactInfoPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri(ContactInfoPageUrl, UriKind.Relative));
         }
 
         /// <summary>
@@ -194,7 +204,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (searchTextBox.Text == "Search")
+            if (searchTextBox.Text == BackgroundSearchText)
             {
                 this.searchTextBox.Text = string.Empty;
             }
@@ -210,7 +220,7 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (searchTextBox.Text == string.Empty)
             {
-                searchTextBox.Text = "Search";
+                searchTextBox.Text = BackgroundSearchText;
             }
         }
 
