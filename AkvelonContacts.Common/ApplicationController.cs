@@ -216,6 +216,11 @@ namespace AkvelonContacts.Common
         /// <param name="onLoadPhoto">Action is called every time any photo loaded. Returns the contact which has been downloaded photo.</param>
         private void LoadPhotos(List<Contact> contactList, Action<Contact> onLoadPhoto)
         {
+            if (!StorageController.DirectoryExists(GetDirrectoryNameforImages()))
+            {
+                StorageController.CreateDirectory(GetDirrectoryNameforImages());
+            }
+
             foreach (var contact in contactList)
             {
                 var photoPath = GetImagePathById(contact.Id);
@@ -231,14 +236,11 @@ namespace AkvelonContacts.Common
                     contactPhotoUrl,
                     (stream) =>
                     {
-                        if (!StorageController.DirectoryExists(GetDirrectoryNameforImages()))
+                        if (stream != null) 
                         {
-                            StorageController.CreateDirectory(GetDirrectoryNameforImages());
+                            StorageController.CopyStreamToLocalStore(photoPath, stream);
+                            onLoadPhoto(contact);
                         }
-
-                        StorageController.CopyStreamToLocalStore(photoPath, stream);
-                        var c = contact;
-                        onLoadPhoto(contact);
                     });
             }
         }
