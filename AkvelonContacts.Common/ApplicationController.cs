@@ -76,7 +76,7 @@ namespace AkvelonContacts.Common
         }
 
         /// <summary>
-        /// Loads contact list.
+        /// Loads contact list. Returns null if it can not load contacts.
         /// </summary>
         /// <param name="action">Action when contact list is loaded without Photo.</param>
         /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
@@ -94,7 +94,8 @@ namespace AkvelonContacts.Common
             {
                 if (localContacts == null)
                 {
-                    throw new Exception("Cannot load data. Local store do not have contacts and network is not available.");
+                    // throw new Exception("Cannot load data. Local store do not have contacts and network is not available.");
+                    action(null);
                 }
 
                 return;
@@ -113,7 +114,9 @@ namespace AkvelonContacts.Common
                     {
                         if (localContacts == null)
                         {
-                            throw new Exception("Cannot load data. Local store do not have contacts and unable to obtain data from the network.");
+                            action(null);
+
+                            // throw new Exception("Cannot load data. Local store do not have contacts and unable to obtain data from the network.");
                         }
                     }
                 });

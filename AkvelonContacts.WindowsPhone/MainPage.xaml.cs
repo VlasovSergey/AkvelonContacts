@@ -57,17 +57,22 @@ namespace AkvelonContacts.WindowsPhone
             this.applicationCtrl.GetContacts(
                 (contactList) =>
                 {
-                    if (contactList != null)
+                    Dispatcher.BeginInvoke(() =>
                     {
-                        Dispatcher.BeginInvoke(() =>
+                        if (contactList != null)
                         {
                             this.contactList = contactList;
                             DisplayContactList(this.contactList);
                             progressBar.Visibility = Visibility.Collapsed;
 
                             this.DisplayTimeUpdate();
-                        });
-                    }
+                        }
+                        else
+                        {
+                            progressBar.Visibility = Visibility.Collapsed;
+                            MessageBox.Show("Could not load contacts.");
+                        }
+                    });
                 },
                 (contact) =>
                 {
