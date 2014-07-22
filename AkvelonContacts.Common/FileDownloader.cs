@@ -23,9 +23,9 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="url">URL for download.</param>
         /// <param name="action">Action when download complete.</param>
-        public static void DownloadFileAsStringAsync(string url, Action<string> action)
+        public static void DownloadFileAsString(string url, Action<string> action)
         {
-            DownloadFileAsync(
+            DownloadFile(
                 url,
                 (stream) =>
                 {
@@ -48,7 +48,7 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="url">URL for download.</param>
         /// <param name="action">Action when download complete.</param>
-        public static void DownloadFileAsync(string url, Action<Stream> action)
+        public static void DownloadFile(string url, Action<Stream> action)
         {
             Stream loadedContactList;
             var httpReq = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
