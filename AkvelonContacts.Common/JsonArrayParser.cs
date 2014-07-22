@@ -19,7 +19,7 @@ namespace AkvelonContacts.Common
     public abstract class JsonArrayParser<T>
     {
         /// <summary>
-        /// Gets the  <see cref="JsonArrayParser{T}"/> list from JSON string. Rreturns null if not parse JSON.
+        /// Gets the  <see cref="JsonArrayParser{T}"/> list from JSON string. Returns null if not parse JSON.
         /// </summary>
         /// <param name="json">JSON string.</param>
         /// <returns>Contacts list</returns>

@@ -27,13 +27,21 @@ namespace AkvelonContacts.Common
         /// <returns>Physical file path for write.</returns>
         public static string WriteStringToFile(string fileName, string content)
         {
-            IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
-            StreamWriter sw = new StreamWriter(s);
-            sw.Write(content);
-            sw.Close();
-            s.Close();
+            try
+            {
+                IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
+                StreamWriter sw = new StreamWriter(s);
+                sw.Write(content);
+                sw.Close();
+                s.Close();
 
-            return s.Name;
+                return s.Name;
+            }
+            catch
+            {
+                Console.WriteLine("Unable to write string to file");
+                return null;
+            }
         }
 
         /// <summary>
@@ -43,21 +51,29 @@ namespace AkvelonContacts.Common
         /// <returns>File content.</returns>
         public static string ReadAsString(string fileName)
         {
-            string text = null;
-
-            IsolatedStorageFileStream s = GetStreamOfFileForRead(fileName);
-            StreamReader sw = new StreamReader(s);
             try
             {
-                text = sw.ReadToEnd();
-            }
-            finally
-            {
-                sw.Close();
-                s.Close();
-            }
+                string text = null;
 
-            return text;
+                IsolatedStorageFileStream s = GetStreamOfFileForRead(fileName);
+                StreamReader sw = new StreamReader(s);
+                try
+                {
+                    text = sw.ReadToEnd();
+                }
+                finally
+                {
+                    sw.Close();
+                    s.Close();
+                }
+
+                return text;
+            }
+            catch
+            {
+                Console.WriteLine("Unable to read string to file");
+                return null;
+            }
         }
 
         /// <summary>
@@ -68,10 +84,18 @@ namespace AkvelonContacts.Common
         /// <returns>Physical file path for write.</returns>
         public static string CopyStreamToLocalStore(string fileName, Stream streamForSave)
         {
-            IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
-            streamForSave.CopyTo(s);
-            s.Close();
-            return s.Name;
+            try
+            {
+                IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, IsolatedStorageFile.GetUserStoreForApplication());
+                streamForSave.CopyTo(s);
+                s.Close();
+                return s.Name;
+            }
+            catch
+            {
+                Console.WriteLine("Unable to copy the stream to the local store.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -81,8 +105,16 @@ namespace AkvelonContacts.Common
         /// <returns>File stream.</returns>
         public static IsolatedStorageFileStream GetStreamOfFileForRead(string fileName)
         {
-            IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
-            return s;
+            try
+            {
+                IsolatedStorageFileStream s = new IsolatedStorageFileStream(fileName, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
+                return s;
+            }
+            catch
+            {
+                Console.WriteLine("Unable to get stream from file for read.");
+                return null;
+            }
         }
 
         /// <summary>
@@ -102,14 +134,22 @@ namespace AkvelonContacts.Common
         /// <returns>Physical path.</returns>
         public static string GetPhysicalPathForLocalFilePath(string filePath)
         {
-            if (!FileExists(filePath))
+            try
             {
+                if (!FileExists(filePath))
+                {
+                    return null;
+                }
+
+                IsolatedStorageFileStream s = new IsolatedStorageFileStream(filePath, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
+                s.Close();
+                return s.Name;
+            }
+            catch
+            {
+                Console.WriteLine("Unable to get physical path for file from local storage.");
                 return null;
             }
-
-            IsolatedStorageFileStream s = new IsolatedStorageFileStream(filePath, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication());
-            s.Close();
-            return s.Name;
         }
 
         /// <summary>
@@ -118,7 +158,14 @@ namespace AkvelonContacts.Common
         /// <param name="directoryName">The relative path of the directory to create within the isolated storage.</param>
         public static void CreateDirectory(string directoryName)
         {
-            IsolatedStorageFile.GetUserStoreForApplication().CreateDirectory(directoryName);
+            try
+            {
+                IsolatedStorageFile.GetUserStoreForApplication().CreateDirectory(directoryName);
+            }
+            catch
+            {
+                Console.WriteLine("Unable to create a directory in the isolated storage scope.");
+            }
         }
 
         /// <summary>
@@ -140,8 +187,13 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="filePath">File path.</param>
         /// <returns>Last write time.</returns>
-        public static DateTimeOffset GetLastWriteTime(string filePath) 
+        public static DateTimeOffset? GetLastWriteTime(string filePath)
         {
+            if (!FileExists(filePath))
+            {
+                return null;
+            }
+
             return IsolatedStorageFile.GetUserStoreForApplication().GetLastWriteTime(filePath);
         }
     }

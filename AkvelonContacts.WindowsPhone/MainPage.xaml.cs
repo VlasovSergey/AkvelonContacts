@@ -95,8 +95,16 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         private void DisplayTimeUpdate()
         {
-            TimeSpan updateTime = this.applicationCtrl.GetLastUpdateListTime();
             string text = string.Empty;
+
+            TimeSpan? updateTimeOrNull = this.applicationCtrl.GetLastUpdateListTime();
+
+            if (updateTimeOrNull == null)
+            {
+                return;
+            }
+
+            TimeSpan updateTime = (TimeSpan)updateTimeOrNull;
 
             if (updateTime.Days != 0)
             {

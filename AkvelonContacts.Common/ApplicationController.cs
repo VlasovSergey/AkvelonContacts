@@ -126,9 +126,16 @@ namespace AkvelonContacts.Common
         /// Gets last update list time.
         /// </summary>
         /// <returns>Last update list time.</returns>
-        public TimeSpan GetLastUpdateListTime()
+        public TimeSpan? GetLastUpdateListTime()
         {
-            var lastWriteTime = StorageController.GetLastWriteTime(GetPathContactListJson());
+            DateTimeOffset? lastWriteTimeOrNull = StorageController.GetLastWriteTime(GetPathContactListJson());
+
+            if (lastWriteTimeOrNull == null)
+            {
+                return null;
+            }
+
+            DateTimeOffset lastWriteTime = (DateTimeOffset)lastWriteTimeOrNull;
             return TimeSpan.FromTicks(DateTimeOffset.Now.Ticks - lastWriteTime.Ticks);
         }
 
@@ -236,7 +243,7 @@ namespace AkvelonContacts.Common
                     contactPhotoUrl,
                     (stream) =>
                     {
-                        if (stream != null) 
+                        if (stream != null)
                         {
                             StorageController.CopyStreamToLocalStore(photoPath, stream);
                             onLoadPhoto(contact);
