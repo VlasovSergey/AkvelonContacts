@@ -53,27 +53,52 @@ namespace AkvelonContacts.WindowsPhone
 
             this.applicationCtrl = new ApplicationController();
 
+            LoadContactsAndDisplay();
+        }
+
+        /// <summary>
+        /// Shows progress indicator.
+        /// </summary>
+        private void ShowProgressIndicator()
+        {
+            progressBar.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Hides progress indicator.
+        /// </summary>
+        private void HideProgressIndicator()
+        {
+            progressBar.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Loads contacts.
+        /// </summary>
+        private void LoadContactsAndDisplay()
+        {
             this.applicationCtrl.GetContacts(
-                (contactList) =>
+            (contactList) =>
+            {
+                Dispatcher.BeginInvoke(() =>
                 {
-                    Dispatcher.BeginInvoke(() =>
+                    if (contactList != null)
                     {
-                        if (contactList != null)
-                        {
-                            this.contactList = contactList;
-                            DisplayContactList(this.contactList);
-                            this.DisplayTimeUpdate();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Could not load contacts.");
-                        }
-                    });
-                },
-                (contact) =>
-                {
-                    Dispatcher.BeginInvoke(() => { });
+                        this.contactList = contactList;
+                        DisplayContactList(this.contactList);
+                        this.DisplayTimeUpdate();
+                    }
+                    else
+                    {
+                        this.HideProgressIndicator();
+                        MessageBox.Show("Could not load contacts.");
+                    }
                 });
+            },
+            (contact) =>
+            {
+                Dispatcher.BeginInvoke(() => { });
+            });
         }
 
         /// <summary>
@@ -294,6 +319,17 @@ namespace AkvelonContacts.WindowsPhone
         {
             this.ShowSearch();
         }
+
+        /// <summary>
+        /// Called when the button is clicked, refresh.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void Refresh_Click(object sender, EventArgs e)
+        {
+            this.LoadContactsAndDisplay();
+        }
+
 
         /// <summary>
         /// Called when back button press.

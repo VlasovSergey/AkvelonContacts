@@ -126,6 +126,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar x:Name="searchBar">
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="Search" Click="SearchBar_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/refresh.png" Text="Refresh" Click="Refresh_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <Grid x:Name="LayoutRoot" Background="Transparent">
