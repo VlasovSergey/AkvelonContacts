@@ -53,7 +53,17 @@ namespace AkvelonContacts.WindowsPhone
 
             this.applicationCtrl = new ApplicationController();
 
-            LoadContactsAndDisplay();
+            this.LoadContactsAndDisplay();
+        }
+
+        /// <summary>
+        /// Called when a page becomes the active page in a frame.
+        /// </summary>
+        /// <param name="e">Cancel event args.</param>
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            contactListSelector.SelectedItem = null;
+            this.DisplayTimeUpdate();
         }
 
         /// <summary>
@@ -99,16 +109,6 @@ namespace AkvelonContacts.WindowsPhone
             {
                 Dispatcher.BeginInvoke(() => { });
             });
-        }
-
-        /// <summary>
-        /// Called when a page becomes the active page in a frame.
-        /// </summary>
-        /// <param name="e">Cancel event args.</param>
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            contactListSelector.SelectedItem = null;
-            this.DisplayTimeUpdate();
         }
 
         /// <summary>
@@ -329,7 +329,6 @@ namespace AkvelonContacts.WindowsPhone
         {
             this.LoadContactsAndDisplay();
         }
-
 
         /// <summary>
         /// Called when back button press.

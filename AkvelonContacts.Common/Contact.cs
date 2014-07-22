@@ -39,64 +39,41 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Gets or sets the first name of contact.
         /// </summary>
-        public string FirstName
-        {
-            get; 
-            set;
-        }
+        public string FirstName { get; set; }
 
         /// <summary>
         /// Gets or sets the Last name of contact.
         /// </summary>
-        public string LastName
-        {
-            get;
-            set;
-        }
+        public string LastName { get; set; }
 
         /// <summary>
         /// Gets or sets the description of contact.
         /// </summary>
-        public string Dislocation
-        {
-            get;
-            set;
-        }
+        public string Dislocation { get; set; }
 
         /// <summary>
         /// Gets or sets the id of contact.
         /// </summary>
-        public string Id
-        {
-            get;
-            set;
-        }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or sets the skype of contact.
         /// </summary>
-        public string Skype
-        {
-            get;
-            set;
-        }
+        public string Skype { get; set; }
 
         /// <summary>
         /// Gets or sets the mail of contact.
         /// </summary>
-        public string Mail
-        {
-            get;
-            set;
-        }
+        public string Mail { get; set; }
 
         /// <summary>
         /// Gets or sets the phone number of contact.
         /// </summary>
-        public string Phone
-        {
-            get;
-            set;
-        }
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the contact has a key.
+        /// </summary>
+        public bool SecurityKey { get; set; }
     }
 }

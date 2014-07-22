@@ -32,7 +32,7 @@ namespace AkvelonContacts.Common
             c.Mail = (string)jo["Mail"];
             c.Skype = (string)jo["Skype"];
             c.Phone = (string)jo["Telephone"];
-
+            c.SecurityKey = (bool)jo["SecurityKey"];
             return c;
         }
     }
