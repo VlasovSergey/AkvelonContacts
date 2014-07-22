@@ -100,7 +100,7 @@ namespace AkvelonContacts.Common
 
                 return;
             }
-            
+
             this.DownloadContactList(
                 (List<Contact> result) =>
                 {
@@ -126,7 +126,7 @@ namespace AkvelonContacts.Common
         /// Gets last update list time.
         /// </summary>
         /// <returns>Last update list time.</returns>
-        public TimeSpan GetLastUpdateListTime() 
+        public TimeSpan GetLastUpdateListTime()
         {
             var lastWriteTime = StorageController.GetLastWriteTime(GetPathContactListJson());
             return TimeSpan.FromTicks(DateTimeOffset.Now.Ticks - lastWriteTime.Ticks);
@@ -176,7 +176,14 @@ namespace AkvelonContacts.Common
                         return;
                     }
 
-                    action((new ContactsJsonParser()).GetListFromJsonArray(result));
+                    var contactList = (new ContactsJsonParser()).GetListFromJsonArray(result);
+
+                    action(contactList);
+
+                    if (contactList == null)
+                    {
+                        return;
+                    }
 
                     if (!StorageController.DirectoryExists(AppDataDirectoryName))
                     {

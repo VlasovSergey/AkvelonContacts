@@ -19,22 +19,29 @@ namespace AkvelonContacts.Common
     public abstract class JsonArrayParser<T>
     {
         /// <summary>
-        /// Gets the  <see cref="JsonArrayParser{T}"/> list from JSON string.
+        /// Gets the  <see cref="JsonArrayParser{T}"/> list from JSON string. Rreturns null if not parse json.
         /// </summary>
         /// <param name="json">JSON string.</param>
         /// <returns>Contacts list</returns>
         public List<T> GetListFromJsonArray(string json)
         {
-            List<T> objectList = new List<T>();
-            var ja = JArray.Parse(json);
-
-            foreach (JObject jo in ja)
+            try
             {
-                T c = this.ConvertJObjectToCustomType(jo);
-                objectList.Add(c);
-            }
+                List<T> objectList = new List<T>();
+                var ja = JArray.Parse(json);
 
-            return objectList;
+                foreach (JObject jo in ja)
+                {
+                    T c = this.ConvertJObjectToCustomType(jo);
+                    objectList.Add(c);
+                }
+
+                return objectList;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
