@@ -216,6 +216,12 @@ namespace AkvelonContacts.WindowsPhone
         /// <returns>Is method executed.</returns>
         private bool ShowSearch()
         {
+            if(this.contactList == null)
+            {
+                MessageBox.Show("Contacts are not loaded.");
+                return false;
+            }
+
             this.ApplicationBar.IsVisible = false;
 
             if (searchTextBox.Visibility != Visibility.Collapsed)
