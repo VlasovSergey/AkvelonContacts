@@ -2,7 +2,7 @@
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
   <App xmlns="" ProductID="{a3f98b63-3698-4886-b65d-c564030b33f9}" Title="AkvelonContacts.WindowsPhone" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="AkvelonContacts.WindowsPhone author" Description="Sample description" Publisher="AkvelonContacts.WindowsPhone" PublisherID="{cc415e65-f942-4927-8480-8390364dcb46}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">ico.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -17,9 +17,9 @@
     <Tokens>
       <PrimaryToken TokenID="AkvelonContacts.WindowsPhoneToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">SmallIconImage.jpg</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">MediumIconImage.jpg</BackgroundImageURI>
           <Title>AkvelonContacts.WindowsPhone</Title>
           <BackContent>
           </BackContent>
