@@ -48,6 +48,12 @@ namespace AkvelonContacts.WindowsPhone
                 if (string.IsNullOrEmpty(this.contact.Phone))
                 {
                     callButton.Visibility = Visibility.Collapsed;
+                    sendSmsButton.Visibility = Visibility.Collapsed;
+                }
+
+                if (string.IsNullOrEmpty(this.contact.Mail))
+                {
+                    sendEmailButton.Visibility = Visibility.Collapsed;
                 }
             }
 
