@@ -50,7 +50,7 @@ namespace AkvelonContacts.WindowsPhone
         {
             this.InitializeComponent();
 
-            progressBar.Visibility = Visibility.Visible;
+            this.ShowProgressIndicator();
 
             this.applicationCtrl = new ApplicationController();
 
@@ -63,15 +63,14 @@ namespace AkvelonContacts.WindowsPhone
                         {
                             this.contactList = contactList;
                             DisplayContactList(this.contactList);
-                            progressBar.Visibility = Visibility.Collapsed;
-
                             this.DisplayTimeUpdate();
                         }
                         else
                         {
-                            progressBar.Visibility = Visibility.Collapsed;
                             MessageBox.Show("Could not load contacts.");
                         }
+
+                        this.HideProgressIndicator();
                     });
                 },
                 (contact) =>
@@ -88,6 +87,22 @@ namespace AkvelonContacts.WindowsPhone
         {
             contactListSelector.SelectedItem = null;
             this.DisplayTimeUpdate();
+        }
+
+        /// <summary>
+        /// Shows progress indicator.
+        /// </summary>
+        private void ShowProgressIndicator()
+        {
+            progressBar.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Hides progress indicator.
+        /// </summary>
+        private void HideProgressIndicator()
+        {
+            progressBar.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -216,7 +231,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <returns>Is method executed.</returns>
         private bool ShowSearch()
         {
-            if(this.contactList == null)
+            if (this.contactList == null)
             {
                 MessageBox.Show("Contacts are not loaded.");
                 return false;
