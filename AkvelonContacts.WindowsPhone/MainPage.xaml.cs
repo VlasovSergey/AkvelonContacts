@@ -49,8 +49,7 @@ namespace AkvelonContacts.WindowsPhone
         public MainPage()
         {
             this.InitializeComponent();
-
-            this.ShowProgressIndicator();
+            contactListSelector.ItemsSource = null;
 
             this.applicationCtrl = new ApplicationController();
 
@@ -69,8 +68,6 @@ namespace AkvelonContacts.WindowsPhone
                         {
                             MessageBox.Show("Could not load contacts.");
                         }
-
-                        this.HideProgressIndicator();
                     });
                 },
                 (contact) =>
@@ -87,22 +84,6 @@ namespace AkvelonContacts.WindowsPhone
         {
             contactListSelector.SelectedItem = null;
             this.DisplayTimeUpdate();
-        }
-
-        /// <summary>
-        /// Shows progress indicator.
-        /// </summary>
-        private void ShowProgressIndicator()
-        {
-            progressBar.Visibility = Visibility.Visible;
-        }
-
-        /// <summary>
-        /// Hides progress indicator.
-        /// </summary>
-        private void HideProgressIndicator()
-        {
-            progressBar.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>

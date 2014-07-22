@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:local="clr-namespace:AkvelonContacts.WindowsPhone" 
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
     x:Name="phoneApplicationPage"
     x:Class="AkvelonContacts.WindowsPhone.MainPage"
     mc:Ignorable="d"
@@ -40,8 +42,8 @@
         <DataTemplate x:Key="ContactListItemTemplate">
             <Grid Height="60" Margin="15 10 10 10" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Image Source="{Binding Id, Converter = {StaticResource PhotoPathConverter}}"></Image>
                 <TextBlock Name="itemNameTextBlock"  Margin="10 0 0 0" Grid.Column="1"  FontSize="35" Text="{Binding FullName}"></TextBlock>
@@ -121,9 +123,9 @@
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
     </phone:PhoneApplicationPage.Resources>
-    <phone:PhoneApplicationPage.ApplicationBar >
-        <shell:ApplicationBar x:Name="searchBar" >
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="Search" Click="SearchBar_Click" />
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar x:Name="searchBar">
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="Search" Click="SearchBar_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -131,7 +133,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ProgressBar Grid.Row="1" IsIndeterminate="true" x:Name="progressBar" Visibility="Collapsed"></ProgressBar>
+        <ProgressBar Grid.Row="1" IsIndeterminate="true" x:Name="progressBar" Visibility="Visible">
+            <i:Interaction.Triggers>
+                <ec:DataTrigger Binding="{Binding ItemsSource, ElementName=contactListSelector}" Value="{x:Null}" Comparison="NotEqual">
+                    <ec:ChangePropertyAction PropertyName="Visibility" Value="Collapsed">
+                    </ec:ChangePropertyAction>
+                </ec:DataTrigger>
+            </i:Interaction.Triggers>
+        </ProgressBar>
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBox
                 Visibility="Collapsed"
