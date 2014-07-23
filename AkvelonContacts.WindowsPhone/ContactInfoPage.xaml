@@ -35,6 +35,7 @@
     </toolkit:TransitionService.NavigationOutTransition>
     <phone:PhoneApplicationPage.Resources>
         <local:PhotoPathConverter x:Key="PhotoPathConverter"></local:PhotoPathConverter>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></local:BoolToVisibilityConverter>
         <Style x:Key="TextBoxReadOnlyStyle" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
@@ -63,7 +64,10 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
-                <Image Margin="15 5 15 0" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="130" Width="130" HorizontalAlignment="Left"/>
+                <StackPanel  Margin="15 5 15 0" Orientation="Horizontal">
+                    <Image Margin="15 5 15 5" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="130" Width="130" HorizontalAlignment="Left"/>
+                    <Image Margin="15 5 15 5" Height="130" Source="image/key.png" Visibility="{Binding SecurityKey, Converter={StaticResource BoolToVisibilityConverter}}"></Image>
+                </StackPanel>
                 <StackPanel  Margin="15 5 15 0" Orientation="Vertical">
                     <TextBlock Text="Phone: " FontSize="25"></TextBlock>
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Phone}"></TextBox>
