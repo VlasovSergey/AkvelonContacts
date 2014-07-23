@@ -153,7 +153,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppBarCloseKey.png" />
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\AppBar\feature.search.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -184,11 +183,9 @@
     <BundleResource Include="Toolkit.Content\ApplicationBar.Check.png" />
     <BundleResource Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <BundleResource Include="Toolkit.Content\ApplicationBar.Add.png" />
-    <BundleResource Include="HeaderImage.jpg" />
     <BundleResource Include="MediumIconImage.jpg" />
     <BundleResource Include="ico.png" />
-    <Content Include="AppBarKey.png" />
-    <Content Include="key.png" />
+    <Content Include="image\key.png" />
     <Content Include="README_FIRST.txt" />
     <BundleResource Include="SmallIconImage.jpg" />
     <Content Include="SplashScreenImage.jpg" />

@@ -48,7 +48,7 @@
                 </Grid.ColumnDefinitions>
                 <Image Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" >
-                    <Image Margin="5 0 0 0" Source="key.png" Height="35" Visibility="{Binding SecurityKey, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Image Margin="5 0 0 0" Source="image/key.png" Height="35" Visibility="{Binding SecurityKey, Converter={StaticResource BoolToVisibilityConverter}}" />
                     <TextBlock  Margin="10 0 0 0" x:Name="itemNameTextBlock"  FontSize="35" Text="{Binding FullName}"/>
                 </StackPanel>
             </Grid>

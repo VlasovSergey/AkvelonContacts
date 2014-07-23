@@ -44,24 +44,11 @@ namespace AkvelonContacts.WindowsPhone
         private List<Contact> contactList;
         
         /// <summary>
-        /// Url for close key icon.
-        /// </summary>
-        private Uri appBarCloseKeyIconUri;
-
-        /// <summary>
-        /// Url for key icon.
-        /// </summary>
-        private Uri appBarKeyIconUri;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="MainPage" /> class.
         /// </summary>
         public MainPage()
         {
             this.InitializeComponent();
-
-            this.appBarCloseKeyIconUri = new Uri("/AppBarCloseKey.png", UriKind.Relative);
-            this.appBarKeyIconUri = new Uri("/AppBarKey.png", UriKind.Relative);
 
             this.DisplayOnlyContactsWithKey = false;
 
