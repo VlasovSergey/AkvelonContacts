@@ -22,6 +22,11 @@ namespace AkvelonContacts.WindowsPhone
     public partial class ContactInfoPage : PhoneApplicationPage
     {
         /// <summary>
+        /// Message if contact already exists
+        /// </summary>
+        private const string MessageIfContactAlreadyExists = "Сontact with the same name is exists.";
+
+        /// <summary>
         /// Selected contact.
         /// </summary>
         private Contact contact;
@@ -44,7 +49,7 @@ namespace AkvelonContacts.WindowsPhone
             {
                 this.contact = (Contact)PhoneApplicationService.Current.State["SelectedContact"];
                 this.DataContext = this.contact;
-                
+
                 if (string.IsNullOrEmpty(this.contact.Phone))
                 {
                     callButton.Visibility = Visibility.Collapsed;
@@ -77,7 +82,19 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void AddContactButton_Click(object sender, RoutedEventArgs e)
         {
-            CommunicationFunctions.AddContactPeopleHub(this.contact);
+            CommunicationFunctions.ContactExists(
+                this.contact,
+                (bool isExists) =>
+                {
+                    if (!isExists)
+                    {
+                        CommunicationFunctions.AddContactPeopleHub(this.contact);
+                        return;
+                    }
+
+                    MessageBox.Show(MessageIfContactAlreadyExists);
+                    CommunicationFunctions.AddContactPeopleHub(this.contact);
+                });
         }
 
         /// <summary>

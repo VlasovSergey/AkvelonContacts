@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AkvelonContacts.Common;
 using Microsoft.Phone.Tasks;
+using UserData = Microsoft.Phone.UserData;
 
 namespace AkvelonContacts.WindowsPhone
 {
@@ -48,6 +49,24 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
+        /// Checks the existence of a contact in People Hub.
+        /// </summary>
+        /// <param name="contact">Contact for test.</param>
+        /// <param name="action">Return result.</param>
+        public static void ContactExists(Contact contact, Action<bool> action)
+        {
+            UserData.Contacts cons = new UserData.Contacts();
+
+            cons.SearchCompleted +=
+            (object sender, UserData.ContactsSearchEventArgs e) =>
+            {
+                action(e.Results.Count() > 0);
+            };
+
+            cons.SearchAsync(contact.FullName, UserData.FilterKind.DisplayName, null);
+        }
+
+        /// <summary>
         /// Shows the Messaging application. 
         /// </summary>
         /// <param name="contact">Contact to send SMS.</param>
@@ -56,7 +75,6 @@ namespace AkvelonContacts.WindowsPhone
             SmsComposeTask smsComposeTask = new SmsComposeTask();
 
             smsComposeTask.To = contact.Phone;
-
             smsComposeTask.Show();
         }
 
