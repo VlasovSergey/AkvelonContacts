@@ -492,6 +492,14 @@ namespace AkvelonContacts.WindowsPhone
                         list[index].Add(item);
                     }
                 }
+                
+                if (sort)
+                {
+                    foreach (AlphaKeyGroup<T> group in list)
+                    {
+                        group.Sort((c0, c1) => { return ci.CompareInfo.Compare(getKey(c0), getKey(c1)); });
+                    }
+                }
 
                 return list;
             }
