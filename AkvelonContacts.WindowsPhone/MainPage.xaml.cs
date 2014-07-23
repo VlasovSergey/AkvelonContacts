@@ -90,17 +90,15 @@ namespace AkvelonContacts.WindowsPhone
         /// Changes state display only contacts with key.
         /// </summary>
         /// <param name="appBarKeyButton">Application bar button</param>
-        private void СhangesStateKeyOnly(ApplicationBarIconButton appBarKeyButton) 
+        private void СhangesStateKeyOnly(ApplicationBarMenuItem appBarKeyButton) 
         {
             if (this.DisplayOnlyContactsWithKey)
             {
-                appBarKeyButton.IconUri = this.appBarKeyIconUri;
-                appBarKeyButton.Text = "only key on";
+                appBarKeyButton.Text = "show contacts with keys";
             }
             else
             {
-                appBarKeyButton.IconUri = this.appBarCloseKeyIconUri;
-                appBarKeyButton.Text = "only key off";                
+                appBarKeyButton.Text = "show all contacts";                
             }
 
             this.DisplayOnlyContactsWithKey = !this.DisplayOnlyContactsWithKey;
@@ -380,7 +378,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void AppBarKeyButton_Click(object sender, EventArgs e)
         {
-            var appBarKeyButton = (ApplicationBarIconButton)sender;
+            var appBarKeyButton = (ApplicationBarMenuItem)sender;
             this.СhangesStateKeyOnly(appBarKeyButton);
         }
 

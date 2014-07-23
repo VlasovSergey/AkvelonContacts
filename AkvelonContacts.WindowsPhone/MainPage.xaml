@@ -129,10 +129,12 @@
     </phone:PhoneApplicationPage.Resources>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar x:Name="appBar">
-            <shell:ApplicationBarIconButton IconUri="/AppBarKey.png" Text="only key on" Click="AppBarKeyButton_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="search" Click="Search_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/refresh.png" Text="refresh" Click="Refresh_Click"/>
-       </shell:ApplicationBar>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Click="AppBarKeyButton_Click" Text="show contacts with keys" />
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
