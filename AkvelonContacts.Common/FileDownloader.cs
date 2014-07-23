@@ -36,9 +36,11 @@ namespace AkvelonContacts.Common
                     }
 
                     string result;
-                    StreamReader streamReader = new StreamReader(stream);
-                    result = streamReader.ReadToEnd();
-                    streamReader.Close();
+
+                    using (StreamReader streamReader = new StreamReader(stream))
+                    {
+                        result = streamReader.ReadToEnd();
+                    }
                     action(result);
                 });
         }
@@ -60,10 +62,9 @@ namespace AkvelonContacts.Common
                         var request = (HttpWebRequest)ar.AsyncState;
                         using (var response = (HttpWebResponse)request.EndGetResponse(ar))
                         {
-                            loadedContactList = response.GetResponseStream();  
-                        }
-
-                        action(loadedContactList);
+                            loadedContactList = response.GetResponseStream();
+                            action(loadedContactList);
+                        }                       
                     }
                     catch
                     {
