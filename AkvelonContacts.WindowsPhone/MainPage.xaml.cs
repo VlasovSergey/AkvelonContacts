@@ -42,11 +42,16 @@ namespace AkvelonContacts.WindowsPhone
         /// Contains contact list.
         /// </summary>
         private List<Contact> contactList;
+        
+        /// <summary>
+        /// Url for close key icon.
+        /// </summary>
+        private Uri appBarCloseKeyIconUri;
 
         /// <summary>
-        /// Value indicating whether display contacts only with key.
+        /// Url for key icon.
         /// </summary>
-        private bool keyOnly = false;
+        private Uri appBarKeyIconUri;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage" /> class.
@@ -54,12 +59,22 @@ namespace AkvelonContacts.WindowsPhone
         public MainPage()
         {
             this.InitializeComponent();
-            contactListSelector.ItemsSource = null;
 
+            this.appBarCloseKeyIconUri = new Uri("/AppBarCloseKey.png", UriKind.Relative);
+            this.appBarKeyIconUri = new Uri("/AppBarKey.png", UriKind.Relative);
+
+            this.DisplayOnlyContactsWithKey = false;
+
+            contactListSelector.ItemsSource = null;
             this.applicationCtrl = new ApplicationController();
 
             this.LoadContactsAndDisplay();
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether display contacts only with key.
+        /// </summary>
+        private bool DisplayOnlyContactsWithKey { get; set; }
 
         /// <summary>
         /// Called when a page becomes the active page in a frame.
@@ -69,6 +84,27 @@ namespace AkvelonContacts.WindowsPhone
         {
             contactListSelector.SelectedItem = null;
             this.DisplayTimeUpdate();
+        }
+
+        /// <summary>
+        /// Changes state display only contacts with key.
+        /// </summary>
+        /// <param name="appBarKeyButton">Application bar button</param>
+        private void СhangesStateKeyOnly(ApplicationBarIconButton appBarKeyButton) 
+        {
+            if (this.DisplayOnlyContactsWithKey)
+            {
+                appBarKeyButton.IconUri = this.appBarKeyIconUri;
+                appBarKeyButton.Text = "only key on";
+            }
+            else
+            {
+                appBarKeyButton.IconUri = this.appBarCloseKeyIconUri;
+                appBarKeyButton.Text = "only key off";                
+            }
+
+            this.DisplayOnlyContactsWithKey = !this.DisplayOnlyContactsWithKey;
+            this.DisplayContactList(this.contactList, null);
         }
 
         /// <summary>
@@ -179,7 +215,7 @@ namespace AkvelonContacts.WindowsPhone
             }
             else
             {
-                if (this.keyOnly)
+                if (this.DisplayOnlyContactsWithKey)
                 {
                     newList = this.FilterContacts(this.contactList, (Contact c) => { return c.SecurityKey; });
                 }
@@ -253,7 +289,7 @@ namespace AkvelonContacts.WindowsPhone
                 {
                     bool mailCriterion = contact.Mail != null && contact.Mail.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0;
                     bool fullNameCriterion = contact.FullName.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0;
-                    bool keyCriterion = this.keyOnly ? contact.SecurityKey : true;
+                    bool keyCriterion = this.DisplayOnlyContactsWithKey ? contact.SecurityKey : true;
                     return keyCriterion && (mailCriterion || fullNameCriterion);
                 });
         }
@@ -338,11 +374,22 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
+        /// Called when the button is clicked, Kay from application bar.
+        /// </summary>
+        /// <param name="sender">Is a parameter called event sender.</param>
+        /// <param name="e">Cancel event args.</param>
+        private void AppBarKeyButton_Click(object sender, EventArgs e)
+        {
+            var appBarKeyButton = (ApplicationBarIconButton)sender;
+            this.СhangesStateKeyOnly(appBarKeyButton);
+        }
+
+        /// <summary>
         /// Called when the button is clicked, search.
         /// </summary>
         /// <param name="sender">Is a parameter called event sender.</param>
         /// <param name="e">Cancel event args.</param>
-        private void SearchBar_Click(object sender, EventArgs e)
+        private void Search_Click(object sender, EventArgs e)
         {
             this.ShowSearch();
         }

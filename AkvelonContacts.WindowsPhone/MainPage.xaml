@@ -48,8 +48,8 @@
                 </Grid.ColumnDefinitions>
                 <Image Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" >
-                    <Image Margin="5 0 5 0" Source="key.png" Height="35" Visibility="{Binding SecurityKey, Converter={StaticResource BoolToVisibilityConverter}}" />
-                    <TextBlock x:Name="itemNameTextBlock"  FontSize="35" Text="{Binding FullName}"/>
+                    <Image Margin="5 0 0 0" Source="key.png" Height="35" Visibility="{Binding SecurityKey, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <TextBlock  Margin="10 0 0 0" x:Name="itemNameTextBlock"  FontSize="35" Text="{Binding FullName}"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -81,7 +81,7 @@
                 <Setter.Value>
                     <DataTemplate>
                         <Border Background="{Binding Converter={StaticResource BackgroundConverter}}" Width="113" Height="113" Margin="6" >
-                            <TextBlock 
+                            <TextBlock
                                 Text="{Binding Key}"
                                 FontFamily="{StaticResource PhoneFontFamilySemiBold}"
                                 FontSize="48"
@@ -128,10 +128,11 @@
         </Storyboard>
     </phone:PhoneApplicationPage.Resources>
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar x:Name="searchBar">
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="Search" Click="SearchBar_Click"/>
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/refresh.png" Text="Refresh" Click="Refresh_Click"/>
-        </shell:ApplicationBar>
+        <shell:ApplicationBar x:Name="appBar">
+            <shell:ApplicationBarIconButton IconUri="/AppBarKey.png" Text="only key on" Click="AppBarKeyButton_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/feature.search.png" Text="search" Click="Search_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/refresh.png" Text="refresh" Click="Refresh_Click"/>
+       </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
