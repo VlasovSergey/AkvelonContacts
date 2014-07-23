@@ -44,6 +44,11 @@ namespace AkvelonContacts.WindowsPhone
         private List<Contact> contactList;
 
         /// <summary>
+        /// Value indicating whether display contacts only with key.
+        /// </summary>
+        private bool keyOnly = false;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainPage" /> class.
         /// </summary>
         public MainPage()
@@ -95,7 +100,7 @@ namespace AkvelonContacts.WindowsPhone
                     if (contactList != null)
                     {
                         this.contactList = contactList;
-                        DisplayContactList(this.contactList);
+                        DisplayContactList(this.contactList, null);
                         this.DisplayTimeUpdate();
                     }
                     else
@@ -163,10 +168,25 @@ namespace AkvelonContacts.WindowsPhone
         /// Displays contact list.
         /// </summary>
         /// <param name="contactList">Contact list for display.</param>
-        private void DisplayContactList(List<Contact> contactList)
+        /// <param name="contactFilter">Filter for contacts.</param>
+        private void DisplayContactList(List<Contact> contactList, Func<Contact, bool> contactFilter)
         {
+            var newList = contactList;
+
+            if (contactFilter != null)
+            {
+                newList = this.FilterContacts(this.contactList, contactFilter);
+            }
+            else
+            {
+                if (this.keyOnly)
+                {
+                    newList = this.FilterContacts(this.contactList, (Contact c) => { return c.SecurityKey; });
+                }
+            }
+
             List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
-                contactList,
+                newList,
                 new CultureInfo("ru-RU"),   // The culture to group contact list.
                 (Contact s) => { return s.FullName; },
                 true);
@@ -202,15 +222,14 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
-        /// Finds contacts by text.
+        /// Filters contacts.
         /// </summary>
-        /// <param name="searchText">Text for searching.</param>
-        /// <returns>Found contacts.</returns>
-        private List<Contact> FindContactsByText(string searchText)
+        /// <param name="contactList">Contacts for filtering.</param>
+        /// <param name="contactFilter">Filter for filtering.</param>
+        /// <returns>Filtered contacts.</returns>
+        private List<Contact> FilterContacts(List<Contact> contactList, Func<Contact, bool> contactFilter)
         {
-            var newList = this.contactList.Where(
-                item => (item.Mail != null && item.Mail.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0) || item.FullName.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0).ToList<Contact>();
-
+            var newList = contactList.Where(item => contactFilter(item)).ToList<Contact>();
             return newList;
         }
 
@@ -221,14 +240,22 @@ namespace AkvelonContacts.WindowsPhone
         private void FindAndDisplayContactByTextBox(TextBox tb)
         {
             var focusElement = FocusManager.GetFocusedElement();
+            var searchText = tb.Text;
 
-            if (tb.Text != string.Empty && !(FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(tb)))
+            if (searchText != string.Empty && !(FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(tb)))
             {
                 return;
             }
 
-            var newList = this.FindContactsByText(tb.Text);
-            this.DisplayContactList(newList);
+            this.DisplayContactList(
+                this.contactList,
+                (Contact contact) =>
+                {
+                    bool mailCriterion = contact.Mail != null && contact.Mail.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0;
+                    bool fullNameCriterion = contact.FullName.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0;
+                    bool keyCriterion = this.keyOnly ? contact.SecurityKey : true;
+                    return keyCriterion && (mailCriterion || fullNameCriterion);
+                });
         }
 
         /// <summary>
