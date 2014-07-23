@@ -24,7 +24,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <summary>
         /// Message if contact already exists
         /// </summary>
-        private const string MessageIfContactAlreadyExists = "Сontact with the same name is exists.";
+        private const string MessageIfContactAlreadyExists = "Сontact with the same name exists. Please rename the contact to avoid an unexpected result.";
 
         /// <summary>
         /// Selected contact.
@@ -92,7 +92,7 @@ namespace AkvelonContacts.WindowsPhone
                         return;
                     }
 
-                    MessageBox.Show(MessageIfContactAlreadyExists);
+                    MessageBox.Show(MessageIfContactAlreadyExists, "Warning", MessageBoxButton.OK);
                     CommunicationFunctions.AddContactPeopleHub(this.contact);
                 });
         }
