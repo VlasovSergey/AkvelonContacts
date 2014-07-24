@@ -1,20 +1,16 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-  <ImageView
-      android:layout_weight="1"
-      android:width="100px"
-      android:layout_height="match_parent"
-      android:layout_width="match_parent"
-      android:id="@+id/contactPhoto" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="1dp">
   <TextView
       android:id="@+id/contactName"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="60dp"
       android:layout_weight="1"
-      android:height="100px" 
-      android:width="100px"/>
+      android:layout_width="wrap_content" />
+  <ImageView
+      android:layout_height="60dp"
+      android:layout_width="60dp"
+      android:id="@+id/contactPhoto"
+      android:layout_marginLeft="5dp" />
 </LinearLayout>

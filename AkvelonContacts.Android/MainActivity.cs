@@ -169,7 +169,7 @@ namespace AkvelonContacts.Android
 
                 view.FindViewById<TextView>(Resource.Id.contactName).Text = item.FullName;
 
-                var stream = StorageController.GetStreamOfFileForRead(ApplicationController.GetPhotoPathByClientId(item.Id));
+                var stream = StorageController.GetStreamOfFileForRead(ApplicationController.GetImagePathById(item.Id));
 
                 Bitmap bmp;
                 bmp = BitmapFactory.DecodeStream(stream);
