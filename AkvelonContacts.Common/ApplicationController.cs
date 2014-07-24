@@ -144,7 +144,7 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="id">Id for image path generate.</param>
         /// <returns>Path for directory for images.</returns>
-        private static string GetImagePathById(string id)
+        public static string GetImagePathById(string id)
         {
             return GetDirrectoryNameforImages() + id + DefaultImageExtensions;
         }
