@@ -4,15 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
+using System.Globalization;
 using AkvelonContacts.Common;
 using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
-using System.Globalization;
 
 namespace AkvelonContacts.Android
 {
@@ -38,6 +39,41 @@ namespace AkvelonContacts.Android
         private ListView contactListView;
 
         /// <summary>
+        /// Search button.
+        /// </summary>
+        private ImageButton seatchButton;
+        
+        /// <summary>
+        /// Edit text for search.
+        /// </summary>
+        private EditText searchTextView;
+
+        /// <summary>
+        /// Title text.
+        /// </summary>
+        private TextView title;
+
+        /// <summary>
+        /// Footer linear layout.
+        /// </summary>
+        private LinearLayout footer;
+
+        /// <summary>
+        /// Called when the activity has detected the user's press of the back key.
+        /// </summary>
+        public override void OnBackPressed()
+        {
+            if (this.searchTextView.Visibility == ViewStates.Visible)
+            {
+                this.HideSearch();
+            }
+            else
+            {
+                base.OnBackPressed();
+            }
+        }
+
+        /// <summary>
         /// Called when the activity is starting.
         /// </summary>
         /// <param name="bundle">
@@ -51,11 +87,44 @@ namespace AkvelonContacts.Android
 
             this.SetContentView(Resource.Layout.Main); // Set our view from the "main" layout resource
 
+            this.seatchButton = this.FindViewById<ImageButton>(Resource.Id.searchButton);
+            this.searchTextView = this.FindViewById<EditText>(Resource.Id.searchText);
+            this.title = this.FindViewById<TextView>(Resource.Id.title);
+            this.footer = this.FindViewById<LinearLayout>(Resource.Id.footer);
+
+            this.seatchButton.Click += (s, e) => { ShowSearch(); };
+
             this.applicationCtrl = new ApplicationController();
 
             this.contactListView = this.FindViewById<ListView>(Resource.Id.contactListView);
 
             this.LoadContactsAndDisplay();
+        }
+
+        /// <summary>
+        /// Shows and set up focus to search edit text view.
+        /// </summary>
+        private void ShowSearch()
+        {
+            this.title.Visibility = ViewStates.Gone;
+            this.searchTextView.Visibility = ViewStates.Visible;
+            this.footer.Visibility = ViewStates.Gone;
+
+            this.searchTextView.RequestFocus();
+
+            InputMethodManager inputMethodManager = this.GetSystemService(Context.InputMethodService) as InputMethodManager;
+            inputMethodManager.ShowSoftInput(this.searchTextView, ShowFlags.Forced);
+            inputMethodManager.ToggleSoftInput(ShowFlags.Forced, HideSoftInputFlags.ImplicitOnly);
+        }
+
+        /// <summary>
+        /// Hides search edit text view.
+        /// </summary>
+        private void HideSearch()
+        {
+            this.title.Visibility = ViewStates.Visible;
+            this.searchTextView.Visibility = ViewStates.Gone;
+            this.footer.Visibility = ViewStates.Visible;
         }
 
         /// <summary>
@@ -90,7 +159,7 @@ namespace AkvelonContacts.Android
         {
             this.RunOnUiThread(() =>
             {
-                var listAdapter = new ContactScreenAdapter(this, contactList,new CultureInfo("ru-RU"), true);
+                var listAdapter = new ContactScreenAdapter(this, contactList, new CultureInfo("ru-RU"), true);
                 contactListView.Adapter = listAdapter;
                 listAdapter.NotifyDataSetChanged();
             });
@@ -126,22 +195,8 @@ namespace AkvelonContacts.Android
 
                 if (sort)
                 {
-                    SortContacts(this.items, ci);
+                    this.SortContacts(this.items, ci);
                 }
-            }
-
-            /// <summary>
-            /// Sorts items.
-            /// </summary>
-            /// <param name="contactList"></param>
-            /// <param name="ci"></param>
-            private void SortContacts(List<Contact> contactList, CultureInfo ci)
-            {
-                contactList.Sort(
-                    (c0, c1) =>
-                    {
-                        return ci.CompareInfo.Compare(c0.FullName, c1.FullName);
-                    });
             }
 
             /// <summary>
@@ -196,8 +251,22 @@ namespace AkvelonContacts.Android
                 Bitmap bmp;
                 bmp = BitmapFactory.DecodeStream(stream);
                 view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
-                
+
                 return view;
+            }
+
+            /// <summary>
+            /// Sorts items.
+            /// </summary>
+            /// <param name="contactList">Contact list for short</param>
+            /// <param name="ci">Culture info for short.</param>
+            private void SortContacts(List<Contact> contactList, CultureInfo ci)
+            {
+                contactList.Sort(
+                    (c0, c1) =>
+                    {
+                        return ci.CompareInfo.Compare(c0.FullName, c1.FullName);
+                    });
             }
         }
     }
