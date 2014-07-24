@@ -9,4 +9,25 @@
         android:layout_height="match_parent"
         android:id="@+id/contactListView"
         android:layout_weight="1" />
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        style="@android:style/ButtonBar">
+        <ImageButton
+            android:src="@android:drawable/ic_menu_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/searchButton"
+            style="@android:style/MediaButton"
+            android:layout_marginRight="0.0dp" />
+        <ImageButton
+            android:src="@android:drawable/ic_popup_sync"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/reloadButton"
+            style="@android:style/MediaButton" />
+    </LinearLayout>
 </LinearLayout>
