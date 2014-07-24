@@ -41,6 +41,7 @@ namespace AkvelonContacts.Common
                     {
                         result = streamReader.ReadToEnd();
                     }
+
                     action(result);
                 });
         }

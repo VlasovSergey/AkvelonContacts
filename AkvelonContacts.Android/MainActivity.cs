@@ -106,8 +106,6 @@ namespace AkvelonContacts.Android
             /// </summary>
             private List<Contact> items;
 
-            private char LastKey;
-
             /// <summary>
             /// Context activity.
             /// </summary>
@@ -118,6 +116,8 @@ namespace AkvelonContacts.Android
             /// </summary>
             /// <param name="context">Context activity.</param>
             /// <param name="items">Contacts List.</param>
+            /// <param name="ci">The CultureInfo to sort by.</param>
+            /// <param name="sort">Will sort the data if true.</param>
             public ContactScreenAdapter(Activity context, List<Contact> items, CultureInfo ci, bool sort)
                 : base()
             {

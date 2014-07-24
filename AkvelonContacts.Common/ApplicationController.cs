@@ -76,6 +76,16 @@ namespace AkvelonContacts.Common
         }
 
         /// <summary>
+        /// Gets path for image by id.
+        /// </summary>
+        /// <param name="id">Id for image path generate.</param>
+        /// <returns>Path for directory for images.</returns>
+        public static string GetImagePathById(string id)
+        {
+            return GetDirrectoryNameforImages() + id + DefaultImageExtensions;
+        }
+
+        /// <summary>
         /// Loads contact list. Returns null if it can not load contacts.
         /// </summary>
         /// <param name="action">Action when contact list is loaded without Photo.</param>
@@ -137,16 +147,6 @@ namespace AkvelonContacts.Common
 
             DateTimeOffset lastWriteTime = (DateTimeOffset)lastWriteTimeOrNull;
             return TimeSpan.FromTicks(DateTimeOffset.Now.Ticks - lastWriteTime.Ticks);
-        }
-
-        /// <summary>
-        /// Gets path for image by id.
-        /// </summary>
-        /// <param name="id">Id for image path generate.</param>
-        /// <returns>Path for directory for images.</returns>
-        public static string GetImagePathById(string id)
-        {
-            return GetDirrectoryNameforImages() + id + DefaultImageExtensions;
         }
 
         /// <summary>
