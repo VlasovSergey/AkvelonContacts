@@ -36,6 +36,7 @@
     <phone:PhoneApplicationPage.Resources>
         <local:PhotoPathConverter x:Key="PhotoPathConverter"></local:PhotoPathConverter>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></local:BoolToVisibilityConverter>
+        <local:NullAndStringEmtyConverter x:Key="NullAndStringEmtyConverter"></local:NullAndStringEmtyConverter>
         <Style x:Key="TextBoxReadOnlyStyle" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
@@ -64,25 +65,25 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
-                <StackPanel  Margin="15 5 15 0" Orientation="Horizontal">
+                <StackPanel Margin="15 5 15 0" Orientation="Horizontal">
                     <Image Margin="15 5 15 5" Source="{Binding Id, Converter={StaticResource PhotoPathConverter}}" Height="130" Width="130" HorizontalAlignment="Left"/>
                     <Image Margin="15 5 15 5" Height="130" Source="image/key.png" Visibility="{Binding SecurityKey, Converter={StaticResource BoolToVisibilityConverter}}"></Image>
                 </StackPanel>
-                <StackPanel  Margin="15 5 15 0" Orientation="Vertical">
-                    <TextBlock Text="Phone: " FontSize="25"></TextBlock>
-                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Phone}"></TextBox>
-                </StackPanel>
-                <StackPanel  Margin="15 5 15 0" Orientation="Vertical">
-                    <TextBlock Text="Skype: " FontSize="25"></TextBlock>
-                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Skype}"></TextBox>
+                <StackPanel Margin="15 5 15 0" Orientation="Vertical">
+                    <TextBlock Text="Phone " FontSize="25"></TextBlock>
+                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Phone, Converter={StaticResource NullAndStringEmtyConverter}}"></TextBox>
                 </StackPanel>
                 <StackPanel Margin="15 5 15 0" Orientation="Vertical">
-                    <TextBlock Text="Mail: " FontSize="25"></TextBlock>
-                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Mail}"></TextBox>
+                    <TextBlock Text="Skype " FontSize="25"></TextBlock>
+                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Skype, Converter={StaticResource NullAndStringEmtyConverter}}"></TextBox>
                 </StackPanel>
                 <StackPanel Margin="15 5 15 0" Orientation="Vertical">
-                    <TextBlock Text="Dislocation: " FontSize="25" ></TextBlock>
-                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Dislocation}"></TextBox>
+                    <TextBlock Text="Mail " FontSize="25"></TextBlock>
+                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Mail, Converter={StaticResource NullAndStringEmtyConverter}}"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="15 5 15 0" Orientation="Vertical">
+                    <TextBlock Text="Dislocation " FontSize="25" ></TextBlock>
+                    <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Dislocation, Converter={StaticResource NullAndStringEmtyConverter}}"></TextBox>
                 </StackPanel>
                 <Button Name="callButton" Content="Call" Click="CallButton_Click"></Button>
                 <Button Name="sendSmsButton" Content="Send SMS" Click="SendSMSButton_Click" ></Button>
