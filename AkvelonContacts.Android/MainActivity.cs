@@ -8,10 +8,8 @@ using System;
 using System.Collections.Generic;
 using AkvelonContacts.Common;
 using Android.App;
-using Android.Content;
-using Android.Net;
+using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
@@ -49,54 +47,37 @@ namespace AkvelonContacts.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            
+
             this.SetContentView(Resource.Layout.Main); // Set our view from the "main" layout resource
 
             this.applicationCtrl = new ApplicationController();
 
             this.contactListView = this.FindViewById<ListView>(Resource.Id.contactListView);
 
-            this.applicationCtrl.GetContacts(
-                (contactList) => {
-                    this.contactList = contactList;
-                    this.DisplayContactList(this.contactList);
-                    
-                },
-                (contact) => {
-                }
-                );
-            this.LoadAndShowContactList();
-        }
-
-        private void DisplayContactList(List<Contact> contactList)
-        {
-            this.BindContactList(contactList, this.contactListView);
+            this.LoadContactsAndDisplay();
         }
 
         /// <summary>
-        /// Loads and shows contact list.
+        /// Loads and display contacts.
         /// </summary>
-        private void LoadAndShowContactList()
+        private void LoadContactsAndDisplay()
         {
-            if (this.IsAvailableInternet())
-            {
-                this.applicationCtrl.DownloadContactList((List<Contact> result) =>
+            this.applicationCtrl.GetContacts(
+                (contactList) =>
                 {
-                    if (result != null)
-                    {
-                        this.BindContactList(result, contactListView);
-                        return;
-                    }
-                    else
-                    {
-                        this.BindContactList(this.applicationCtrl.LoadLocalContactList(), this.contactListView);
-                    }
-                });
-            }
-            else
-            {
-                this.BindContactList(this.applicationCtrl.LoadLocalContactList(), this.contactListView);
-            }
+                    this.contactList = contactList;
+                    this.DisplayContactList(this.contactList);
+                },
+                (contact) => { });
+        }
+
+        /// <summary>
+        /// Displays contact list.
+        /// </summary>
+        /// <param name="contactList">Contact list for display.</param>
+        private void DisplayContactList(List<Contact> contactList)
+        {
+            this.BindContactList(contactList, this.contactListView);
         }
 
         /// <summary>
@@ -112,19 +93,6 @@ namespace AkvelonContacts.Android
                 contactListView.Adapter = listAdapter;
                 listAdapter.NotifyDataSetChanged();
             });
-        }
-
-        /// <summary>
-        /// Gets availability for Internet.
-        /// </summary>
-        /// <returns>Availability for Internet.</returns>
-        private bool IsAvailableInternet()
-        {
-            var connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
-
-            var activeConnection = connectivityManager.ActiveNetworkInfo;
-
-            return (activeConnection != null) && activeConnection.IsConnected;
         }
 
         /// <summary>
@@ -200,6 +168,12 @@ namespace AkvelonContacts.Android
                 }
 
                 view.FindViewById<TextView>(Resource.Id.contactName).Text = item.FullName;
+
+                var stream = StorageController.GetStreamOfFileForRead(ApplicationController.GetPhotoPathByClientId(item.Id));
+
+                Bitmap bmp;
+                bmp = BitmapFactory.DecodeStream(stream);
+                view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
 
                 return view;
             }
