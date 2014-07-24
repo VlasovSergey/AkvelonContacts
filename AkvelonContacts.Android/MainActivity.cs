@@ -12,6 +12,7 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using System.Globalization;
 
 namespace AkvelonContacts.Android
 {
@@ -89,7 +90,7 @@ namespace AkvelonContacts.Android
         {
             this.RunOnUiThread(() =>
             {
-                var listAdapter = new ContactScreenAdapter(this, contactList);
+                var listAdapter = new ContactScreenAdapter(this, contactList,new CultureInfo("ru-RU"), true);
                 contactListView.Adapter = listAdapter;
                 listAdapter.NotifyDataSetChanged();
             });
@@ -105,6 +106,8 @@ namespace AkvelonContacts.Android
             /// </summary>
             private List<Contact> items;
 
+            private char LastKey;
+
             /// <summary>
             /// Context activity.
             /// </summary>
@@ -115,11 +118,30 @@ namespace AkvelonContacts.Android
             /// </summary>
             /// <param name="context">Context activity.</param>
             /// <param name="items">Contacts List.</param>
-            public ContactScreenAdapter(Activity context, List<Contact> items)
+            public ContactScreenAdapter(Activity context, List<Contact> items, CultureInfo ci, bool sort)
                 : base()
             {
                 this.context = context;
                 this.items = items;
+
+                if (sort)
+                {
+                    SortContacts(this.items, ci);
+                }
+            }
+
+            /// <summary>
+            /// Sorts items.
+            /// </summary>
+            /// <param name="contactList"></param>
+            /// <param name="ci"></param>
+            private void SortContacts(List<Contact> contactList, CultureInfo ci)
+            {
+                contactList.Sort(
+                    (c0, c1) =>
+                    {
+                        return ci.CompareInfo.Compare(c0.FullName, c1.FullName);
+                    });
             }
 
             /// <summary>
@@ -174,7 +196,7 @@ namespace AkvelonContacts.Android
                 Bitmap bmp;
                 bmp = BitmapFactory.DecodeStream(stream);
                 view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
-
+                
                 return view;
             }
         }
