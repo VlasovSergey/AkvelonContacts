@@ -52,25 +52,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AkvelonContacts.Common\ApplicationController.cs">
-      <Link>ApplicationController.cs</Link>
+      <Link>Common\ApplicationController.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\Contact.cs">
-      <Link>Contact.cs</Link>
+      <Link>Common\Contact.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsFilter.cs">
-      <Link>ContactsFilter.cs</Link>
+      <Link>Common\ContactsFilter.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsJsonParser.cs">
-      <Link>ContactsJsonParser.cs</Link>
+      <Link>Common\ContactsJsonParser.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\FileDownloader.cs">
-      <Link>FileDownloader.cs</Link>
+      <Link>Common\FileDownloader.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\JsonArrayParser.cs">
-      <Link>JsonArrayParser.cs</Link>
+      <Link>Common\JsonArrayParser.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
-      <Link>StorageController.cs</Link>
+      <Link>Common\StorageController.cs</Link>
     </Compile>
     <Compile Include="ContactInfoActivity.cs" />
     <Compile Include="MainActivity.cs">
@@ -103,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Communication\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
