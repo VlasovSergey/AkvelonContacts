@@ -93,7 +93,7 @@ namespace AkvelonContacts.Android
             this.SetContentView(Resource.Layout.Main); // Set our view from the "main" layout resource
 
             this.displayOnlyContactsWithKey = false;
-            
+
             this.seatchButton = this.FindViewById<ImageButton>(Resource.Id.searchButton);
             this.searchTextView = this.FindViewById<EditText>(Resource.Id.searchText);
             this.title = this.FindViewById<TextView>(Resource.Id.title);
@@ -273,11 +273,14 @@ namespace AkvelonContacts.Android
 
                 view.FindViewById<TextView>(Resource.Id.contactName).Text = item.FullName;
 
-                var stream = StorageController.GetStreamOfFileForRead(ApplicationController.GetImagePathById(item.Id));
-
-                Bitmap bmp;
-                bmp = BitmapFactory.DecodeStream(stream);
-                view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
+                if (StorageController.FileExists(ApplicationController.GetImagePathByContactId(item.Id)))
+                {
+                    Bitmap bmp;
+                    var stream = ApplicationController.GetImageStreamByContactId(item.Id);
+                    bmp = BitmapFactory.DecodeStream(stream);
+                    stream.Close();
+                    view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
+                }
 
                 return view;
             }
