@@ -99,7 +99,15 @@ namespace AkvelonContacts.Android
             this.title = this.FindViewById<TextView>(Resource.Id.title);
             this.footer = this.FindViewById<LinearLayout>(Resource.Id.footer);
 
-            this.seatchButton.Click += (s, e) => { ShowSearch(); };
+            this.seatchButton.Click += (s, e) =>
+            {
+                if (contactList == null)
+                {
+                    ShowMessage("Contact list is not available.", "Warning");
+                }
+                ShowSearch();
+            };
+
             this.searchTextView.TextChanged += (s, e) => { this.DisplayContactsByText(this.searchTextView.Text); };
 
             this.applicationCtrl = new ApplicationController();
@@ -136,6 +144,20 @@ namespace AkvelonContacts.Android
         }
 
         /// <summary>
+        /// Shows message box.
+        /// </summary>
+        /// <param name="text">Text of message.</param>
+        /// <param name="title">Title of message box.</param>
+        private void ShowMessage(string text, string title)
+        {
+            var builder = new AlertDialog.Builder(this);
+            builder.SetMessage(text);
+            builder.SetTitle(title);
+            builder.SetPositiveButton("OK", (s, e) => { });
+            builder.Create().Show();
+        }
+
+        /// <summary>
         /// Loads and display contacts.
         /// </summary>
         private void LoadContactsAndDisplay()
@@ -143,6 +165,11 @@ namespace AkvelonContacts.Android
             this.applicationCtrl.GetContacts(
                 (contactList) =>
                 {
+                    if (contactList == null)
+                    {
+                        ShowMessage("Could not load contacts. Please check your internet connection.", "Warning");
+                    }
+
                     this.contactList = contactList;
                     this.DisplayContactList(this.contactList, null);
                 },
