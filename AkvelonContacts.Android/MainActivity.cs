@@ -114,6 +114,23 @@ namespace AkvelonContacts.Android
                 ShowSearch();
             };
 
+            this.contactListView.ItemClick += (s, e) =>
+            {
+                var adapter = (ContactScreenAdapter)this.contactListView.Adapter;
+
+                var contact = adapter[(int)e.Id];
+                Intent intent = new Intent(this, typeof(ContactInfoActivity));
+                intent.PutExtra("Phone", contact.Phone);
+                intent.PutExtra("Skype", contact.Skype);
+                intent.PutExtra("Mail", contact.Mail);
+                intent.PutExtra("FirstName", contact.FirstName);
+                intent.PutExtra("LastName", contact.LastName);
+                intent.PutExtra("SecurityKey", contact.SecurityKey);
+                intent.PutExtra("Dislocation", contact.Dislocation);
+                intent.PutExtra("Id", contact.Id);
+                this.StartActivity(intent);
+            };
+
             this.searchTextView.TextChanged += (s, e) => { this.DisplayContactsByText(this.searchTextView.Text); };
 
         }
@@ -305,10 +322,11 @@ namespace AkvelonContacts.Android
                 if (StorageController.FileExists(ApplicationController.GetImagePathByContactId(item.Id)))
                 {
                     Bitmap bmp;
-                    var stream = ApplicationController.GetImageStreamByContactId(item.Id);
-                    bmp = BitmapFactory.DecodeStream(stream);
-                    stream.Close();
-                    view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
+                    using (var stream = ApplicationController.GetImageStreamByContactId(item.Id))
+                    {
+                        bmp = BitmapFactory.DecodeStream(stream);
+                        view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
+                    }
                 }
 
                 return view;

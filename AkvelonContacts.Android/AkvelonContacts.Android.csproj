@@ -72,6 +72,7 @@
     <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
       <Link>StorageController.cs</Link>
     </Compile>
+    <Compile Include="ContactInfoActivity.cs" />
     <Compile Include="MainActivity.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
@@ -86,6 +87,10 @@
       <SubType>Designer</SubType>
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\ContactInfo.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <BundleResource Include="Resources\layout\ContactInfo.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
