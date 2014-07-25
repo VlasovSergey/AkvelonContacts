@@ -3,7 +3,7 @@
 //     Copyright (c) Akvelon. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using AkvelonContacts.Common;
@@ -42,7 +42,7 @@ namespace AkvelonContacts.Android
         /// Search button.
         /// </summary>
         private ImageButton seatchButton;
-        
+
         /// <summary>
         /// Edit text for search.
         /// </summary>
@@ -57,6 +57,11 @@ namespace AkvelonContacts.Android
         /// Footer linear layout.
         /// </summary>
         private LinearLayout footer;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether display contacts only with key.
+        /// </summary>
+        private bool displayOnlyContactsWithKey;
 
         /// <summary>
         /// Called when the activity has detected the user's press of the back key.
@@ -87,12 +92,15 @@ namespace AkvelonContacts.Android
 
             this.SetContentView(Resource.Layout.Main); // Set our view from the "main" layout resource
 
+            this.displayOnlyContactsWithKey = false;
+            
             this.seatchButton = this.FindViewById<ImageButton>(Resource.Id.searchButton);
             this.searchTextView = this.FindViewById<EditText>(Resource.Id.searchText);
             this.title = this.FindViewById<TextView>(Resource.Id.title);
             this.footer = this.FindViewById<LinearLayout>(Resource.Id.footer);
 
             this.seatchButton.Click += (s, e) => { ShowSearch(); };
+            this.searchTextView.TextChanged += (s, e) => { this.DisplayContactsByText(this.searchTextView.Text); };
 
             this.applicationCtrl = new ApplicationController();
 
@@ -136,7 +144,7 @@ namespace AkvelonContacts.Android
                 (contactList) =>
                 {
                     this.contactList = contactList;
-                    this.DisplayContactList(this.contactList);
+                    this.DisplayContactList(this.contactList, null);
                 },
                 (contact) => { });
         }
@@ -145,9 +153,12 @@ namespace AkvelonContacts.Android
         /// Displays contact list.
         /// </summary>
         /// <param name="contactList">Contact list for display.</param>
-        private void DisplayContactList(List<Contact> contactList)
+        /// <param name="contactFilter">Filter for contacts.</param>
+        private void DisplayContactList(List<Contact> contactList, Func<Contact, bool> contactFilter)
         {
-            this.BindContactList(contactList, this.contactListView);
+            var newList = ContactsFilter.FilterContacts(contactList, this.displayOnlyContactsWithKey, contactFilter);
+
+            this.BindContactList(newList, this.contactListView);
         }
 
         /// <summary>
@@ -163,6 +174,22 @@ namespace AkvelonContacts.Android
                 contactListView.Adapter = listAdapter;
                 listAdapter.NotifyDataSetChanged();
             });
+        }
+
+        /// <summary>
+        /// finds and displays contacts for text.
+        /// </summary>
+        /// <param name="text">Text for searching.</param>
+        private void DisplayContactsByText(string text)
+        {
+            this.DisplayContactList(
+                this.contactList,
+                (contact) =>
+                {
+                    bool mailCriterion = contact.Mail != null && contact.Mail.IndexOf(text, System.StringComparison.OrdinalIgnoreCase) >= 0;
+                    bool fullNameCriterion = contact.FullName.IndexOf(text, System.StringComparison.OrdinalIgnoreCase) >= 0;
+                    return mailCriterion || fullNameCriterion;
+                });
         }
 
         /// <summary>
