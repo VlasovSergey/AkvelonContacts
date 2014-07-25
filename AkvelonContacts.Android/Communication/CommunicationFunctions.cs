@@ -15,7 +15,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace AkvelonContacts.Android.Communication
+namespace AkvelonContacts.Android
 {
     /// <summary>
     /// Contains methods that use native functions for Windows Phone.
@@ -26,8 +26,23 @@ namespace AkvelonContacts.Android.Communication
         /// Calls to a phone number.
         /// </summary>
         /// <param name="contact">Contact for call.</param>
-        public static void CallToContact(Contact contact)
+        public static void CallToContact(Contact contact, Context context)
         {
+            // On "Call" button click, try to dial phone number.
+            var callDialog = new AlertDialog.Builder(context);
+            callDialog.SetMessage("Dial " + contact.FullName +" at " +contact.Phone + "?");
+            callDialog.SetNeutralButton("Call", delegate
+            {
+                // Create intent to dial phone
+                var callIntent = new Intent(Intent.ActionCall);
+                callIntent.SetData(global::Android.Net.Uri.Parse("tel:" + contact.Phone));
+                context.StartActivity(callIntent);
+            });
+
+            callDialog.SetNegativeButton("Don't call", delegate { });
+
+            // Show the alert dialog to the user and wait for response.
+            callDialog.Show();
         }
 
         /// <summary>

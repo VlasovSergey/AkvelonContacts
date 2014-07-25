@@ -69,6 +69,11 @@ namespace AkvelonContacts.Android
                     this.FindViewById<ImageView>(Resource.Id.photoImage).SetImageBitmap(bmp);
                 }
             }
+
+            this.FindViewById<Button>(Resource.Id.callButton).Click += (s, e) =>
+            {
+                CommunicationFunctions.CallToContact(this.contextContact, this);
+            };
         }
     }
 }
