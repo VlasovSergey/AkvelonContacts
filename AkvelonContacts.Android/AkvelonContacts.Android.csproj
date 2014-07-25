@@ -57,6 +57,9 @@
     <Compile Include="..\AkvelonContacts.Common\Contact.cs">
       <Link>Contact.cs</Link>
     </Compile>
+    <Compile Include="..\AkvelonContacts.Common\ContactsFilter.cs">
+      <Link>ContactsFilter.cs</Link>
+    </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsJsonParser.cs">
       <Link>ContactsJsonParser.cs</Link>
     </Compile>

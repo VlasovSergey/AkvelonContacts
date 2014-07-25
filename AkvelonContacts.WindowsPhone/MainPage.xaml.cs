@@ -39,6 +39,11 @@ namespace AkvelonContacts.WindowsPhone
         private ApplicationController applicationCtrl;
 
         /// <summary>
+        /// Value indicating whether display contacts only with key.
+        /// </summary>
+        private bool displayOnlyContactsWithKey;
+
+        /// <summary>
         /// Contains contact list.
         /// </summary>
         private List<Contact> contactList;
@@ -50,18 +55,13 @@ namespace AkvelonContacts.WindowsPhone
         {
             this.InitializeComponent();
 
-            this.DisplayOnlyContactsWithKey = false;
+            this.displayOnlyContactsWithKey = false;
 
             contactListSelector.ItemsSource = null;
             this.applicationCtrl = new ApplicationController();
 
             this.LoadContactsAndDisplay();
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether display contacts only with key.
-        /// </summary>
-        private bool DisplayOnlyContactsWithKey { get; set; }
 
         /// <summary>
         /// Called when a page becomes the active page in a frame.
@@ -79,7 +79,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="appBarKeyButton">Application bar button</param>
         private void СhangesStateKeyOnly(ApplicationBarMenuItem appBarKeyButton) 
         {
-            if (this.DisplayOnlyContactsWithKey)
+            if (this.displayOnlyContactsWithKey)
             {
                 appBarKeyButton.Text = "show contacts with keys";
             }
@@ -88,7 +88,7 @@ namespace AkvelonContacts.WindowsPhone
                 appBarKeyButton.Text = "show all contacts";                
             }
 
-            this.DisplayOnlyContactsWithKey = !this.DisplayOnlyContactsWithKey;
+            this.displayOnlyContactsWithKey = !this.displayOnlyContactsWithKey;
             this.DisplayContactList(this.contactList, null);
         }
 
@@ -192,19 +192,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="contactFilter">Filter for contacts.</param>
         private void DisplayContactList(List<Contact> contactList, Func<Contact, bool> contactFilter)
         {
-            var newList = contactList;
-
-            if (contactFilter != null)
-            {
-                newList = this.FilterContacts(this.contactList, contactFilter);
-            }
-            else
-            {
-                if (this.DisplayOnlyContactsWithKey)
-                {
-                    newList = this.FilterContacts(this.contactList, (Contact c) => { return c.SecurityKey; });
-                }
-            }
+            var newList = ContactsFilter.FilterContacts(contactList, this.displayOnlyContactsWithKey, contactFilter);
 
             List<AlphaKeyGroup<Contact>> dataSource = AlphaKeyGroup<Contact>.CreateGroups(
                 newList,
@@ -243,18 +231,6 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
-        /// Filters contacts.
-        /// </summary>
-        /// <param name="contactList">Contacts for filtering.</param>
-        /// <param name="contactFilter">Filter for filtering.</param>
-        /// <returns>Filtered contacts.</returns>
-        private List<Contact> FilterContacts(List<Contact> contactList, Func<Contact, bool> contactFilter)
-        {
-            var newList = contactList.Where(item => contactFilter(item)).ToList<Contact>();
-            return newList;
-        }
-
-        /// <summary>
         /// Finds and displays contacts for text from textBox.
         /// </summary>
         /// <param name="tb">TextBox for searching.</param>
@@ -274,8 +250,7 @@ namespace AkvelonContacts.WindowsPhone
                 {
                     bool mailCriterion = contact.Mail != null && contact.Mail.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0;
                     bool fullNameCriterion = contact.FullName.IndexOf(searchText, System.StringComparison.OrdinalIgnoreCase) >= 0;
-                    bool keyCriterion = this.DisplayOnlyContactsWithKey ? contact.SecurityKey : true;
-                    return keyCriterion && (mailCriterion || fullNameCriterion);
+                    return mailCriterion || fullNameCriterion;
                 });
         }
 
