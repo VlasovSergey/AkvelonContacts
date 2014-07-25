@@ -127,7 +127,7 @@ namespace AkvelonContacts.WindowsPhone
                     else
                     {
                         this.HideProgressIndicator();
-                        MessageBox.Show("Could not load contacts.", "Warning", MessageBoxButton.OK);
+                        MessageBox.Show("Could not load contacts. Please check your internet connection.", "Warning", MessageBoxButton.OK);
                     }
                 });
             },
@@ -254,7 +254,7 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (this.contactList == null)
             {
-                MessageBox.Show("Contacts are not loaded.", "Warning", MessageBoxButton.OK);
+                MessageBox.Show("Contact list is not available.", "Warning", MessageBoxButton.OK);
                 return false;
             }
 
