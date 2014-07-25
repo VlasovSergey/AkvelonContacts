@@ -109,6 +109,7 @@ namespace AkvelonContacts.Android
                 if (contactList == null)
                 {
                     ShowMessage("Contact list is not available.", "Warning");
+                    return;
                 }
 
                 ShowSearch();
