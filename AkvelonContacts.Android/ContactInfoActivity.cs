@@ -74,6 +74,11 @@ namespace AkvelonContacts.Android
             {
                 CommunicationFunctions.CallToContact(this.contextContact, this);
             };
+
+            this.FindViewById<Button>(Resource.Id.addContactButton).Click += (s, e) =>
+            {
+                CommunicationFunctions.AddContactPeopleHub(this.contextContact, this);
+            };
         }
     }
 }

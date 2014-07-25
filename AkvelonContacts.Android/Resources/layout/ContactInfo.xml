@@ -45,6 +45,11 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:id="@+id/callButton" />
+      <Button
+          android:text="+add"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/addContactButton" />
     </LinearLayout>
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"

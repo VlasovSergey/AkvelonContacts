@@ -11,9 +11,7 @@ using AkvelonContacts.Common;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+using Android.Provider;
 
 namespace AkvelonContacts.Android
 {
@@ -26,18 +24,22 @@ namespace AkvelonContacts.Android
         /// Calls to a phone number.
         /// </summary>
         /// <param name="contact">Contact for call.</param>
+        /// <param name="context">Context activity.</param>
         public static void CallToContact(Contact contact, Context context)
         {
             // On "Call" button click, try to dial phone number.
             var callDialog = new AlertDialog.Builder(context);
-            callDialog.SetMessage("Dial " + contact.FullName +" at " +contact.Phone + "?");
-            callDialog.SetNeutralButton("Call", delegate
-            {
-                // Create intent to dial phone
-                var callIntent = new Intent(Intent.ActionCall);
-                callIntent.SetData(global::Android.Net.Uri.Parse("tel:" + contact.Phone));
-                context.StartActivity(callIntent);
-            });
+            callDialog.SetMessage("Dial " + contact.FullName + " at " + contact.Phone + "?");
+
+            callDialog.SetNeutralButton(
+                "Call",
+                delegate
+                {
+                    // Create intent to dial phone
+                    var callIntent = new Intent(Intent.ActionCall);
+                    callIntent.SetData(global::Android.Net.Uri.Parse("tel:" + contact.Phone));
+                    context.StartActivity(callIntent);
+                });
 
             callDialog.SetNegativeButton("Don't call", delegate { });
 
@@ -49,8 +51,18 @@ namespace AkvelonContacts.Android
         /// Adds contact to People Hub.
         /// </summary>
         /// <param name="contact">Contact for saving</param>
-        public static void AddContactPeopleHub(Contact contact)
+        /// <param name="context">Context activity.</param>
+        public static void AddContactPeopleHub(Contact contact, Context context)
         {
+            Intent intent = new Intent(Intent.ActionInsert);
+            intent.SetType(ContactsContract.Contacts.ContentType);
+
+            intent.PutExtra(ContactsContract.Intents.Insert.Company, Contact.CompanyName);
+            intent.PutExtra(ContactsContract.Intents.Insert.Name, contact.FullName);
+            intent.PutExtra(ContactsContract.Intents.Insert.Phone, contact.Phone);
+            intent.PutExtra(ContactsContract.Intents.Insert.Email, contact.Mail);
+
+            context.StartActivity(intent);
         }
 
         /// <summary>
@@ -58,7 +70,8 @@ namespace AkvelonContacts.Android
         /// </summary>
         /// <param name="contact">Contact for test.</param>
         /// <param name="action">Return result.</param>
-        public static void ContactExists(Contact contact, Action<bool> action)
+        /// <param name="context">Context activity.</param>
+        public static void ContactExists(Contact contact, Action<bool> action, Context context)
         {
         }
 
@@ -66,7 +79,8 @@ namespace AkvelonContacts.Android
         /// Shows the Messaging application. 
         /// </summary>
         /// <param name="contact">Contact to send SMS.</param>
-        public static void SendSMSToContact(Contact contact)
+        /// <param name="context">Context activity.</param>
+        public static void SendSMSToContact(Contact contact, Context context)
         {
         }
 
@@ -74,7 +88,8 @@ namespace AkvelonContacts.Android
         /// Shows the email application with a new message displayed.
         /// </summary>
         /// <param name="contact">Contact to send email.</param>
-        public static void SendEmailToContact(Contact contact)
+        /// <param name="context">Context activity.</param>
+        public static void SendEmailToContact(Contact contact, Context context)
         {
         }
     }
