@@ -92,12 +92,17 @@ namespace AkvelonContacts.Android
 
             this.SetContentView(Resource.Layout.Main); // Set our view from the "main" layout resource
 
+            this.applicationCtrl = new ApplicationController();
+
             this.displayOnlyContactsWithKey = false;
 
             this.seatchButton = this.FindViewById<ImageButton>(Resource.Id.searchButton);
             this.searchTextView = this.FindViewById<EditText>(Resource.Id.searchText);
             this.title = this.FindViewById<TextView>(Resource.Id.title);
             this.footer = this.FindViewById<LinearLayout>(Resource.Id.footer);
+            this.contactListView = this.FindViewById<ListView>(Resource.Id.contactListView);
+
+            this.LoadContactsAndDisplay();
 
             this.seatchButton.Click += (s, e) =>
             {
@@ -105,16 +110,12 @@ namespace AkvelonContacts.Android
                 {
                     ShowMessage("Contact list is not available.", "Warning");
                 }
+
                 ShowSearch();
             };
 
             this.searchTextView.TextChanged += (s, e) => { this.DisplayContactsByText(this.searchTextView.Text); };
 
-            this.applicationCtrl = new ApplicationController();
-
-            this.contactListView = this.FindViewById<ListView>(Resource.Id.contactListView);
-
-            this.LoadContactsAndDisplay();
         }
 
         /// <summary>
@@ -165,13 +166,17 @@ namespace AkvelonContacts.Android
             this.applicationCtrl.GetContacts(
                 (contactList) =>
                 {
-                    if (contactList == null)
+                    this.RunOnUiThread(() =>
                     {
-                        ShowMessage("Could not load contacts. Please check your internet connection.", "Warning");
-                    }
+                        if (contactList == null)
+                        {
+                            ShowMessage("Could not load contacts. Please check your internet connection.", "Warning");
+                            return;
+                        }
 
-                    this.contactList = contactList;
-                    this.DisplayContactList(this.contactList, null);
+                        this.contactList = contactList;
+                        this.DisplayContactList(this.contactList, null);
+                    });
                 },
                 (contact) => { });
         }
@@ -195,12 +200,9 @@ namespace AkvelonContacts.Android
         /// <param name="contactListView">ListView for binding.</param>
         private void BindContactList(List<Contact> contactList, ListView contactListView)
         {
-            this.RunOnUiThread(() =>
-            {
-                var listAdapter = new ContactScreenAdapter(this, contactList, new CultureInfo("ru-RU"), true);
-                contactListView.Adapter = listAdapter;
-                listAdapter.NotifyDataSetChanged();
-            });
+            var listAdapter = new ContactScreenAdapter(this, contactList, new CultureInfo("ru-RU"), true);
+            contactListView.Adapter = listAdapter;
+            listAdapter.NotifyDataSetChanged();
         }
 
         /// <summary>
