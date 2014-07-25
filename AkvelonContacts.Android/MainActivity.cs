@@ -132,7 +132,6 @@ namespace AkvelonContacts.Android
             };
 
             this.searchTextView.TextChanged += (s, e) => { this.DisplayContactsByText(this.searchTextView.Text); };
-
         }
 
         /// <summary>
