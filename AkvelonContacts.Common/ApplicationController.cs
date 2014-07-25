@@ -66,13 +66,23 @@ namespace AkvelonContacts.Common
         }
 
         /// <summary>
+        /// Gets stream for image file by contact id.
+        /// </summary>
+        /// <param name="id">Contact id.</param>
+        /// <returns>Stream for image file.</returns>
+        public static Stream GetImageStreamByContactId(string id)
+        {
+            return StorageController.GetStreamOfFileForRead(ApplicationController.GetImagePathByContactId(id));
+        }
+
+        /// <summary>
         /// Gets photo by client id.
         /// </summary>
         /// <param name="id">Client id.</param>
         /// <returns>Photo physical path.</returns>
-        public static string GetPhotoPathByClientId(string id)
+        public static string GetPhysicalPathByContactId(string id)
         {
-            return StorageController.GetPhysicalPathForLocalFilePath(GetImagePathById(id));
+            return StorageController.GetPhysicalPathForLocalFilePath(GetImagePathByContactId(id));
         }
 
         /// <summary>
@@ -80,7 +90,7 @@ namespace AkvelonContacts.Common
         /// </summary>
         /// <param name="id">Id for image path generate.</param>
         /// <returns>Path for directory for images.</returns>
-        public static string GetImagePathById(string id)
+        public static string GetImagePathByContactId(string id)
         {
             return GetDirrectoryNameforImages() + id + DefaultImageExtensions;
         }
@@ -124,8 +134,8 @@ namespace AkvelonContacts.Common
                     {
                         if (localContacts == null)
                         {
-                            action(null);
                             // throw new Exception("Cannot load data. Local store do not have contacts and unable to obtain data from the network.");
+                            action(null);
                         }
                     }
                 });
@@ -229,7 +239,7 @@ namespace AkvelonContacts.Common
 
             foreach (var contact in contactList)
             {
-                var photoPath = GetImagePathById(contact.Id);
+                var photoPath = GetImagePathByContactId(contact.Id);
                 /*
                 if (StorageController.FileExists(photoPath))
                 {
