@@ -231,19 +231,11 @@ namespace AkvelonContacts.WindowsPhone
         }
 
         /// <summary>
-        /// Finds and displays contacts for text from textBox.
+        /// Finds and displays contacts by text.
         /// </summary>
-        /// <param name="tb">TextBox for searching.</param>
-        private void FindAndDisplayContactByTextBox(TextBox tb)
+        /// <param name="searchText">Text for searching.</param>
+        private void FindAndDisplayContactByText(string searchText)
         {
-            var focusElement = FocusManager.GetFocusedElement();
-            var searchText = tb.Text;
-
-            if (searchText != string.Empty && !(FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(tb)))
-            {
-                return;
-            }
-
             this.DisplayContactList(
                 this.contactList,
                 (Contact contact) =>
@@ -303,7 +295,14 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.FindAndDisplayContactByTextBox(this.searchTextBox);
+            var focusElement = FocusManager.GetFocusedElement();
+
+            if (this.searchTextBox.Text != string.Empty && !(FocusManager.GetFocusedElement() != null && FocusManager.GetFocusedElement().Equals(this.searchTextBox)))
+            {
+                return;
+            }
+
+            this.FindAndDisplayContactByText(this.searchTextBox.Text);
         }
 
         /// <summary>

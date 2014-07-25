@@ -125,7 +125,6 @@ namespace AkvelonContacts.Common
                         if (localContacts == null)
                         {
                             action(null);
-
                             // throw new Exception("Cannot load data. Local store do not have contacts and unable to obtain data from the network.");
                         }
                     }
