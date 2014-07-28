@@ -122,6 +122,8 @@ namespace AkvelonContacts.Android
 
             this.contactListView.ItemClick += (s, e) =>
             {
+                this.HideKeyboard();
+
                 var adapter = (ContactScreenAdapter)this.contactListView.Adapter;
 
                 var contact = adapter[(int)e.Id];
@@ -156,9 +158,25 @@ namespace AkvelonContacts.Android
 
             this.searchTextView.RequestFocus();
 
+            this.ShowKeyboard();
+        }
+
+        /// <summary>
+        /// Shows keyboard.;
+        /// </summary>
+        private void ShowKeyboard()
+        {
             InputMethodManager inputMethodManager = this.GetSystemService(Context.InputMethodService) as InputMethodManager;
             inputMethodManager.ShowSoftInput(this.searchTextView, ShowFlags.Forced);
             inputMethodManager.ToggleSoftInput(ShowFlags.Forced, HideSoftInputFlags.ImplicitOnly);
+        }
+
+        /// <summary>
+        /// Hides keyboard.
+        /// </summary>
+        private void HideKeyboard()
+        {
+            (GetSystemService(Context.InputMethodService) as InputMethodManager).HideSoftInputFromWindow(this.searchTextView.WindowToken, HideSoftInputFlags.None);
         }
 
         /// <summary>
@@ -359,10 +377,17 @@ namespace AkvelonContacts.Android
                 {
                     using (var stream = ApplicationController.GetImageStreamByContactId(item.Id))
                     {
-                        Bitmap bmp;
-                        bmp = BitmapFactory.DecodeStream(stream);
-                        view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
-                        bmp.Dispose();
+                        try
+                        {
+                            Bitmap bmp;
+                            bmp = BitmapFactory.DecodeStream(stream);
+                            view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
+                            bmp.Dispose();
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Failed to get a picture");
+                        }
                     }
                 }
 
