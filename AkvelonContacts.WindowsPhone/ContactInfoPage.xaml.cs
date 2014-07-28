@@ -88,12 +88,12 @@ namespace AkvelonContacts.WindowsPhone
                 {
                     if (!isExists)
                     {
-                        CommunicationFunctions.AddContactPeopleHub(this.contact);
+                        CommunicationFunctions.AddContactToPeopleHub(this.contact);
                         return;
                     }
 
                     MessageBox.Show(MessageIfContactAlreadyExists, "Warning", MessageBoxButton.OK);
-                    CommunicationFunctions.AddContactPeopleHub(this.contact);
+                    CommunicationFunctions.AddContactToPeopleHub(this.contact);
                 });
         }
 

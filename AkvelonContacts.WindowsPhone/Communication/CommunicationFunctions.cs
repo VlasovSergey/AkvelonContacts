@@ -35,7 +35,7 @@ namespace AkvelonContacts.WindowsPhone
         /// Adds contact to People Hub.
         /// </summary>
         /// <param name="contact">Contact for saving</param>
-        public static void AddContactPeopleHub(Contact contact)
+        public static void AddContactToPeopleHub(Contact contact)
         {
             var saveContactTask = new SaveContactTask();
 
