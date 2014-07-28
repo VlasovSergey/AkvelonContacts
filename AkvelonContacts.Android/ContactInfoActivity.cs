@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // <copyright file="ContactInfoActivity.cs" company="Akvelon">
 //     Copyright (c) Akvelon. All rights reserved.
 // </copyright>
@@ -24,6 +24,11 @@ namespace AkvelonContacts.Android
     [Activity(Label = "ContactInfo")]
     public class ContactInfoActivity : Activity
     {
+        /// <summary>
+        /// Contains text that is displayed if there is no phone, an e-mail, skype or dislocation.
+        /// </summary>
+        private string textIfNotData = "Unknown";
+
         /// <summary>
         /// Contact for activity.
         /// </summary>
@@ -55,10 +60,39 @@ namespace AkvelonContacts.Android
 
             this.Title = this.contextContact.FullName;
 
-            this.FindViewById<TextView>(Resource.Id.phoneText).Text = this.contextContact.Phone;
-            this.FindViewById<TextView>(Resource.Id.emileText).Text = this.contextContact.Mail;
-            this.FindViewById<TextView>(Resource.Id.skypeText).Text = this.contextContact.Skype;
-            this.FindViewById<TextView>(Resource.Id.dislocationText).Text = this.contextContact.Dislocation;
+            Button callButton = this.FindViewById<Button>(Resource.Id.callButton);
+            Button addContactButton = this.FindViewById<Button>(Resource.Id.addContactButton);
+            Button sendSmsButton = this.FindViewById<Button>(Resource.Id.sendSmsButton);
+            Button sendEmailButton = this.FindViewById<Button>(Resource.Id.sendEmailButton);
+
+            TextView phoneTextView = this.FindViewById<TextView>(Resource.Id.phoneText);
+            TextView emailTextView = this.FindViewById<TextView>(Resource.Id.emileText);
+
+            if (string.IsNullOrEmpty(this.contextContact.Phone))
+            {
+                phoneTextView.Text = this.textIfNotData;
+
+                callButton.Visibility = ViewStates.Gone;
+                sendSmsButton.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                phoneTextView.Text = this.contextContact.Phone;
+            }
+
+            if (string.IsNullOrEmpty(this.contextContact.Mail))
+            {
+                emailTextView.Text = this.textIfNotData;
+
+                sendEmailButton.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                emailTextView.Text = this.contextContact.Mail;
+            }
+
+            this.FindViewById<TextView>(Resource.Id.skypeText).Text = !string.IsNullOrEmpty(this.contextContact.Skype) ? this.contextContact.Skype : this.textIfNotData;
+            this.FindViewById<TextView>(Resource.Id.dislocationText).Text = !string.IsNullOrEmpty(this.contextContact.Dislocation) ? this.contextContact.Dislocation : this.textIfNotData;
 
             if (StorageController.FileExists(ApplicationController.GetImagePathByContactId(this.contextContact.Id)))
             {
@@ -70,22 +104,22 @@ namespace AkvelonContacts.Android
                 }
             }
 
-            this.FindViewById<Button>(Resource.Id.callButton).Click += (s, e) =>
+            callButton.Click += (s, e) =>
             {
                 CommunicationFunctions.CallToContact(this.contextContact, this);
             };
 
-            this.FindViewById<Button>(Resource.Id.addContactButton).Click += (s, e) =>
+            addContactButton.Click += (s, e) =>
             {
                 CommunicationFunctions.AddContact(this.contextContact, this);
             };
 
-            this.FindViewById<Button>(Resource.Id.sendSmsButton).Click += (s, e) =>
+            sendSmsButton.Click += (s, e) =>
             {
                 CommunicationFunctions.SendSMSToContact(this.contextContact, this);
             };
 
-            this.FindViewById<Button>(Resource.Id.sendEmailButton).Click += (s, e) =>
+            sendEmailButton.Click += (s, e) =>
             {
                 CommunicationFunctions.SendEmailToContact(this.contextContact, this);
             };
