@@ -59,6 +59,11 @@ namespace AkvelonContacts.Android
         private LinearLayout footer;
 
         /// <summary>
+        /// Progress dialog.
+        /// </summary>
+        private ProgressDialog progressDialog;
+
+        /// <summary>
         /// Gets or sets a value indicating whether display contacts only with key.
         /// </summary>
         private bool displayOnlyContactsWithKey;
@@ -185,6 +190,7 @@ namespace AkvelonContacts.Android
         /// </summary>
         private void LoadContactsAndDisplay()
         {
+            this.ShowProgressDialog("Loading contacts. Please wait...");
             this.applicationCtrl.GetContacts(
                 (contactList) =>
                 {
@@ -193,11 +199,14 @@ namespace AkvelonContacts.Android
                         if (contactList == null)
                         {
                             ShowMessage("Could not load contacts. Please check your internet connection.", "Warning");
-                            return;
+                        }
+                        else
+                        {
+                            this.contactList = contactList;
+                            this.DisplayContactList(this.contactList, null);
                         }
 
-                        this.contactList = contactList;
-                        this.DisplayContactList(this.contactList, null);
+                        this.HideProgressDialog();
                     });
                 },
                 (contact) => { });
@@ -241,6 +250,28 @@ namespace AkvelonContacts.Android
                     bool fullNameCriterion = contact.FullName.IndexOf(text, System.StringComparison.OrdinalIgnoreCase) >= 0;
                     return mailCriterion || fullNameCriterion;
                 });
+        }
+
+        /// <summary>
+        /// Show progress dialog.
+        /// </summary>
+        /// <param name="title">Title for progress dialog.</param>
+        private void ShowProgressDialog(string title)
+        {
+            this.progressDialog = new ProgressDialog(this);
+            this.progressDialog.Indeterminate = true;
+            this.progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+            this.progressDialog.SetMessage(title);
+            this.progressDialog.SetCancelable(false);
+            this.progressDialog.Show();
+        }
+
+        /// <summary>
+        /// Progress dialog.
+        /// </summary>
+        private void HideProgressDialog()
+        {
+            this.progressDialog.Cancel();
         }
 
         /// <summary>
