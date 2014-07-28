@@ -141,7 +141,7 @@ namespace AkvelonContacts.Android
 
             this.FindViewById<ImageButton>(Resource.Id.refreshButton).Click += (s, e) =>
             {
-                this.LoadContactsAndDisplay();
+                this.DownloadContactsAndDysplay();
             };
 
             this.searchTextView.TextChanged += (s, e) => { this.DisplayContactsByText(this.searchTextView.Text); };
@@ -162,6 +162,16 @@ namespace AkvelonContacts.Android
         }
 
         /// <summary>
+        /// Hides search edit text view.
+        /// </summary>
+        private void HideSearch()
+        {
+            this.RequestWindowFeature(WindowFeatures.DefaultFeatures);
+            this.searchTextView.Visibility = ViewStates.Gone;
+            this.footer.Visibility = ViewStates.Visible;
+        }
+
+        /// <summary>
         /// Shows keyboard.;
         /// </summary>
         private void ShowKeyboard()
@@ -177,16 +187,6 @@ namespace AkvelonContacts.Android
         private void HideKeyboard()
         {
             (GetSystemService(Context.InputMethodService) as InputMethodManager).HideSoftInputFromWindow(this.searchTextView.WindowToken, HideSoftInputFlags.None);
-        }
-
-        /// <summary>
-        /// Hides search edit text view.
-        /// </summary>
-        private void HideSearch()
-        {
-            this.title.Visibility = ViewStates.Visible;
-            this.searchTextView.Visibility = ViewStates.Gone;
-            this.footer.Visibility = ViewStates.Visible;
         }
 
         /// <summary>
@@ -209,25 +209,44 @@ namespace AkvelonContacts.Android
         private void LoadContactsAndDisplay()
         {
             this.ShowProgressDialog("Loading contacts. Please wait...");
-            this.applicationCtrl.GetContacts(
-                (contactList) =>
-                {
-                    this.RunOnUiThread(() =>
-                    {
-                        if (contactList == null)
-                        {
-                            ShowMessage("Could not load contacts. Please check your internet connection.", "Warning");
-                        }
-                        else
-                        {
-                            this.contactList = contactList;
-                            this.DisplayContactList(this.contactList, null);
-                        }
+            this.applicationCtrl.GetContacts(this.OnLoadContactList, this.OnLoadPhoto);
+        }
 
-                        this.HideProgressDialog();
-                    });
-                },
-                (contact) => { });
+        /// <summary>
+        /// Called when contact list is loaded without Photo.
+        /// </summary>
+        /// <param name="contactList">Contact list.</param>
+        private void OnLoadContactList(List<Contact> contactList)
+        {
+            this.RunOnUiThread(() =>
+            {
+                if (contactList == null)
+                {
+                    ShowMessage("Could not load contacts. Please check your internet connection.", "Warning");
+                }
+                else
+                {
+                    this.contactList = contactList;
+                    this.DisplayContactList(this.contactList, null);
+                }
+
+                this.HideProgressDialog();
+            });
+        }
+
+        /// <summary>
+        /// Called every time any photo loaded.
+        /// </summary>
+        /// <param name="c">Contact which downloaded photo.</param>
+        private void OnLoadPhoto(Contact c) { } 
+
+        /// <summary>
+        /// Loads and display contacts.
+        /// </summary>
+        private void DownloadContactsAndDysplay()
+        {
+            this.ShowProgressDialog("Loading contacts. Please wait...");
+            this.applicationCtrl.DownloadContactsAndPhotos(this.OnLoadContactList, this.OnLoadPhoto);
         }
 
         /// <summary>
@@ -255,7 +274,7 @@ namespace AkvelonContacts.Android
         }
 
         /// <summary>
-        /// finds and displays contacts for text.
+        /// Finds and displays contacts for text.
         /// </summary>
         /// <param name="text">Text for searching.</param>
         private void DisplayContactsByText(string text)

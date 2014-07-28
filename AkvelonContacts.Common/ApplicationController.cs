@@ -121,14 +121,12 @@ namespace AkvelonContacts.Common
                 return;
             }
 
-            this.DownloadContactList(
-                (List<Contact> result) =>
+            this.DownloadContactsAndPhotos(
+                (result) =>
                 {
                     if (result != null)
                     {
-                        List<Contact> contactList = result;
-                        this.LoadPhotos(result, onLoadPhoto);
-                        action(contactList);
+                        action(result);
                     }
                     else
                     {
@@ -138,6 +136,26 @@ namespace AkvelonContacts.Common
                             action(null);
                         }
                     }
+                },
+                onLoadPhoto);
+        }
+
+        /// <summary>
+        /// Downloads contactList and Photos. Returns null if it can not load contacts.
+        /// </summary>
+        /// <param name="action">Action when contact list is loaded without Photo.</param>
+        /// <param name="onLoadPhoto">Action is called every time any photo loaded.</param>
+        public void DownloadContactsAndPhotos(Action<List<Contact>> action, Action<Contact> onLoadPhoto)
+        {
+            this.DownloadContactList(
+                (List<Contact> result) =>
+                {
+                    if (result != null)
+                    {
+                        this.LoadPhotos(result, onLoadPhoto);
+                    }
+
+                    action(result);
                 });
         }
 
