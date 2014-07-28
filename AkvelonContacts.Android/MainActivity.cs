@@ -41,7 +41,7 @@ namespace AkvelonContacts.Android
         /// <summary>
         /// Search button.
         /// </summary>
-        private ImageButton seatchButton;
+        private ImageButton searchButton;
 
         /// <summary>
         /// Edit text for search.
@@ -96,7 +96,7 @@ namespace AkvelonContacts.Android
 
             this.displayOnlyContactsWithKey = false;
 
-            this.seatchButton = this.FindViewById<ImageButton>(Resource.Id.searchButton);
+            this.searchButton = this.FindViewById<ImageButton>(Resource.Id.searchButton);
             this.searchTextView = this.FindViewById<EditText>(Resource.Id.searchText);
             this.title = this.FindViewById<TextView>(Resource.Id.title);
             this.footer = this.FindViewById<LinearLayout>(Resource.Id.footer);
@@ -104,7 +104,7 @@ namespace AkvelonContacts.Android
 
             this.LoadContactsAndDisplay();
 
-            this.seatchButton.Click += (s, e) =>
+            this.searchButton.Click += (s, e) =>
             {
                 if (contactList == null)
                 {
@@ -130,6 +130,11 @@ namespace AkvelonContacts.Android
                 intent.PutExtra("Dislocation", contact.Dislocation);
                 intent.PutExtra("Id", contact.Id);
                 this.StartActivity(intent);
+            };
+
+            this.FindViewById<ImageButton>(Resource.Id.refreshButton).Click += (s, e) =>
+            {
+                this.LoadContactsAndDisplay();
             };
 
             this.searchTextView.TextChanged += (s, e) => { this.DisplayContactsByText(this.searchTextView.Text); };
@@ -321,11 +326,12 @@ namespace AkvelonContacts.Android
 
                 if (StorageController.FileExists(ApplicationController.GetImagePathByContactId(item.Id)))
                 {
-                    Bitmap bmp;
                     using (var stream = ApplicationController.GetImageStreamByContactId(item.Id))
                     {
+                        Bitmap bmp;
                         bmp = BitmapFactory.DecodeStream(stream);
                         view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
+                        bmp.Dispose();
                     }
                 }
 
