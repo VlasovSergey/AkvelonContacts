@@ -50,6 +50,11 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:id="@+id/addContactButton" />
+      <Button
+          android:text="sms"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/sendSmsButton" />
     </LinearLayout>
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -58,18 +63,31 @@
         android:id="@+id/phoneText" />
   </LinearLayout>
   <LinearLayout
-      android:orientation="vertical"
-      android:minWidth="25px"
-      android:minHeight="25px"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/emileGroup"
-      android:layout_marginBottom="10dp">
-    <TextView
-        android:text="EMILE"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+    android:orientation="vertical"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/emailGroup"
+    android:layout_marginBottom="10dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+      <TextView
+          android:text="EMAIL"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1" />
+      <Button
+          android:text="send email"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/sendEmailButton" />
+    </LinearLayout>
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"

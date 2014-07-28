@@ -4,13 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using AkvelonContacts.Common;
 using Android.App;
 using Android.Content;
-using Android.OS;
 using Android.Provider;
 
 namespace AkvelonContacts.Android
@@ -52,7 +48,7 @@ namespace AkvelonContacts.Android
         /// </summary>
         /// <param name="contact">Contact for saving</param>
         /// <param name="context">Context activity.</param>
-        public static void AddContactPeopleHub(Contact contact, Context context)
+        public static void AddContact(Contact contact, Context context)
         {
             Intent intent = new Intent(Intent.ActionInsert);
             intent.SetType(ContactsContract.Contacts.ContentType);
@@ -82,6 +78,9 @@ namespace AkvelonContacts.Android
         /// <param name="context">Context activity.</param>
         public static void SendSMSToContact(Contact contact, Context context)
         {
+            var smsUri = global::Android.Net.Uri.Parse("smsto:" + contact.Phone);
+            var smsIntent = new Intent(Intent.ActionSendto, smsUri);
+            context.StartActivity(smsIntent);
         }
 
         /// <summary>
@@ -91,6 +90,10 @@ namespace AkvelonContacts.Android
         /// <param name="context">Context activity.</param>
         public static void SendEmailToContact(Contact contact, Context context)
         {
+            var email = new Intent(Intent.ActionSend);
+            email.PutExtra(Intent.ExtraEmail, new string[] { contact.Mail });
+            email.SetType("message/rfc822");
+            context.StartActivity(email);
         }
     }
 }
