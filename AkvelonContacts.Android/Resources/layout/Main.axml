@@ -6,19 +6,21 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         style="@android:style/Theme.Black.NoTitleBar"
         android:minWidth="25px"
-        android:minHeight="25px">
+        android:minHeight="25px"
+        android:background="@drawable/border">
         <TextView
             android:text="akvelon contacts"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/title"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:textSize="30dp" />
         <EditText
             android:id="@+id/searchText"
             android:layout_width="match_parent"

@@ -20,7 +20,7 @@ namespace AkvelonContacts.Android
     /// <summary>
     /// Main activity
     /// </summary>
-    [Activity(Label = "AkvelonContacts.Android", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "AkvelonContacts.Android", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.NoTitleBar")]
     public class MainActivity : Activity
     {
         /// <summary>
@@ -166,7 +166,7 @@ namespace AkvelonContacts.Android
         /// </summary>
         private void HideSearch()
         {
-            this.RequestWindowFeature(WindowFeatures.DefaultFeatures);
+            this.title.Visibility = ViewStates.Visible;
             this.searchTextView.Visibility = ViewStates.Gone;
             this.footer.Visibility = ViewStates.Visible;
         }
