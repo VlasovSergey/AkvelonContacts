@@ -238,7 +238,7 @@ namespace AkvelonContacts.Android
         /// Called every time any photo loaded.
         /// </summary>
         /// <param name="c">Contact which downloaded photo.</param>
-        private void OnLoadPhoto(Contact c) { } 
+        private void OnLoadPhoto(Contact c) { }
 
         /// <summary>
         /// Loads and display contacts.
@@ -268,7 +268,7 @@ namespace AkvelonContacts.Android
         /// <param name="contactListView">ListView for binding.</param>
         private void BindContactList(List<Contact> contactList, ListView contactListView)
         {
-            var listAdapter = new ContactScreenAdapter(this, contactList, new CultureInfo("ru-RU"), true);
+            var listAdapter = new ContactScreenAdapter(this, contactList, new CultureInfo("ru-RU"));
             contactListView.Adapter = listAdapter;
             listAdapter.NotifyDataSetChanged();
         }
@@ -333,16 +333,13 @@ namespace AkvelonContacts.Android
             /// <param name="items">Contacts List.</param>
             /// <param name="ci">The CultureInfo to sort by.</param>
             /// <param name="sort">Will sort the data if true.</param>
-            public ContactScreenAdapter(Activity context, List<Contact> items, CultureInfo ci, bool sort)
+            public ContactScreenAdapter(Activity context, List<Contact> items, CultureInfo ci)
                 : base()
             {
                 this.context = context;
                 this.items = items;
 
-                if (sort)
-                {
-                    this.SortContacts(this.items, ci);
-                }
+                this.SortContacts(this.items, ci);
             }
 
             /// <summary>
