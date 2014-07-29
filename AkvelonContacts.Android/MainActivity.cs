@@ -46,7 +46,7 @@ namespace AkvelonContacts.Android
         /// <summary>
         /// Edit text for search.
         /// </summary>
-        private EditText searchTextView;
+        private EditText searchTextEdit;
 
         /// <summary>
         /// Title text.
@@ -73,9 +73,10 @@ namespace AkvelonContacts.Android
         /// </summary>
         public override void OnBackPressed()
         {
-            if (this.searchTextView.Visibility == ViewStates.Visible)
+            if (this.searchTextEdit.Visibility == ViewStates.Visible)
             {
                 this.HideSearch();
+                this.searchTextEdit.Text = string.Empty;
             }
             else
             {
@@ -102,7 +103,7 @@ namespace AkvelonContacts.Android
             this.displayOnlyContactsWithKey = false;
 
             this.searchButton = this.FindViewById<ImageButton>(Resource.Id.searchButton);
-            this.searchTextView = this.FindViewById<EditText>(Resource.Id.searchText);
+            this.searchTextEdit = this.FindViewById<EditText>(Resource.Id.searchText);
             this.title = this.FindViewById<TextView>(Resource.Id.title);
             this.footer = this.FindViewById<LinearLayout>(Resource.Id.footer);
             this.contactListView = this.FindViewById<ListView>(Resource.Id.contactListView);
@@ -150,7 +151,7 @@ namespace AkvelonContacts.Android
                 this.DownloadContactsAndDysplay();
             };
 
-            this.searchTextView.TextChanged += (s, e) => { this.DisplayContactsByText(this.searchTextView.Text); };
+            this.searchTextEdit.TextChanged += (s, e) => { this.DisplayContactsByText(this.searchTextEdit.Text); };
         }
 
         /// <summary>
@@ -159,10 +160,10 @@ namespace AkvelonContacts.Android
         private void ShowSearch()
         {
             this.title.Visibility = ViewStates.Gone;
-            this.searchTextView.Visibility = ViewStates.Visible;
+            this.searchTextEdit.Visibility = ViewStates.Visible;
             this.footer.Visibility = ViewStates.Gone;
 
-            this.searchTextView.RequestFocus();
+            this.searchTextEdit.RequestFocus();
 
             this.ShowKeyboard();
         }
@@ -173,7 +174,7 @@ namespace AkvelonContacts.Android
         private void HideSearch()
         {
             this.title.Visibility = ViewStates.Visible;
-            this.searchTextView.Visibility = ViewStates.Gone;
+            this.searchTextEdit.Visibility = ViewStates.Gone;
             this.footer.Visibility = ViewStates.Visible;
         }
 
@@ -183,7 +184,7 @@ namespace AkvelonContacts.Android
         private void ShowKeyboard()
         {
             InputMethodManager inputMethodManager = this.GetSystemService(Context.InputMethodService) as InputMethodManager;
-            inputMethodManager.ShowSoftInput(this.searchTextView, ShowFlags.Forced);
+            inputMethodManager.ShowSoftInput(this.searchTextEdit, ShowFlags.Forced);
             inputMethodManager.ToggleSoftInput(ShowFlags.Forced, HideSoftInputFlags.ImplicitOnly);
         }
 
@@ -192,7 +193,7 @@ namespace AkvelonContacts.Android
         /// </summary>
         private void HideKeyboard()
         {
-            (GetSystemService(Context.InputMethodService) as InputMethodManager).HideSoftInputFromWindow(this.searchTextView.WindowToken, HideSoftInputFlags.None);
+            (GetSystemService(Context.InputMethodService) as InputMethodManager).HideSoftInputFromWindow(this.searchTextEdit.WindowToken, HideSoftInputFlags.None);
         }
 
         /// <summary>
@@ -244,7 +245,9 @@ namespace AkvelonContacts.Android
         /// Called every time any photo loaded.
         /// </summary>
         /// <param name="c">Contact which downloaded photo.</param>
-        private void OnLoadPhoto(Contact c) { }
+        private void OnLoadPhoto(Contact c)
+        { 
+        }
 
         /// <summary>
         /// Loads and display contacts.
