@@ -52,7 +52,7 @@ namespace AkvelonContacts.Android
 
             foreach (Contact contact in contacts)
             {
-                string firstLetter = contact.FirstName.Substring(0, 1);
+                string firstLetter = contact.FirstName.Substring(0, 1).ToUpper();
 
                 // Group numbers together in the scroller
                 if (!char.IsLetter(firstLetter, 0))
