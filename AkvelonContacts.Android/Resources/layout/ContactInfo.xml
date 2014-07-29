@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/background_dark">
+    android:background="@android:color/background_dark"
+    android:padding="20dp">
   <LinearLayout
       android:orientation="horizontal"
       android:layout_width="match_parent"
@@ -15,11 +16,11 @@
         android:layout_height="100dp"
         android:id="@+id/photoImage" />
     <ImageView
-      android:visibility="gone"
-      android:src="@drawable/key"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:id="@+id/keyImageOfContactInfoView" />
+        android:visibility="gone"
+        android:src="@drawable/key"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/keyImageOfContactInfoView" />
   </LinearLayout>
   <LinearLayout
       android:orientation="vertical"
@@ -44,21 +45,21 @@
           android:id="@+id/textView1"
           android:layout_weight="1"
           android:textColor="@color/honest" />
-      <Button
-          android:text="Call"
+      <ImageButton
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:id="@+id/callButton" />
-      <Button
-          android:text="+add"
+          android:id="@+id/callButton"
+          android:src="@android:drawable/stat_sys_phone_call" />
+      <ImageButton
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:id="@+id/addContactButton" />
-      <Button
-          android:text="sms"
+          android:id="@+id/sendSmsButton"
+          android:src="@android:drawable/stat_notify_chat" />
+      <ImageButton
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:id="@+id/sendSmsButton" />
+          android:id="@+id/addContactButton"
+          android:src="@android:drawable/ic_menu_add" />
     </LinearLayout>
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -88,11 +89,11 @@
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:textColor="@color/honest" />
-      <Button
-          android:text="send email"
+      <ImageButton
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:id="@+id/sendEmailButton" />
+          android:id="@+id/sendEmailButton"
+          android:src="@android:drawable/sym_action_email" />
     </LinearLayout>
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"

@@ -60,10 +60,10 @@ namespace AkvelonContacts.Android
 
             this.Title = this.contextContact.FullName;
 
-            Button callButton = this.FindViewById<Button>(Resource.Id.callButton);
-            Button addContactButton = this.FindViewById<Button>(Resource.Id.addContactButton);
-            Button sendSmsButton = this.FindViewById<Button>(Resource.Id.sendSmsButton);
-            Button sendEmailButton = this.FindViewById<Button>(Resource.Id.sendEmailButton);
+            ImageButton callButton = this.FindViewById<ImageButton>(Resource.Id.callButton);
+            ImageButton addContactButton = this.FindViewById<ImageButton>(Resource.Id.addContactButton);
+            ImageButton sendSmsButton = this.FindViewById<ImageButton>(Resource.Id.sendSmsButton);
+            ImageButton sendEmailButton = this.FindViewById<ImageButton>(Resource.Id.sendEmailButton);
 
             TextView phoneTextView = this.FindViewById<TextView>(Resource.Id.phoneText);
             TextView emailTextView = this.FindViewById<TextView>(Resource.Id.emileText);
