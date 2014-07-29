@@ -74,8 +74,11 @@
     </Compile>
     <Compile Include="Communication\CommunicationFunctions.cs" />
     <Compile Include="ContactInfoActivity.cs" />
-    <Compile Include="MainActivity.cs">
+    <Compile Include="ContactScreenAdapter.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="MainActivity.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,6 +111,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\Colors.xml" />
+    <AndroidResource Include="Resources\layout\ContactListViewItemHeader.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

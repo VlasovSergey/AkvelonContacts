@@ -126,16 +126,22 @@ namespace AkvelonContacts.Android
 
                 var adapter = (ContactScreenAdapter)this.contactListView.Adapter;
 
-                var contact = adapter[(int)e.Id];
+                var item = adapter[(int)e.Id];
+
+                if (item == null)
+                {
+                    return;
+                }
+
                 Intent intent = new Intent(this, typeof(ContactInfoActivity));
-                intent.PutExtra("Phone", contact.Phone);
-                intent.PutExtra("Skype", contact.Skype);
-                intent.PutExtra("Mail", contact.Mail);
-                intent.PutExtra("FirstName", contact.FirstName);
-                intent.PutExtra("LastName", contact.LastName);
-                intent.PutExtra("SecurityKey", contact.SecurityKey);
-                intent.PutExtra("Dislocation", contact.Dislocation);
-                intent.PutExtra("Id", contact.Id);
+                intent.PutExtra("Phone", item.Phone);
+                intent.PutExtra("Skype", item.Skype);
+                intent.PutExtra("Mail", item.Mail);
+                intent.PutExtra("FirstName", item.FirstName);
+                intent.PutExtra("LastName", item.LastName);
+                intent.PutExtra("SecurityKey", item.SecurityKey);
+                intent.PutExtra("Dislocation", item.Dislocation);
+                intent.PutExtra("Id", item.Id);
                 this.StartActivity(intent);
             };
 
@@ -309,120 +315,6 @@ namespace AkvelonContacts.Android
         private void HideProgressDialog()
         {
             this.progressDialog.Cancel();
-        }
-
-        /// <summary>
-        /// Class adapter for communications ContactListView with Contacts List of.
-        /// </summary>
-        internal partial class ContactScreenAdapter : BaseAdapter<Contact>
-        {
-            /// <summary>
-            /// Contains items for display.
-            /// </summary>
-            private List<Contact> items;
-
-            /// <summary>
-            /// Context activity.
-            /// </summary>
-            private Activity context;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="ContactScreenAdapter" /> class.
-            /// </summary>
-            /// <param name="context">Context activity.</param>
-            /// <param name="items">Contacts List.</param>
-            /// <param name="ci">The CultureInfo to sort by.</param>
-            /// <param name="sort">Will sort the data if true.</param>
-            public ContactScreenAdapter(Activity context, List<Contact> items, CultureInfo ci)
-                : base()
-            {
-                this.context = context;
-                this.items = items;
-
-                this.SortContacts(this.items, ci);
-            }
-
-            /// <summary>
-            /// Gets contacts count.
-            /// </summary>
-            public override int Count
-            {
-                get { return this.items.Count; }
-            }
-
-            /// <summary>
-            /// Gets contacts by index.
-            /// </summary>
-            /// <param name="position">Contact index.</param>
-            /// <returns>Contact by index.</returns>
-            public override Contact this[int position]
-            {
-                get { return this.items[position]; }
-            }
-
-            /// <summary>
-            /// Gets id item.
-            /// </summary>
-            /// <param name="position">Contact index.</param>
-            /// <returns>Id for item.</returns>
-            public override long GetItemId(int position)
-            {
-                return position;
-            }
-
-            /// <summary>
-            /// Gets view for a contact.
-            /// </summary>
-            /// <param name="position">Position in list.</param>
-            /// <param name="convertView">Convert view.</param>
-            /// <param name="parent">Parent by view.</param>
-            /// <returns>View with contact data</returns>
-            public override View GetView(int position, View convertView, ViewGroup parent)
-            {
-                var item = this.items[position];
-                View view = convertView;
-
-                if (view == null)
-                {
-                    view = this.context.LayoutInflater.Inflate(Resource.Layout.ContactListViewTemplate, null);
-                }
-
-                view.FindViewById<TextView>(Resource.Id.contactName).Text = item.FullName;
-
-                if (StorageController.FileExists(ApplicationController.GetImagePathByContactId(item.Id)))
-                {
-                    using (var stream = ApplicationController.GetImageStreamByContactId(item.Id))
-                    {
-                        try
-                        {
-                            Bitmap bmp;
-                            bmp = BitmapFactory.DecodeStream(stream);
-                            view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
-                            bmp.Dispose();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Failed to get a picture");
-                        }
-                    }
-                }
-
-                return view;
-            }
-
-            /// <summary>
-            /// Sorts items.
-            /// </summary>
-            /// <param name="contactList">Contact list for short</param>
-            /// <param name="ci">Culture info for short.</param>
-            private void SortContacts(List<Contact> contactList, CultureInfo ci)
-            {
-                contactList.Sort(
-                    (c0, c1) =>
-                    {
-                        return ci.CompareInfo.Compare(c0.FullName, c1.FullName);
-                    });
-            }
         }
     }
 }
