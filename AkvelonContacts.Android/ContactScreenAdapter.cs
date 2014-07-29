@@ -121,16 +121,22 @@ namespace AkvelonContacts.Android
             }
             else
             {
+                Contact contact = item.Contact;
                 view = this.context.LayoutInflater.Inflate(Resource.Layout.ContactListViewTemplate, null);
 
-                view.FindViewById<TextView>(Resource.Id.contactName).Text = item.Contact.FullName;
+                view.FindViewById<TextView>(Resource.Id.contactName).Text = contact.FullName;
+
+                if (contact.SecurityKey)
+                {
+                    view.FindViewById<ImageView>(Resource.Id.keyImageOfItem).Visibility = ViewStates.Visible;
+                }
 
                 if (StorageController.FileExists(ApplicationController.GetImagePathByContactId(item.Contact.Id)))
                 {
                     using (var stream = ApplicationController.GetImageStreamByContactId(item.Contact.Id))
                     {
                         try
-                        {
+                        {   
                             Bitmap bmp;
                             bmp = BitmapFactory.DecodeStream(stream);
                             view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);

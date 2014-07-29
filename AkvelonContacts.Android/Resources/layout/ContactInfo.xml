@@ -3,8 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/background_dark"
-    >
+    android:background="@android:color/background_dark">
   <LinearLayout
       android:orientation="horizontal"
       android:layout_width="match_parent"
@@ -16,10 +15,11 @@
         android:layout_height="100dp"
         android:id="@+id/photoImage" />
     <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/keyImage" />
+      android:visibility="gone"
+      android:src="@drawable/key"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:id="@+id/keyImageOfContactInfoView" />
   </LinearLayout>
   <LinearLayout
       android:orientation="vertical"

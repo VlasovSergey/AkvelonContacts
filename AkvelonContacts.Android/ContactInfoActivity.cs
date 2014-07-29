@@ -104,6 +104,11 @@ namespace AkvelonContacts.Android
                 }
             }
 
+            if (this.contextContact.SecurityKey)
+            {
+                this.FindViewById<ImageView>(Resource.Id.keyImageOfContactInfoView).Visibility = ViewStates.Visible;
+            }
+
             callButton.Click += (s, e) =>
             {
                 CommunicationFunctions.CallToContact(this.contextContact, this);
