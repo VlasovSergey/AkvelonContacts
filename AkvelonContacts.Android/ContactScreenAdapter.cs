@@ -163,7 +163,7 @@ namespace AkvelonContacts.Android
             contactList.Sort(
                 (c0, c1) =>
                 {
-                    return ci.CompareInfo.Compare(c0.FullName, c1.FullName);
+                    return ci.CompareInfo.Compare(c0.FirstName, c1.FirstName);
                 });
         }
 
