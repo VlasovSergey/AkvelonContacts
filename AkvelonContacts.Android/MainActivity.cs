@@ -84,6 +84,33 @@ namespace AkvelonContacts.Android
             }
         }
 
+        IMenu menu;
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            menu.Add(0, 0, 0, "Show only contacts with key.");
+            menu.Add(0, 1, 1, "Show all contacts.");
+            menu.GetItem(1).SetVisible(false);
+            this.menu = menu;
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case 0:
+                case 1:
+                    item.SetVisible(false);
+                    this.displayOnlyContactsWithKey = !this.displayOnlyContactsWithKey;
+                    this.DisplayContactList(this.contactList, null);
+                    menu.GetItem(this.displayOnlyContactsWithKey?1:0).SetVisible(true);
+                    return true;
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
+        }
+
         /// <summary>
         /// Called when the activity is starting.
         /// </summary>
