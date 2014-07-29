@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border">
       <TextView
-          android:text="PHONE"
+          android:text="@string/PhoneTitle"
           android:textAppearance="?android:attr/textAppearanceLarge"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/border">
       <TextView
-          android:text="EMAIL"
+          android:text="@string/EmileTitle"
           android:textAppearance="?android:attr/textAppearanceLarge"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
       android:id="@+id/skypeGroup"
       android:layout_marginBottom="10dp">
     <TextView
-        android:text="SKYPE"
+        android:text="@string/SkupeTitle"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -131,7 +131,7 @@
       android:id="@+id/dislocationGroup"
       android:layout_marginBottom="10dp">
     <TextView
-        android:text="DISLOCATION"
+        android:text="@string/DislocationTitle"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
