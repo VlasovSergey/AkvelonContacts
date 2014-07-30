@@ -97,6 +97,7 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         private void ShowProgressIndicator()
         {
+            progressBar.IsIndeterminate = true;
             progressBar.Visibility = Visibility.Visible;
         }
 
@@ -105,6 +106,7 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         private void HideProgressIndicator()
         {
+            progressBar.IsIndeterminate = false;
             progressBar.Visibility = Visibility.Collapsed;
         }
 
@@ -113,28 +115,46 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         private void LoadContactsAndDisplay()
         {
-            this.applicationCtrl.GetContacts(
-            (contactList) =>
+            this.applicationCtrl.GetContacts(this.OnLoadContactList, this.OnLoadPhoto);
+        }
+
+        /// <summary>
+        /// Download and display contacts.
+        /// </summary>
+        private void UpdateContactsFromServer()
+        {
+            this.applicationCtrl.DownloadContactsAndPhotos(this.OnLoadContactList, this.OnLoadPhoto);
+        }
+
+        /// <summary>
+        /// Called when contact list is loaded without Photo.
+        /// </summary>
+        /// <param name="contactList">Contact list.</param>
+        private void OnLoadContactList(List<Contact> contactList)
+        {
+            Dispatcher.BeginInvoke(() =>
             {
-                Dispatcher.BeginInvoke(() =>
+                this.HideProgressIndicator();
+                if (contactList != null)
                 {
-                    if (contactList != null)
-                    {
-                        this.contactList = contactList;
-                        DisplayContactList(this.contactList, null);
-                        this.DisplayTimeUpdate();
-                    }
-                    else
-                    {
-                        this.HideProgressIndicator();
-                        MessageBox.Show("Could not load contacts. Please check your internet connection.", "Warning", MessageBoxButton.OK);
-                    }
-                });
-            },
-            (contact) =>
-            {
-                Dispatcher.BeginInvoke(() => { });
+                    this.contactList = contactList;
+                    DisplayContactList(this.contactList, null);
+                    this.DisplayTimeUpdate();
+                }
+                else
+                {
+                    this.HideProgressIndicator();
+                    MessageBox.Show("Could not load contacts. Please check your internet connection.", "Warning", MessageBoxButton.OK);
+                }
             });
+        }
+
+        /// <summary>
+        /// Called every time any photo loaded.
+        /// </summary>
+        /// <param name="c">Contact which downloaded photo.</param>
+        private void OnLoadPhoto(Contact c)
+        {
         }
 
         /// <summary>
@@ -360,7 +380,8 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void Refresh_Click(object sender, EventArgs e)
         {
-            this.LoadContactsAndDisplay();
+            this.ShowProgressIndicator();
+            this.UpdateContactsFromServer();
         }
 
         /// <summary>

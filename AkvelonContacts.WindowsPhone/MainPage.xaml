@@ -141,14 +141,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ProgressBar Grid.Row="1" IsIndeterminate="true" x:Name="progressBar" Visibility="Visible">
-            <i:Interaction.Triggers>
-                <ec:DataTrigger Binding="{Binding ItemsSource, ElementName=contactListSelector}" Value="{x:Null}" Comparison="NotEqual">
-                    <ec:ChangePropertyAction PropertyName="Visibility" Value="Collapsed">
-                    </ec:ChangePropertyAction>
-                </ec:DataTrigger>
-            </i:Interaction.Triggers>
-        </ProgressBar>
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBox
                 Visibility="Collapsed"
@@ -179,5 +171,6 @@
                 HideEmptyGroups="True"
                 />
         </Grid>
+        <ProgressBar Grid.Row="1" IsIndeterminate="true" x:Name="progressBar" Visibility="Visible"></ProgressBar>
     </Grid>
 </phone:PhoneApplicationPage>
