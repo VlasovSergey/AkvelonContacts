@@ -82,7 +82,7 @@ namespace AkvelonContacts.Common
         /// <param name="fileName">File name.</param>
         /// <param name="streamForSave">Stream for write.</param>
         /// <returns>Physical file path for write.</returns>
-        public static string CopyStreamToLocalStore(string fileName, Stream streamForSave)
+        public static string CopyStreamToLocalStoreage(string fileName, Stream streamForSave)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace AkvelonContacts.Common
             }
             catch
             {
-                Console.WriteLine("Unable to copy the stream to the local store.");
+                Console.WriteLine("Unable to copy the stream to the local storeage.");
                 return null;
             }
         }
@@ -170,11 +170,11 @@ namespace AkvelonContacts.Common
 
         /// <summary>
         /// Determines whether the specified path refers to an existing directory in
-        /// the isolated store.
+        /// the isolated storage.
         /// </summary>
         /// <param name="directoryName">The path to test.</param>
         /// <returns>
-        /// true if path refers to an existing directory in the isolated store and is
+        /// true if path refers to an existing directory in the isolated storage and is
         /// not null; otherwise, false.
         /// </returns>
         public static bool DirectoryExists(string directoryName)

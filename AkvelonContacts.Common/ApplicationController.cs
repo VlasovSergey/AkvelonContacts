@@ -264,7 +264,7 @@ namespace AkvelonContacts.Common
                     {
                         if (stream != null)
                         {
-                            StorageController.CopyStreamToLocalStore(photoPath, stream);
+                            StorageController.CopyStreamToLocalStoreage(photoPath, stream);
                             onLoadPhoto(contact);
                         }
                     });
