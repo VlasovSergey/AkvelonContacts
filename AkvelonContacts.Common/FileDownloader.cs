@@ -53,26 +53,34 @@ namespace AkvelonContacts.Common
         /// <param name="action">Action when download complete.</param>
         public static void DownloadFile(string url, Action<Stream> action)
         {
-            Stream loadedContactList;
-            var httpReq = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-            httpReq.BeginGetResponse(
-                (ar) =>
-                {
-                    try
+            try
+            {
+                Stream loadedContactList;
+                var httpReq = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+                httpReq.BeginGetResponse(
+                    (ar) =>
                     {
-                        var request = (HttpWebRequest)ar.AsyncState;
-                        using (var response = (HttpWebResponse)request.EndGetResponse(ar))
+                        try
                         {
-                            loadedContactList = response.GetResponseStream();
-                            action(loadedContactList);
-                        }                       
-                    }
-                    catch
-                    {
-                        action(null);
-                    }
-                },
-            httpReq);
+                            var request = (HttpWebRequest)ar.AsyncState;
+                            using (var response = (HttpWebResponse)request.EndGetResponse(ar))
+                            {
+                                loadedContactList = response.GetResponseStream();
+                                action(loadedContactList);
+                            }
+                        }
+                        catch
+                        {
+                            action(null);
+                        }
+                    },
+                httpReq);
+            }
+            catch
+            {
+                Console.WriteLine("Failed to create a request");
+                action(null);
+            }
         }
     }
 }
