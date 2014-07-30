@@ -42,12 +42,12 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Url for photos download.
         /// </summary>
-        private string photosStoreUrl = "http://prism.akvelon.net/api/system/getphoto/";
+        private const string PphotosStorageUrl = "http://prism.akvelon.net/api/system/getphoto/";
 
         /// <summary>
         /// URL for download contacts list.
         /// </summary>
-        private string contactListUrl = "http://prism.akvelon.net/api/employees/all";
+        private const string ContactListUrl = "http://prism.akvelon.net/api/employees/all";
 
         /// <summary>
         /// Gets stream for image file by contact id.
@@ -77,6 +77,16 @@ namespace AkvelonContacts.Common
         public static string GetImagePathByContactId(string id)
         {
             return GetDirrectoryNameforImages() + id + DefaultImageExtensions;
+        }
+
+        /// <summary>
+        /// Gets url for image by id.
+        /// </summary>
+        /// <param name="id">Id for image url generate.</param>
+        /// <returns>Url for images.</returns>
+        public static string GetImageUrlByContactId(string id)
+        {
+            return PphotosStorageUrl + id;
         }
 
         /// <summary>
@@ -177,7 +187,7 @@ namespace AkvelonContacts.Common
         private void DownloadContactList(Action<List<Contact>> action)
         {
             FileDownloader.DownloadFileAsString(
-                this.contactListUrl,
+                ContactListUrl,
                 (string result) =>
                 {
                     if (result == null)
@@ -241,7 +251,7 @@ namespace AkvelonContacts.Common
                     return;
                 }
                 */
-                var contactPhotoUrl = this.photosStoreUrl + contact.Id;
+                var contactPhotoUrl = GetImageUrlByContactId(contact.Id);
                 FileDownloader.DownloadFile(
                     contactPhotoUrl,
                     (stream) =>

@@ -103,13 +103,13 @@
       <Link>utils\ContactsJsonParser.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\FileDownloader.cs">
-      <Link>Common\FileDownloader.cs</Link>
+      <Link>utils\FileDownloader.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\JsonArrayParser.cs">
       <Link>utils\JsonArrayParser.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
-      <Link>Common\StorageController.cs</Link>
+      <Link>utils\StorageController.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\TimeController.cs">
       <Link>utils\TimeController.cs</Link>
@@ -129,9 +129,9 @@
     <Compile Include="Communication\Communication.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="utils\Controllers\BoolToVisibilityConverter.cs" />
-    <Compile Include="utils\Controllers\NullAndStringEmtyConverter.cs" />
-    <Compile Include="utils\Controllers\PhotoPathConverter.cs" />
+    <Compile Include="utils\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="utils\Converters\NullAndStringEmtyConverter.cs" />
+    <Compile Include="utils\Converters\PhotoPathConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>

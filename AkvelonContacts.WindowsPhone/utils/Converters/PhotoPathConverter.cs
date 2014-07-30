@@ -29,7 +29,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <returns>The value to be passed to the target dependency property.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ApplicationController.GetPhysicalPathByContactId((string)value);
+            return ApplicationController.GetPhysicalPathByContactId((string)value) ?? ApplicationController.GetImageUrlByContactId(value.ToString());
         }
 
         /// <summary>
