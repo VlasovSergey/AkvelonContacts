@@ -22,7 +22,7 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// Name for save to local storage.
         /// </summary>
-        private const string JsonLocalName = "ContactList.json";
+        private const string ContactsLocalFileName = "ContactList.json";
 
         /// <summary>
         /// Name of the directory to store the data of the application.
@@ -47,23 +47,7 @@ namespace AkvelonContacts.Common
         /// <summary>
         /// URL for download contacts list.
         /// </summary>
-        private string contactListJsonUrl = "http://prism.akvelon.net/api/employees/all";
-
-        /// <summary>
-        /// Gets or sets the Url for download contact list.
-        /// </summary>
-        private string ContactListJsonUrl
-        {
-            get
-            {
-                return this.contactListJsonUrl;
-            }
-
-            set
-            {
-                this.contactListJsonUrl = value;
-            }
-        }
+        private string contactListUrl = "http://prism.akvelon.net/api/employees/all";
 
         /// <summary>
         /// Gets stream for image file by contact id.
@@ -183,7 +167,7 @@ namespace AkvelonContacts.Common
         /// <returns>Path for directory for JSON file with contact list.</returns>
         private static string GetPathContactListJson()
         {
-            return AppDataDirectoryName + JsonLocalName;
+            return AppDataDirectoryName + ContactsLocalFileName;
         }
 
         /// <summary>
@@ -193,7 +177,7 @@ namespace AkvelonContacts.Common
         private void DownloadContactList(Action<List<Contact>> action)
         {
             FileDownloader.DownloadFileAsString(
-                this.contactListJsonUrl,
+                this.contactListUrl,
                 (string result) =>
                 {
                     if (result == null)
