@@ -236,43 +236,34 @@ namespace AkvelonContacts.WindowsPhone
         /// <summary>
         /// Shows search panel with focus and hides application bar.
         /// </summary>
-        /// <returns>Is method executed.</returns>
-        private bool ShowSearch()
+        private void ShowSearchTextBox()
         {
-            if (this.contactList == null)
-            {
-                MessageBox.Show("Contact list is not available.", "Warning", MessageBoxButton.OK);
-                return false;
-            }
-
             this.ApplicationBar.IsVisible = false;
 
             if (searchTextBox.Visibility != Visibility.Collapsed)
             {
-                return false;
+                return;
             }
 
             ShowSearchBox.Begin();
             searchTextBox.Visibility = Visibility.Visible;
             searchTextBox.Focus();
-            return true;
         }
 
         /// <summary>
         /// Hides search panel with focus and shows application bar.
         /// </summary>
         /// <returns>Is method executed.</returns>
-        private bool HideSearch()
+        private void HideSearchTextBox()
         {
             if (searchTextBox.Visibility != Visibility.Visible)
             {
-                return false;
+                return;
             }
 
             searchTextBox.Text = string.Empty;
             this.ApplicationBar.IsVisible = true;
             HideSearchBox.Begin();
-            return true;
         }
 
         /// <summary>
@@ -337,7 +328,12 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void Search_Click(object sender, EventArgs e)
         {
-            this.ShowSearch();
+            if (this.contactList == null)
+            {
+                MessageBox.Show("Contact list is not available.", "Warning", MessageBoxButton.OK);
+            }
+
+            this.ShowSearchTextBox();
         }
 
         /// <summary>
@@ -358,8 +354,9 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (this.HideSearch())
+            if (this.searchTextBox.Visibility == Visibility)
             {
+                this.HideSearchTextBox();
                 e.Cancel = true;
             }
         }
