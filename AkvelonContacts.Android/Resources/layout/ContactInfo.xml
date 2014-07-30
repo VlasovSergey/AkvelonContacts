@@ -5,142 +5,150 @@
     android:layout_height="fill_parent"
     android:background="@android:color/background_dark"
     android:padding="20dp">
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/linearLayout1">
+    <ImageView
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/photoImage" />
+    <ImageView
+        android:visibility="gone"
+        android:src="@drawable/key"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/keyImageOfContactInfoView" />
+  </LinearLayout>
+  <LinearLayout
+      android:orientation="vertical"
+      android:minWidth="25px"
+      android:minHeight="25px"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/phoneGroup"
+      android:layout_marginBottom="10dp">
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1">
-        <ImageView
-            android:src="@android:drawable/ic_menu_gallery"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/photoImage" />
-        <ImageView
-            android:visibility="gone"
-            android:src="@drawable/key"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/keyImageOfContactInfoView" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/phoneGroup"
-        android:layout_marginBottom="10dp">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border">
-            <TextView
-                android:text="@string/PhoneTitle"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView1"
-                android:layout_weight="1"
-                android:textColor="@color/honest" />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:id="@+id/callButton"
-                android:src="@android:drawable/stat_sys_phone_call" />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:id="@+id/sendSmsButton"
-                android:src="@android:drawable/stat_notify_chat" />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:id="@+id/addContactButton"
-                android:src="@android:drawable/ic_menu_add" />
-        </LinearLayout>
-        <TextView
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/phoneText" />
+        android:background="@drawable/border">
+      <TextView
+          android:text="@string/PhoneTitle"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/textView1"
+          android:layout_weight="1"
+          android:textColor="@color/honest" />
+      <ImageButton
+          android:layout_width="50dp"
+          android:layout_height="match_parent"
+          android:id="@+id/callButton"
+          android:src="@android:drawable/stat_sys_phone_call" />
+      <ImageButton
+          android:layout_width="50dp"
+          android:layout_height="match_parent"
+          android:id="@+id/sendSmsButton"
+          android:src="@android:drawable/stat_notify_chat" />
+      <ImageButton
+          android:layout_width="50dp"
+          android:layout_height="match_parent"
+          android:id="@+id/addContactButton"
+          android:src="@android:drawable/ic_menu_add" />
     </LinearLayout>
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/phoneText"
+         android:textIsSelectable="true"
+            />
+  </LinearLayout>
+  <LinearLayout
+      android:orientation="vertical"
+      android:minWidth="25px"
+      android:minHeight="25px"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/emailGroup"
+      android:layout_marginBottom="10dp">
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/emailGroup"
-        android:layout_marginBottom="10dp">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border">
-            <TextView
-                android:text="@string/EmileTitle"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/honest" />
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:id="@+id/sendEmailButton"
-                android:src="@android:drawable/sym_action_email" />
-        </LinearLayout>
-        <TextView
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/emileText" />
+        android:background="@drawable/border">
+      <TextView
+          android:text="@string/EmileTitle"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:textColor="@color/honest" />
+      <ImageButton
+          android:layout_width="50dp"
+          android:layout_height="match_parent"
+          android:id="@+id/sendEmailButton"
+          android:src="@android:drawable/sym_action_email" />
     </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/skypeGroup"
-        android:layout_marginBottom="10dp">
-        <TextView
-            android:text="@string/SkupeTitle"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/border"
-            android:textColor="@color/honest" />
-        <TextView
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/skypeText" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dislocationGroup"
-        android:layout_marginBottom="10dp">
-        <TextView
-            android:text="@string/DislocationTitle"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="@color/honest"
-            android:background="@drawable/border" />
-        <TextView
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/dislocationText" />
-    </LinearLayout>
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/emileText"
+         android:textIsSelectable="true"
+            />
+  </LinearLayout>
+  <LinearLayout
+      android:orientation="vertical"
+      android:minWidth="25px"
+      android:minHeight="25px"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/skypeGroup"
+      android:layout_marginBottom="10dp">
+    <TextView
+        android:text="@string/SkupeTitle"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/border"
+        android:textColor="@color/honest" />
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/skypeText"
+        android:textIsSelectable="true"
+            />
+  </LinearLayout>
+  <LinearLayout
+      android:orientation="vertical"
+      android:minWidth="25px"
+      android:minHeight="25px"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/dislocationGroup"
+      android:layout_marginBottom="10dp">
+    <TextView
+        android:text="@string/DislocationTitle"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/honest"
+        android:background="@drawable/border" />
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/dislocationText"
+        android:textIsSelectable="true"
+            />
+  </LinearLayout>
 </LinearLayout>
