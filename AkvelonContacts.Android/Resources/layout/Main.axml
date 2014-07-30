@@ -52,9 +52,11 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp" />
         <TextView
+            android:id="@+id/textUpdate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="center" />
         <ImageButton
             android:src="@android:drawable/ic_popup_sync"
             android:layout_width="wrap_content"

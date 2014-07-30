@@ -72,6 +72,9 @@
     <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
       <Link>Common\StorageController.cs</Link>
     </Compile>
+    <Compile Include="..\AkvelonContacts.Common\TimeController.cs">
+      <Link>TimeController.cs</Link>
+    </Compile>
     <Compile Include="Communication\CommunicationFunctions.cs" />
     <Compile Include="ContactInfoActivity.cs" />
     <Compile Include="ContactScreenAdapter.cs">
@@ -94,7 +97,6 @@
     <AndroidResource Include="Resources\layout\ContactInfo.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <BundleResource Include="Resources\layout\ContactInfo.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />

@@ -277,8 +277,24 @@ namespace AkvelonContacts.Android
                     this.DisplayContactList(this.contactList, null);
                 }
 
+                this.DisplayTimeUpdate();
                 this.HideProgressDialog();
             });
+        }
+
+        /// <summary>
+        /// Displays the time of last update.
+        /// </summary>
+        private void DisplayTimeUpdate()
+        {
+            DateTimeOffset? updateTimeOrNull = this.applicationCtrl.GetTimeOfLastUpdate();
+
+            if (updateTimeOrNull == null)
+            {
+                return;
+            }
+
+            this.FindViewById<TextView>(Resource.Id.textUpdate).Text = TimeController.GetElapsedTime((DateTimeOffset)updateTimeOrNull);
         }
 
         /// <summary>
