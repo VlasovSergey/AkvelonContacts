@@ -111,22 +111,22 @@ namespace AkvelonContacts.Android
 
             callButton.Click += (s, e) =>
             {
-                CommunicationFunctions.CallToContact(this.contextContact, this);
+                Communication.CallToContact(this.contextContact, this);
             };
 
             addContactButton.Click += (s, e) =>
             {
-                CommunicationFunctions.AddContact(this.contextContact, this);
+                Communication.AddContact(this.contextContact, this);
             };
 
             sendSmsButton.Click += (s, e) =>
             {
-                CommunicationFunctions.SendSMSToContact(this.contextContact, this);
+                Communication.SendSMSToContact(this.contextContact, this);
             };
 
             sendEmailButton.Click += (s, e) =>
             {
-                CommunicationFunctions.SendEmailToContact(this.contextContact, this);
+                Communication.SendEmailToContact(this.contextContact, this);
             };
         }
     }

@@ -72,7 +72,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void CallButton_Click(object sender, RoutedEventArgs e)
         {
-            CommunicationFunctions.CallToContact(this.contact);
+            Communication.CallToContact(this.contact);
         }
 
         /// <summary>
@@ -82,18 +82,18 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void AddContactButton_Click(object sender, RoutedEventArgs e)
         {
-            CommunicationFunctions.ContactExists(
+            Communication.ContactExists(
                 this.contact,
                 (bool isExists) =>
                 {
                     if (!isExists)
                     {
-                        CommunicationFunctions.AddContactToPeopleHub(this.contact);
+                        Communication.AddContactToPeopleHub(this.contact);
                         return;
                     }
 
                     MessageBox.Show(MessageIfContactAlreadyExists, "Warning", MessageBoxButton.OK);
-                    CommunicationFunctions.AddContactToPeopleHub(this.contact);
+                    Communication.AddContactToPeopleHub(this.contact);
                 });
         }
 
@@ -104,7 +104,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SendSMSButton_Click(object sender, RoutedEventArgs e)
         {
-            CommunicationFunctions.SendSMSToContact(this.contact);
+            Communication.SendSMSToContact(this.contact);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SendEmailButton_Click(object sender, RoutedEventArgs e)
         {
-            CommunicationFunctions.SendEmailToContact(this.contact);
+            Communication.SendEmailToContact(this.contact);
         }
     }
 }

@@ -61,19 +61,19 @@
       <Link>Common\ContactsFilter.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsJsonParser.cs">
-      <Link>Common\ContactsJsonParser.cs</Link>
+      <Link>Utils\ContactsJsonParser.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\FileDownloader.cs">
-      <Link>Common\FileDownloader.cs</Link>
+      <Link>Utils\FileDownloader.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\JsonArrayParser.cs">
-      <Link>Common\JsonArrayParser.cs</Link>
+      <Link>Utils\JsonArrayParser.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
-      <Link>Common\StorageController.cs</Link>
+      <Link>Utils\StorageController.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\TimeController.cs">
-      <Link>TimeController.cs</Link>
+      <Link>Utils\TimeController.cs</Link>
     </Compile>
     <Compile Include="Communication\CommunicationFunctions.cs" />
     <Compile Include="ContactInfoActivity.cs" />
@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -115,6 +116,8 @@
     <AndroidResource Include="Resources\values\Colors.xml" />
     <AndroidResource Include="Resources\layout\ContactListViewItemHeader.xml" />
     <AndroidResource Include="Resources\drawable\key.png" />
+    <AndroidResource Include="Resources\drawable\splash.jpg" />
+    <AndroidResource Include="Resources\values\Styles.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

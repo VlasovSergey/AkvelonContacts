@@ -14,7 +14,7 @@ namespace AkvelonContacts.Android
     /// <summary>
     /// Contains methods that use native functions for Windows Phone.
     /// </summary>
-    public class CommunicationFunctions
+    public class Communication
     {
         /// <summary>
         /// Calls to a phone number.
