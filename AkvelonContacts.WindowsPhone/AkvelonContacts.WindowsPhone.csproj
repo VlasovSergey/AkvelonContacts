@@ -125,6 +125,7 @@
     <Compile Include="Communication\CommunicationFunctions.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="TimeController.cs" />
     <Compile Include="utils\Controllers\BoolToVisibilityConverter.cs" />
     <Compile Include="utils\Controllers\NullAndStringEmtyConverter.cs" />
     <Compile Include="utils\Controllers\PhotoPathConverter.cs" />

@@ -47,7 +47,7 @@ namespace AkvelonContacts.WindowsPhone
         /// Contains contact list.
         /// </summary>
         private List<Contact> contactList;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage" /> class.
         /// </summary>
@@ -77,7 +77,7 @@ namespace AkvelonContacts.WindowsPhone
         /// Changes state display only contacts with key.
         /// </summary>
         /// <param name="appBarKeyButton">Application bar button</param>
-        private void СhangesStateKeyOnly(ApplicationBarMenuItem appBarKeyButton) 
+        private void СhangesStateKeyOnly(ApplicationBarMenuItem appBarKeyButton)
         {
             if (this.displayOnlyContactsWithKey)
             {
@@ -85,7 +85,7 @@ namespace AkvelonContacts.WindowsPhone
             }
             else
             {
-                appBarKeyButton.Text = "show all contacts";                
+                appBarKeyButton.Text = "show all contacts";
             }
 
             this.displayOnlyContactsWithKey = !this.displayOnlyContactsWithKey;
@@ -162,47 +162,14 @@ namespace AkvelonContacts.WindowsPhone
         /// </summary>
         private void DisplayTimeUpdate()
         {
-            string text = string.Empty;
-
-            TimeSpan? updateTimeOrNull = this.applicationCtrl.GetLastUpdateListTime();
+            DateTimeOffset? updateTimeOrNull = this.applicationCtrl.GetTimeOfLastUpdate();
 
             if (updateTimeOrNull == null)
             {
                 return;
             }
 
-            TimeSpan updateTime = (TimeSpan)updateTimeOrNull;
-
-            if (updateTime.Days != 0)
-            {
-                text += updateTime.Days + " Days ";
-            }
-
-            if (updateTime.Hours != 0)
-            {
-                text += updateTime.Hours + " Hours ";
-            }
-
-            if (updateTime.Minutes != 0)
-            {
-                text += updateTime.Minutes + " Min ";
-            }
-
-            if (updateTime.Seconds != 0)
-            {
-                text += updateTime.Seconds + " Sec ";
-            }
-
-            if (text != string.Empty)
-            {
-                text = "Updated " + text + "ago";
-            }
-            else
-            {
-                text = "Now updated";
-            }
-
-            updateTimeTextBlock.Text = text;
+            updateTimeTextBlock.Text = TimeController.GetElapsedTime((DateTimeOffset)updateTimeOrNull);
         }
 
         /// <summary>
@@ -472,7 +439,7 @@ namespace AkvelonContacts.WindowsPhone
                         list[index].Add(item);
                     }
                 }
-                
+
                 if (sort)
                 {
                     foreach (AlphaKeyGroup<T> group in list)

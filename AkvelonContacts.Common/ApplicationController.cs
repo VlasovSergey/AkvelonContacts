@@ -114,7 +114,6 @@ namespace AkvelonContacts.Common
             {
                 if (localContacts == null)
                 {
-                    // throw new Exception("Cannot load data. Local store do not have contacts and network is not available.");
                     action(null);
                 }
 
@@ -132,7 +131,6 @@ namespace AkvelonContacts.Common
                     {
                         if (localContacts == null)
                         {
-                            // throw new Exception("Cannot load data. Local store do not have contacts and unable to obtain data from the network.");
                             action(null);
                         }
                     }
@@ -163,17 +161,11 @@ namespace AkvelonContacts.Common
         /// Gets last update list time.
         /// </summary>
         /// <returns>Last update list time.</returns>
-        public TimeSpan? GetLastUpdateListTime()
+        public DateTimeOffset? GetTimeOfLastUpdate()
         {
             DateTimeOffset? lastWriteTimeOrNull = StorageController.GetLastWriteTime(GetPathContactListJson());
 
-            if (lastWriteTimeOrNull == null)
-            {
-                return null;
-            }
-
-            DateTimeOffset lastWriteTime = (DateTimeOffset)lastWriteTimeOrNull;
-            return TimeSpan.FromTicks(DateTimeOffset.Now.Ticks - lastWriteTime.Ticks);
+            return lastWriteTimeOrNull;
         }
 
         /// <summary>
