@@ -35,6 +35,11 @@ namespace AkvelonContacts.Android
         private Activity context;
 
         /// <summary>
+        /// Contains photo bitmaps.
+        /// </summary>
+        private Dictionary<string, Bitmap> photos;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ContactScreenAdapter" /> class.
         /// </summary>
         /// <param name="context">Context activity.</param>
@@ -71,6 +76,8 @@ namespace AkvelonContacts.Android
             }
 
             this.items = newItems;
+
+            this.photos = new Dictionary<string, Bitmap>();
         }
 
         /// <summary>
@@ -131,16 +138,27 @@ namespace AkvelonContacts.Android
                     view.FindViewById<ImageView>(Resource.Id.keyImageOfItem).Visibility = ViewStates.Visible;
                 }
 
-                if (StorageController.FileExists(ApplicationController.GetImagePathByContactId(item.Contact.Id)))
+                ImageView photoView = view.FindViewById<ImageView>(Resource.Id.contactPhoto);
+
+                if (this.photos.ContainsKey(contact.Id))
                 {
-                    using (var stream = ApplicationController.GetImageStreamByContactId(item.Contact.Id))
+                    photoView.SetImageBitmap(this.photos[contact.Id]);
+                    return view;
+                }
+
+                if (StorageController.FileExists(ApplicationController.GetImagePathByContactId(contact.Id)))
+                {
+                    using (var stream = ApplicationController.GetImageStreamByContactId(contact.Id))
                     {
                         try
-                        {   
-                            Bitmap bmp;
-                            bmp = BitmapFactory.DecodeStream(stream);
-                            view.FindViewById<ImageView>(Resource.Id.contactPhoto).SetImageBitmap(bmp);
-                            bmp.Dispose();
+                        {
+                            if (stream.Length != 0)
+                            {
+                                Bitmap bmp;
+                                bmp = BitmapFactory.DecodeStream(stream);
+                                photoView.SetImageBitmap(bmp);
+                                this.photos.Add(contact.Id, bmp);
+                            }
                         }
                         catch
                         {
