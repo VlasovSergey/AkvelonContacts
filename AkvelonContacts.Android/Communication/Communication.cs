@@ -21,7 +21,7 @@ namespace AkvelonContacts.Android
         /// </summary>
         /// <param name="contact">Contact for call.</param>
         /// <param name="context">Context activity.</param>
-        public static void CallToContact(Contact contact, Context context)
+        public static void CallContact(Contact contact, Context context)
         {
             // On "Call" button click, try to dial phone number.
             var callDialog = new AlertDialog.Builder(context);

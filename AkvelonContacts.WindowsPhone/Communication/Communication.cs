@@ -23,7 +23,7 @@ namespace AkvelonContacts.WindowsPhone
         /// Calls to a phone number.
         /// </summary>
         /// <param name="contact">Contact for call.</param>
-        public static void CallToContact(Contact contact)
+        public static void CallContact(Contact contact)
         {
             var call = new PhoneCallTask();
             call.PhoneNumber = contact.Phone;

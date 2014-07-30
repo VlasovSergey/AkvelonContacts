@@ -72,7 +72,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void CallButton_Click(object sender, RoutedEventArgs e)
         {
-            Communication.CallToContact(this.contact);
+            Communication.CallContact(this.contact);
         }
 
         /// <summary>

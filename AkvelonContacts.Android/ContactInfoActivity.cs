@@ -105,7 +105,7 @@ namespace AkvelonContacts.Android
 
             callButton.Click += (s, e) =>
             {
-                Communication.CallToContact(this.contextContact, this);
+                Communication.CallContact(this.contextContact, this);
             };
 
             addContactButton.Click += (s, e) =>
