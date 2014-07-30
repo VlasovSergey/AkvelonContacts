@@ -338,6 +338,12 @@ namespace AkvelonContacts.Android
             listAdapter.NotifyDataSetChanged();
         }
 
+        protected override void OnUserLeaveHint()
+        {
+            HideKeyboard();
+            base.OnUserLeaveHint();
+        }
+
         /// <summary>
         /// Finds and displays contacts for text.
         /// </summary>
