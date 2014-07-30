@@ -97,7 +97,7 @@
       <Link>Common\Contact.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsFilter.cs">
-      <Link>ContactsFilter.cs</Link>
+      <Link>utils\ContactsFilter.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsJsonParser.cs">
       <Link>utils\ContactsJsonParser.cs</Link>
@@ -125,7 +125,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Communication\CommunicationFunctions.cs">
+    <Compile Include="Communication\Communication.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="utils\Controllers\BoolToVisibilityConverter.cs" />

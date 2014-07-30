@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CommunicationFunctions.cs" company="Akvelon">
+// <copyright file="Communication.cs" company="Akvelon">
 //     Copyright (c) Akvelon. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
