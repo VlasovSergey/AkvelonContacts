@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AkvelonContacts.WindowsPhone
+namespace AkvelonContacts.Common
 {
     /// <summary>
     /// Class for work with time.

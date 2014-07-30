@@ -51,6 +51,7 @@
     <Compile Include="JsonArrayParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageController.cs" />
+    <Compile Include="TimeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

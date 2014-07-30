@@ -111,6 +111,9 @@
     <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
       <Link>Common\StorageController.cs</Link>
     </Compile>
+    <Compile Include="..\AkvelonContacts.Common\TimeController.cs">
+      <Link>utils\TimeController.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -125,7 +128,6 @@
     <Compile Include="Communication\CommunicationFunctions.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="TimeController.cs" />
     <Compile Include="utils\Controllers\BoolToVisibilityConverter.cs" />
     <Compile Include="utils\Controllers\NullAndStringEmtyConverter.cs" />
     <Compile Include="utils\Controllers\PhotoPathConverter.cs" />
