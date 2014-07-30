@@ -9,7 +9,6 @@ using System.Globalization;
 using AkvelonContacts.Common;
 using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Views.InputMethods;
@@ -122,6 +121,16 @@ namespace AkvelonContacts.Android
                 default:
                     return base.OnOptionsItemSelected(item);
             }
+        }
+        
+        /// <summary>
+        /// Called as part of the activity lifecycle when an activity is about to go
+        /// into the background as the result of user choice.
+        /// </summary>
+        protected override void OnUserLeaveHint()
+        {
+            this.HideKeyboard();
+            base.OnUserLeaveHint();
         }
 
         /// <summary>
@@ -336,12 +345,6 @@ namespace AkvelonContacts.Android
             var listAdapter = new ContactScreenAdapter(this, contactList, new CultureInfo("ru-RU"));
             contactListView.Adapter = listAdapter;
             listAdapter.NotifyDataSetChanged();
-        }
-
-        protected override void OnUserLeaveHint()
-        {
-            HideKeyboard();
-            base.OnUserLeaveHint();
         }
 
         /// <summary>

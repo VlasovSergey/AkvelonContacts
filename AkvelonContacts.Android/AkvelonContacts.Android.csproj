@@ -75,7 +75,7 @@
     <Compile Include="..\AkvelonContacts.Common\TimeController.cs">
       <Link>Utils\TimeController.cs</Link>
     </Compile>
-    <Compile Include="Communication\CommunicationFunctions.cs" />
+    <Compile Include="Communication\Communication.cs" />
     <Compile Include="ContactInfoActivity.cs" />
     <Compile Include="ContactScreenAdapter.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
