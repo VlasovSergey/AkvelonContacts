@@ -44,6 +44,11 @@ namespace AkvelonContacts.Android
         private ImageButton searchButton;
 
         /// <summary>
+        /// Options menu.
+        /// </summary>
+        private IMenu menu;
+
+        /// <summary>
         /// Edit text for search.
         /// </summary>
         private EditText searchTextEdit;
@@ -84,8 +89,11 @@ namespace AkvelonContacts.Android
             }
         }
 
-        IMenu menu;
-
+        /// <summary>
+        /// Initialize the contents of the Activity's standard options menu.
+        /// </summary>
+        /// <param name="menu">The options menu in which you place your items.</param>
+        /// <returns>To be added.</returns>
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             menu.Add(0, 0, 0, "Show only contacts with key.");
@@ -95,6 +103,11 @@ namespace AkvelonContacts.Android
             return true;
         }
 
+        /// <summary>
+        /// This hook is called whenever an item in your options menu is selected.
+        /// </summary>
+        /// <param name="item">The menu item that was selected.</param>
+        /// <returns>To be added.</returns>
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -104,7 +117,7 @@ namespace AkvelonContacts.Android
                     item.SetVisible(false);
                     this.displayOnlyContactsWithKey = !this.displayOnlyContactsWithKey;
                     this.DisplayContactList(this.contactList, null);
-                    menu.GetItem(this.displayOnlyContactsWithKey?1:0).SetVisible(true);
+                    this.menu.GetItem(this.displayOnlyContactsWithKey ? 1 : 0).SetVisible(true);
                     return true;
                 default:
                     return base.OnOptionsItemSelected(item);
@@ -273,7 +286,7 @@ namespace AkvelonContacts.Android
         /// </summary>
         /// <param name="c">Contact which downloaded photo.</param>
         private void OnLoadPhoto(Contact c)
-        { 
+        {
         }
 
         /// <summary>
