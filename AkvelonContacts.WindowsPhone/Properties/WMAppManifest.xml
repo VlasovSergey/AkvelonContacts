@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{a3f98b63-3698-4886-b65d-c564030b33f9}" Title="AkvelonContacts.WindowsPhone" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="AkvelonContacts.WindowsPhone author" Description="Sample description" Publisher="AkvelonContacts.WindowsPhone" PublisherID="{cc415e65-f942-4927-8480-8390364dcb46}">
+  <App xmlns="" ProductID="{a3f98b63-3698-4886-b65d-c564030b33f9}" Title="Akvelon contacts" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="AkvelonContacts.WindowsPhone author" Description="Sample description" Publisher="AkvelonContacts.WindowsPhone" PublisherID="{cc415e65-f942-4927-8480-8390364dcb46}">
     <IconPath IsRelative="true" IsResource="false">ico.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -19,10 +19,10 @@
     <Tokens>
       <PrimaryToken TokenID="AkvelonContacts.WindowsPhoneToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">SmallIconImage.jpg</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">ico.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">MediumIconImage.jpg</BackgroundImageURI>
-          <Title>AkvelonContacts.WindowsPhone</Title>
+          <Title>Akvelon contacts</Title>
           <BackContent>
           </BackContent>
           <BackBackgroundImageURI>
