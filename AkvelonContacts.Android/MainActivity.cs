@@ -20,7 +20,7 @@ namespace AkvelonContacts.Android
     /// <summary>
     /// Main activity
     /// </summary>
-    [Activity(Label = "AkvelonContacts.Android", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.NoTitleBar")]
+    [Activity(Label = "AkvelonContacts.Android", Icon = "@drawable/icon", Theme = "@android:style/Theme.NoTitleBar")]
     public class MainActivity : Activity
     {
         /// <summary>
