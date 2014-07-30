@@ -114,6 +114,7 @@
     <Compile Include="..\AkvelonContacts.Common\TimeController.cs">
       <Link>utils\TimeController.cs</Link>
     </Compile>
+    <Compile Include="UserInterface\AlphaKeyGroup.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
