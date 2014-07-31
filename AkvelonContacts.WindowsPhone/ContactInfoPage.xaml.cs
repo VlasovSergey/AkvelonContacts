@@ -15,10 +15,6 @@ namespace AkvelonContacts.WindowsPhone
     /// </summary>
     public partial class ContactInfoPage : PhoneApplicationPage
     {
-        /// <summary>
-        /// Message if contact already exists
-        /// </summary>
-        private const string MessageIfContactAlreadyExists = "Сontact with the same name exists. Please rename the contact to avoid an unexpected result.";
 
         /// <summary>
         /// Selected contact.
@@ -86,7 +82,7 @@ namespace AkvelonContacts.WindowsPhone
                         return;
                     }
 
-                    MessageBox.Show(MessageIfContactAlreadyExists, "Warning", MessageBoxButton.OK);
+                    MessageBox.Show(AppResources.MessageIfContactAlreadyExists, AppResources.WarningTitle, MessageBoxButton.OK);
                     Communication.AddContactToPeopleHub(this.contact);
                 });
         }

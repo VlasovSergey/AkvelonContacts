@@ -27,11 +27,6 @@ namespace AkvelonContacts.WindowsPhone
         private const string ContactInfoPageUrl = "/ContactInfoPage.xaml";
 
         /// <summary>
-        /// Background search text.
-        /// </summary>
-        private const string BackgroundSearchText = "Search";
-
-        /// <summary>
         /// Application controller.
         /// </summary>
         private ApplicationController applicationCtrl;
@@ -52,6 +47,8 @@ namespace AkvelonContacts.WindowsPhone
         public MainPage()
         {
             this.InitializeComponent();
+
+            this.BuildLocalizedApplicationBar();
 
             this.displayOnlyContactsWithKey = false;
 
@@ -79,11 +76,11 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (this.displayOnlyContactsWithKey)
             {
-                appBarKeyButton.Text = "show contacts with keys";
+                appBarKeyButton.Text = AppResources.ShowContactsWithKeyItemMenuText;
             }
             else
             {
-                appBarKeyButton.Text = "show all contacts";
+                appBarKeyButton.Text = AppResources.ShowAllContactsItemMenuText;
             }
 
             this.displayOnlyContactsWithKey = !this.displayOnlyContactsWithKey;
@@ -142,7 +139,7 @@ namespace AkvelonContacts.WindowsPhone
                 else
                 {
                     this.HideProgressIndicator();
-                    MessageBox.Show("Could not load contacts. Please check your internet connection.", "Warning", MessageBoxButton.OK);
+                    MessageBox.Show(AppResources.MessageIfContactsNotLoaded, AppResources.WarningTitle, MessageBoxButton.OK);
                 }
             });
         }
@@ -287,7 +284,7 @@ namespace AkvelonContacts.WindowsPhone
         /// <param name="e">Cancel event args.</param>
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (searchTextBox.Text == BackgroundSearchText)
+            if (searchTextBox.Text == AppResources.SearchBackgroundText)
             {
                 this.searchTextBox.Text = string.Empty;
             }
@@ -303,7 +300,7 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (searchTextBox.Text == string.Empty)
             {
-                searchTextBox.Text = BackgroundSearchText;
+                searchTextBox.Text = AppResources.SearchBackgroundText;
             }
         }
 
@@ -327,7 +324,7 @@ namespace AkvelonContacts.WindowsPhone
         {
             if (this.contactList == null)
             {
-                MessageBox.Show("Contact list is not available.", "Warning", MessageBoxButton.OK);
+                MessageBox.Show(AppResources.MessageIfSearchWithoutContacts, AppResources.WarningTitle, MessageBoxButton.OK);
             }
 
             this.ShowSearchTextBox();
@@ -376,6 +373,37 @@ namespace AkvelonContacts.WindowsPhone
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
             ((TextBlock)((Grid)sender).FindName("itemNameTextBlock")).Foreground = new SolidColorBrush((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color);
+        }
+
+        /// <summary>
+        /// Builds localized application bar.
+        /// </summary>
+        private void BuildLocalizedApplicationBar()
+        {
+            this.ApplicationBar = new ApplicationBar();
+
+            ApplicationBarIconButton searchButton = new ApplicationBarIconButton()
+            {
+                Text = AppResources.SearchButtonTitleOfAppBar,
+                IconUri = new Uri("/Assets/AppBar/feature.search.png", UriKind.Relative)
+            };
+
+            searchButton.Click += this.Search_Click;
+            ApplicationBar.Buttons.Add(searchButton);
+
+            ApplicationBarIconButton refreshButton = new ApplicationBarIconButton()
+            {
+                Text = AppResources.RefreshButtonTitleOfAppBar,
+                IconUri = new Uri("/Assets/AppBar/refresh.png", UriKind.Relative)
+            };
+
+            refreshButton.Click += this.Refresh_Click;
+            ApplicationBar.Buttons.Add(refreshButton);
+
+            ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.ShowContactsWithKeyItemMenuText);
+            appBarMenuItem.Click += this.AppBarKeyButton_Click;
+
+            ApplicationBar.MenuItems.Add(appBarMenuItem);
         }
     }
 }

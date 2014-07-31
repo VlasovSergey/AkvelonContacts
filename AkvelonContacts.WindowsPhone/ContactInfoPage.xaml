@@ -70,25 +70,26 @@
                     <Image Margin="15 5 15 5" Height="130" Source="image/key.png" Visibility="{Binding SecurityKey, Converter={StaticResource BoolToVisibilityConverter}}"></Image>
                 </StackPanel>
                 <StackPanel Margin="15 5 15 0" Orientation="Vertical">
-                    <TextBlock Text="Phone " FontSize="25"></TextBlock>
+                    <TextBlock 
+                        Text="{Binding Path=LocalizedResources.PhoneTitleText, Source={StaticResource LocalizedStrings}}" FontSize="25"></TextBlock>
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Phone, Converter={StaticResource NullAndStringEmtyConverter}}"></TextBox>
                 </StackPanel>
                 <StackPanel Margin="15 5 15 0" Orientation="Vertical">
-                    <TextBlock Text="Skype " FontSize="25"></TextBlock>
+                    <TextBlock Text="{Binding Path=LocalizedResources.SkypeTitleText, Source={StaticResource LocalizedStrings}}" FontSize="25"></TextBlock>
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Skype, Converter={StaticResource NullAndStringEmtyConverter}}"></TextBox>
                 </StackPanel>
                 <StackPanel Margin="15 5 15 0" Orientation="Vertical">
-                    <TextBlock Text="Mail " FontSize="25"></TextBlock>
+                    <TextBlock Text="{Binding Path=LocalizedResources.EmailTitleText, Source={StaticResource LocalizedStrings}}" FontSize="25"></TextBlock>
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Mail, Converter={StaticResource NullAndStringEmtyConverter}}"></TextBox>
                 </StackPanel>
                 <StackPanel Margin="15 5 15 0" Orientation="Vertical">
-                    <TextBlock Text="Dislocation " FontSize="25" ></TextBlock>
+                    <TextBlock Text="{Binding Path=LocalizedResources.DislocationTitleText, Source={StaticResource LocalizedStrings}}" FontSize="25" ></TextBlock>
                     <TextBox Style="{StaticResource TextBoxReadOnlyStyle}" Text="{Binding Dislocation, Converter={StaticResource NullAndStringEmtyConverter}}"></TextBox>
                 </StackPanel>
-                <Button Name="callButton" Content="Call" Click="CallButton_Click"></Button>
-                <Button Name="sendSmsButton" Content="Send SMS" Click="SendSMSButton_Click" ></Button>
-                <Button Name="sendEmailButton" Content="Send email" Click="SendEmailButton_Click" ></Button>
-                <Button Name="addContactButton" Content="Add to contact" Click="AddContactButton_Click" ></Button>
+                <Button Name="callButton" Content="{Binding Path=LocalizedResources.PhoneTitleText, Source={StaticResource LocalizedStrings}}" Click="CallButton_Click"></Button>
+                <Button Name="sendSmsButton" Content="{Binding Path=LocalizedResources.SendSmsButtonText, Source={StaticResource LocalizedStrings}}" Click="SendSMSButton_Click" ></Button>
+                <Button Name="sendEmailButton" Content="{Binding Path=LocalizedResources.SendEmileButtonText, Source={StaticResource LocalizedStrings}}" Click="SendEmailButton_Click" ></Button>
+                <Button Name="addContactButton" Content="{Binding Path=LocalizedResources.AddContactButtonText, Source={StaticResource LocalizedStrings}}" Click="AddContactButton_Click" ></Button>
             </StackPanel>
         </Grid>
     </Grid>
