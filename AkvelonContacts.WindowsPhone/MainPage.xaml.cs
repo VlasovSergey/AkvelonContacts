@@ -6,14 +6,12 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using AkvelonContacts.Common;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Globalization;
 using Microsoft.Phone.Shell;
 
 namespace AkvelonContacts.WindowsPhone

@@ -4,10 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AkvelonContacts.Common;
 using Microsoft.Phone.Tasks;
 using UserData = Microsoft.Phone.UserData;
