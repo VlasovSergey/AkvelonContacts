@@ -52,13 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AkvelonContacts.Common\ApplicationController.cs">
-      <Link>Common\ApplicationController.cs</Link>
+      <Link>Controllers\ApplicationController.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\Contact.cs">
-      <Link>Common\Contact.cs</Link>
+      <Link>model\Contact.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsFilter.cs">
-      <Link>Common\ContactsFilter.cs</Link>
+      <Link>Utils\ContactsFilter.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsJsonParser.cs">
       <Link>Utils\ContactsJsonParser.cs</Link>
@@ -72,20 +72,20 @@
     <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
       <Link>Utils\StorageController.cs</Link>
     </Compile>
-    <Compile Include="..\AkvelonContacts.Common\TimeController.cs">
-      <Link>Utils\TimeController.cs</Link>
+    <Compile Include="..\AkvelonContacts.Common\TimeConverter.cs">
+      <Link>Utils\TimeConverter.cs</Link>
     </Compile>
     <Compile Include="Communication\Communication.cs" />
-    <Compile Include="ContactInfoActivity.cs" />
-    <Compile Include="ContactScreenAdapter.cs">
+    <Compile Include="UI\ContactInfoActivity.cs" />
+    <Compile Include="UI\ContactScreenAdapter.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="MainActivity.cs">
+    <Compile Include="UI\MainActivity.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SplashActivity.cs" />
+    <Compile Include="UI\SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

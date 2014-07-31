@@ -164,7 +164,7 @@ namespace AkvelonContacts.WindowsPhone
                 return;
             }
 
-            updateTimeTextBlock.Text = TimeController.GetElapsedTime((DateTimeOffset)updateTimeOrNull);
+            updateTimeTextBlock.Text = TimeConverter.GetElapsedTime((DateTimeOffset)updateTimeOrNull);
         }
 
         /// <summary>

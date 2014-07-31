@@ -94,7 +94,7 @@
       <Link>Common\ApplicationController.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\Contact.cs">
-      <Link>Common\Contact.cs</Link>
+      <Link>Models\Contact.cs</Link>
     </Compile>
     <Compile Include="..\AkvelonContacts.Common\ContactsFilter.cs">
       <Link>utils\ContactsFilter.cs</Link>
@@ -111,22 +111,22 @@
     <Compile Include="..\AkvelonContacts.Common\StorageController.cs">
       <Link>utils\StorageController.cs</Link>
     </Compile>
-    <Compile Include="..\AkvelonContacts.Common\TimeController.cs">
-      <Link>utils\TimeController.cs</Link>
+    <Compile Include="..\AkvelonContacts.Common\TimeConverter.cs">
+      <Link>utils\Converters\TimeConverter.cs</Link>
     </Compile>
     <Compile Include="AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\AlphaKeyGroup.cs" />
+    <Compile Include="UI\AlphaKeyGroup.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ContactInfoPage.xaml.cs">
       <DependentUpon>ContactInfoPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="UI\LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>

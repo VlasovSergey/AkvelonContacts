@@ -15,7 +15,6 @@ namespace AkvelonContacts.WindowsPhone
     /// </summary>
     public partial class ContactInfoPage : PhoneApplicationPage
     {
-
         /// <summary>
         /// Selected contact.
         /// </summary>

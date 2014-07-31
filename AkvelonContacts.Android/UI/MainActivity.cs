@@ -303,7 +303,7 @@ namespace AkvelonContacts.Android
                 return;
             }
 
-            this.FindViewById<TextView>(Resource.Id.textUpdate).Text = TimeController.GetElapsedTime((DateTimeOffset)updateTimeOrNull);
+            this.FindViewById<TextView>(Resource.Id.textUpdate).Text = TimeConverter.GetElapsedTime((DateTimeOffset)updateTimeOrNull);
         }
 
         /// <summary>

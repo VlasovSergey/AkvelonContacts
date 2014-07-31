@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TimeController.cs" company="Akvelon">
+// <copyright file="TimeConverter.cs" company="Akvelon">
 //     Copyright (c) Akvelon. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -10,7 +10,7 @@ namespace AkvelonContacts.Common
     /// <summary>
     /// Class for work with time.
     /// </summary>
-    public class TimeController
+    public static class TimeConverter
     {
         /// <summary>
         /// Gets the time since the last update.
